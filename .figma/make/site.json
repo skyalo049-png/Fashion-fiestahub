@@ -1,0 +1,10 @@
+{
+  "description": "This online business store offers a curated selection of ladies' clothing, providing a seamless shopping experience with stylish options for every occasion.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
