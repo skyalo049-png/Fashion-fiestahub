@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/*
+ * Palette ported verbatim from the old storefront (src/index.css).
+ * Do not "tidy" these values — they are the brand.
+ */
+@theme {
+  --color-champagne: #c9a96e;
+  --color-champagne-light: #e8d5b0;
+  --color-champagne-dark: #9c7a48;
+  --color-obsidian: #0e0e0f;
+  --color-charcoal: #1a1a1d;
+  --color-charcoal-2: #242428;
+  --color-mist: #6b6b72;
+  --color-pearl: #f4f0eb;
+}
+
+/*
+ * Font vars must be `@theme inline` — they reference the CSS variables that
+ * next/font generates (--font-lora / --font-outfit) from layout.tsx.
+ */
+@theme inline {
+  --font-display: var(--font-lora), Georgia, serif;
+  --font-body: var(--font-outfit), system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-obsidian);
+  color: var(--color-pearl);
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #c9a96e44;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-champagne);
+}
