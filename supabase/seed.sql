@@ -1,9 +1,21 @@
 -- ============================================================================
--- 09 — seed
+-- seed — local development only
 -- ============================================================================
--- Runs on `supabase db reset`, as the postgres superuser, so RLS does not
--- apply here. Everything below is idempotent-by-reset: `db reset` drops the
--- database first, so there is no need for ON CONFLICT guards.
+-- NOT a migration. This file is loaded by `supabase db reset` and nothing else.
+--
+-- It used to live in supabase/migrations/ as 09_seed.sql, which was wrong in a
+-- way that mattered: `supabase db push` replays every file in migrations/
+-- against the hosted database. Shipping it there would have written the
+-- fabricated products, customers and orders below into production as
+-- unrepeatable migration history.
+--
+-- Supabase's split is schema in migrations/, data in seed.sql. Keep it that way:
+-- if this data needs to exist on a hosted project, it is a migration, not a seed.
+--
+-- Runs as the postgres superuser, so RLS does not apply here. Everything below
+-- is idempotent-by-reset: `db reset` drops the database first, so there is no
+-- need for ON CONFLICT guards. Do not run it against a database holding real
+-- data.
 --
 -- No delivery_zones rows: there is no fee table. Staff write the fee per order.
 --
