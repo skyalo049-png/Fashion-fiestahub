@@ -1,56 +1,72 @@
+import ProductCard from "@/components/ProductCard";
+import { getActiveProducts } from "@/lib/catalogue";
 import { site } from "@/lib/site";
 
 /**
- * Placeholder shell. Its only job is to prove the theme, fonts and metadata
- * are wired correctly — the real storefront is ported in the UI phase, after
- * the schema is live.
+ * The storefront grid, read live from Postgres.
+ *
+ * This is a server component: the query runs on the server with the anon key,
+ * so RLS is enforced and no Supabase credential reaches the browser. It also
+ * means the anon key is never inlined into the client bundle — the specific
+ * defect in the old app, where a VITE_-prefixed key shipped to every visitor.
  */
-export default function Home() {
+export const revalidate = 60;
+
+export default async function Home() {
+  const products = await getActiveProducts();
+
   return (
-    <main className="min-h-screen flex items-center">
-      <div className="mx-auto max-w-3xl px-6 py-24">
+    <main className="min-h-screen">
+      <header className="mx-auto max-w-6xl px-6 pt-16 pb-12">
         <p className="font-body text-xs tracking-[0.3em] uppercase text-champagne">
           {site.city}, {site.country}
         </p>
 
-        <h1 className="font-display text-5xl sm:text-6xl font-semibold mt-6 leading-tight text-pearl">
-          Celebrate the <em className="text-champagne">African</em> woman in you
+        <h1 className="font-display text-4xl sm:text-5xl font-semibold mt-5 leading-tight text-pearl max-w-2xl">
+          {site.tagline}
         </h1>
 
-        <p className="font-body font-light text-base sm:text-lg mt-6 leading-relaxed text-pearl/60 max-w-xl">
+        <p className="font-body font-light text-base mt-5 leading-relaxed text-pearl/55 max-w-xl">
           {site.description}
         </p>
 
-        <div className="mt-12 h-px bg-gradient-to-r from-champagne to-transparent" />
+        <div className="mt-10 h-px bg-gradient-to-r from-champagne to-transparent" />
+      </header>
 
-        {/* Static class names on purpose: Tailwind only sees literal strings. */}
-        <div className="mt-8 flex flex-wrap gap-3">
-          {[
-            ["champagne", "bg-champagne"],
-            ["champagne-light", "bg-champagne-light"],
-            ["champagne-dark", "bg-champagne-dark"],
-            ["obsidian", "bg-obsidian"],
-            ["charcoal", "bg-charcoal"],
-            ["charcoal-2", "bg-charcoal-2"],
-            ["mist", "bg-mist"],
-            ["pearl", "bg-pearl"],
-          ].map(([token, className]) => (
-            <span
-              key={token}
-              className={`${className} border border-pearl/10 w-16 h-16`}
-              title={token}
-            />
-          ))}
+      <section className="mx-auto max-w-6xl px-6 pb-16">
+        <div className="flex items-baseline justify-between mb-8">
+          <h2 className="font-body text-xs tracking-[0.3em] uppercase text-pearl/45">
+            The collection
+          </h2>
+          <span className="font-body text-xs tracking-widest uppercase text-pearl/30">
+            {products.length} {products.length === 1 ? "piece" : "pieces"}
+          </span>
         </div>
 
-        <p className="mt-10 font-body text-xs tracking-widest uppercase text-pearl/30">
-          Shell online · schema next
-        </p>
+        {products.length === 0 ? (
+          <p className="font-body text-sm text-pearl/45">
+            Nothing is published yet. Add a product and set its status to
+            &ldquo;active&rdquo; in the admin dashboard.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
+      </section>
 
-        <p className="mt-4 font-body text-xs tracking-widest uppercase text-pearl/30">
-          M-Pesa accepted · Nairobi delivery · Nationwide shipping
-        </p>
-      </div>
+      <footer className="mx-auto max-w-6xl px-6 pb-20">
+        <div className="border-t border-pearl/8 pt-8 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+          <p className="font-body text-xs tracking-widest uppercase text-pearl/35">
+            M-Pesa accepted · Nairobi delivery · Nationwide shipping
+          </p>
+          <p className="font-body text-xs tracking-widest uppercase text-pearl/25">
+            Delivery quoted per order
+          </p>
+        </div>
+      </footer>
     </main>
   );
 }
