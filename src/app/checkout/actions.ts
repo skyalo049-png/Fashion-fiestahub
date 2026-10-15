@@ -97,8 +97,11 @@ export async function placeOrder(
   if (!phone) {
     return { status: "error", message: "Please enter a phone number so we can reach you about delivery." };
   }
-  if (!field(formData, "line1")) {
-    return { status: "error", message: "Please enter the delivery address." };
+  if (!field(formData, "city")) {
+    return {
+      status: "error",
+      message: "Please tell us the town or city we are delivering to.",
+    };
   }
 
   const supabase = createServerSupabase();
@@ -107,12 +110,12 @@ export async function placeOrder(
     p_phone: phone,
     p_full_name: fullName,
     p_email: field(formData, "email"),
+    // Only the town. create_order reads line1/line2/area/county if they are
+    // present and stores '' when they are not, so the addresses row stays
+    // valid and the columns stay available for when a real address form is
+    // worth the taps. The rest of what a rider needs arrives in p_notes.
     p_address: {
-      line1: field(formData, "line1"),
-      line2: field(formData, "line2"),
-      area: field(formData, "area"),
       city: field(formData, "city"),
-      county: field(formData, "county"),
     },
     p_items: items,
     p_notes: field(formData, "notes") || undefined,

@@ -20,29 +20,37 @@ import { formatKes } from "@/lib/format";
  * quoted by hand per order. The customer is told that plainly here and on the
  * confirmation screen rather than being surprised by it later, and the order
  * lands in awaiting_delivery_quote for staff to pick up.
+ *
+ * The address is deliberately one field. A six-field Kenyan address form asks a
+ * shopper to type the same town name three times to satisfy a schema, which is
+ * friction for no gain when a human is quoting the delivery anyway. Town or
+ * city is required; everything a rider actually needs — estate, building, gate
+ * code, landmark, which sacco — goes in the notes, and the notes reach staff on
+ * the order.
  */
 
 const INITIAL: CheckoutState = { status: "idle" };
 
 /**
- * A datalist rather than a select. A customer whose county is missing from a
- * hard-coded list would be unable to check out at all, which is a worse
- * failure than a free-text field. The list is the common ones, not a
- * constraint.
+ * A datalist, not a select, and a hint rather than a constraint. Delivery in
+ * Kenya is priced by town, and these are the ones this shop quotes most often —
+ * but a customer in a town that is not on the list must still be able to check
+ * out. Free text with suggestions is the right shape for that; a <select> with
+ * a missing option is a customer who cannot buy.
  */
-const COUNTIES = [
+const TOWNS = [
   "Nairobi",
-  "Kiambu",
-  "Machakos",
-  "Kajiado",
+  "Nakuru",
   "Mombasa",
   "Kisumu",
-  "Nakuru",
-  "Uasin Gishu",
+  "Thika",
   "Nyeri",
-  "Meru",
-  "Kilifi",
-  "Kakamega",
+  "Eldoret",
+  "Machakos",
+  "Kajiado",
+  "Kericho",
+  "Naivasha",
+  "Malindi",
 ];
 
 export default function CheckoutClient() {
@@ -134,37 +142,19 @@ export default function CheckoutClient() {
           />
         </Section>
 
-        <Section title="Delivery address">
+        <Section title="Delivery">
           <Field
-            label="Street, building, house number"
-            name="line1"
-            autoComplete="address-line1"
+            label="Town or city"
+            name="city"
+            list="ffh-towns"
+            autoComplete="address-level2"
+            placeholder="Nakuru"
+            hint="Delivery is quoted per order — we confirm the fee on WhatsApp before you pay."
             required
           />
-          <Field
-            label="Apartment, floor, landmark"
-            name="line2"
-            autoComplete="address-line2"
-          />
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Area" name="area" placeholder="Kilimani" />
-            <Field
-              label="Town or city"
-              name="city"
-              autoComplete="address-level2"
-              placeholder="Nairobi"
-            />
-          </div>
-          <Field
-            label="County"
-            name="county"
-            list="ffh-counties"
-            autoComplete="address-level1"
-            hint="Delivery is quoted per order — we confirm the fee on WhatsApp before you pay."
-          />
-          <datalist id="ffh-counties">
-            {COUNTIES.map((county) => (
-              <option key={county} value={county} />
+          <datalist id="ffh-towns">
+            {TOWNS.map((town) => (
+              <option key={town} value={town} />
             ))}
           </datalist>
           <div>
@@ -172,14 +162,14 @@ export default function CheckoutClient() {
               htmlFor="notes"
               className="block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
             >
-              Anything we should know
+              Delivery notes
             </label>
             <textarea
               id="notes"
               name="notes"
               rows={3}
               className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-sm text-pearl outline-none transition-colors placeholder:text-pearl/25 focus:border-champagne"
-              placeholder="Gate code, best time to call, a gift note…"
+              placeholder="Estate, gate code, a landmark, the best time to call…"
             />
           </div>
         </Section>
