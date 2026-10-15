@@ -10,14 +10,14 @@ import {
   type ProofState,
 } from "@/app/order/actions";
 import { formatKes } from "@/lib/format";
-import { payments, whatsappLink } from "@/lib/site";
+import { formatKePhone, payments, whatsappLink } from "@/lib/site";
 
 /**
  * The order status screen — the page the customer keeps coming back to.
  *
  * It does three things, in order of urgency: says what state the order is in,
  * tells them what to do next, and gives them a way to reach a human. The M-Pesa
- * panel only appears when there is actually money to send, because a till
+ * panel only appears when there is actually money to send, because a payment
  * number shown next to an order that is already paid is how someone pays twice.
  */
 
@@ -133,7 +133,7 @@ export default function OrderStatusView(props: Props) {
 
           {!wa && payable && (
             <p className="mt-6 border border-pearl/10 px-4 py-3 font-body text-xs leading-relaxed text-pearl/50">
-              Send the M-Pesa code below once you have paid. If you need the till
+              Send the M-Pesa code below once you have paid. If you need the
               number, message or call us — we have not published it on the site
               yet.
             </p>
@@ -311,25 +311,26 @@ function PayPanel({
             01
           </span>
           <span>
-            Send{" "}
+            Open M-Pesa, choose{" "}
+            <strong className="font-normal text-pearl">Send Money</strong>, and
+            send{" "}
             <strong className="font-normal text-pearl">
               {formatKes(total)}
             </strong>{" "}
-            by M-Pesa to{" "}
-            {payments.mpesaTill ? (
+            to{" "}
+            {payments.mpesaNumber ? (
               <>
-                till{" "}
                 <button
                   type="button"
                   onClick={() => {
-                    navigator.clipboard?.writeText(payments.mpesaTill).then(
+                    navigator.clipboard?.writeText(payments.mpesaNumber).then(
                       () => setCopied(true),
                       () => setCopied(false),
                     );
                   }}
                   className="font-body text-pearl underline decoration-champagne/50 underline-offset-4 transition-colors hover:text-champagne"
                 >
-                  {payments.mpesaTill}
+                  {formatKePhone(payments.mpesaNumber)}
                 </button>
                 {copied && (
                   <span className="ml-2 font-body text-[10px] uppercase tracking-widest text-champagne">
