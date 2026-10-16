@@ -10,7 +10,7 @@ import type {
  * pasted into eight places — checkout (twice), the admin login (twice), the
  * photo manager, the product form, the variant grid (twice) — and had already
  * drifted into four spellings: two border opacities, `bg-transparent` vs
- * `bg-obsidian`, and `focus:outline-none` in some and not others.
+ * `bg-surface-base`, and `focus:outline-none` in some and not others.
  *
  * It reads semantic tokens only, so it renders correctly on the obsidian brand
  * ground and the pearl commerce ground without knowing which one it is in.

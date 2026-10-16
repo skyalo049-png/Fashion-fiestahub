@@ -97,7 +97,7 @@ export default function ProductDetail({ product }: { product: Product }) {
         {/* Gallery                                                          */}
         {/* ---------------------------------------------------------------- */}
         <div className="flex flex-col gap-4">
-          <div className="relative aspect-[4/5] overflow-hidden bg-charcoal">
+          <div className="relative aspect-[4/5] overflow-hidden bg-surface-raised">
             {main ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -106,8 +106,8 @@ export default function ProductDetail({ product }: { product: Product }) {
                 className="h-full w-full object-cover"
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-charcoal-2 to-obsidian">
-                <span className="font-display text-6xl text-champagne/25">
+              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-surface-raised to-surface-base">
+                <span className="font-display text-6xl text-accent/25">
                   {product.title.charAt(0)}
                 </span>
               </div>
@@ -135,8 +135,8 @@ export default function ProductDetail({ product }: { product: Product }) {
                   aria-current={index === activeImage}
                   className={`relative h-20 w-16 shrink-0 overflow-hidden border transition-colors ${
                     index === activeImage
-                      ? "border-champagne"
-                      : "border-pearl/10 hover:border-pearl/30"
+                      ? "border-accent"
+                      : "border-border-subtle hover:border-border-default"
                   }`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -155,25 +155,25 @@ export default function ProductDetail({ product }: { product: Product }) {
         {/* Buy column                                                       */}
         {/* ---------------------------------------------------------------- */}
         <div className="flex flex-col">
-          <h1 className="font-display text-3xl leading-tight text-pearl sm:text-4xl">
+          <h1 className="font-display text-3xl leading-tight text-text-primary sm:text-4xl">
             {product.title}
           </h1>
 
-          <p className="mt-4 font-body text-2xl tabular-nums text-champagne">
+          <p className="mt-4 font-body text-2xl tabular-nums text-accent">
             {displayPrice > 0 ? formatKes(displayPrice) : "Price on request"}
           </p>
 
           {product.description && (
-            <p className="mt-5 font-body text-sm font-light leading-relaxed text-pearl/55">
+            <p className="mt-5 font-body text-sm font-light leading-relaxed text-text-primary/55">
               {product.description}
             </p>
           )}
 
           {!singleVariant && hasColours && (
             <fieldset className="mt-8">
-              <legend className="font-body text-[11px] uppercase tracking-[0.25em] text-pearl/45">
+              <legend className="font-body text-[11px] uppercase tracking-[0.25em] text-text-primary/45">
                 Colour
-                {colour && <span className="ml-2 text-pearl/70">{colour}</span>}
+                {colour && <span className="ml-2 text-text-primary/70">{colour}</span>}
               </legend>
               <div className="mt-3 flex flex-wrap gap-2">
                 {colours.map((c) => {
@@ -188,10 +188,10 @@ export default function ProductDetail({ product }: { product: Product }) {
                       aria-pressed={isActive}
                       className={`border px-4 py-2 font-body text-xs uppercase tracking-wider transition-colors ${
                         isActive
-                          ? "border-champagne bg-champagne/10 text-champagne"
+                          ? "border-accent bg-accent/10 text-accent"
                           : available
-                            ? "border-pearl/15 text-pearl/65 hover:border-pearl/40 hover:text-pearl"
-                            : "cursor-not-allowed border-pearl/8 text-pearl/25 line-through"
+                            ? "border-border-default text-text-primary/65 hover:border-border-strong hover:text-text-primary"
+                            : "cursor-not-allowed border-border-subtle text-text-primary/25 line-through"
                       }`}
                     >
                       {c}
@@ -204,9 +204,9 @@ export default function ProductDetail({ product }: { product: Product }) {
 
           {!singleVariant && hasSizes && (
             <fieldset className="mt-7">
-              <legend className="font-body text-[11px] uppercase tracking-[0.25em] text-pearl/45">
+              <legend className="font-body text-[11px] uppercase tracking-[0.25em] text-text-primary/45">
                 Size
-                {size && <span className="ml-2 text-pearl/70">{size}</span>}
+                {size && <span className="ml-2 text-text-primary/70">{size}</span>}
               </legend>
               <div className="mt-3 flex flex-wrap gap-2">
                 {sizes.map((s) => {
@@ -221,10 +221,10 @@ export default function ProductDetail({ product }: { product: Product }) {
                       aria-pressed={isActive}
                       className={`min-w-12 border px-3.5 py-2 font-body text-xs uppercase tracking-wider transition-colors ${
                         isActive
-                          ? "border-champagne bg-champagne/10 text-champagne"
+                          ? "border-accent bg-accent/10 text-accent"
                           : available
-                            ? "border-pearl/15 text-pearl/65 hover:border-pearl/40 hover:text-pearl"
-                            : "cursor-not-allowed border-pearl/8 text-pearl/25 line-through"
+                            ? "border-border-default text-text-primary/65 hover:border-border-strong hover:text-text-primary"
+                            : "cursor-not-allowed border-border-subtle text-text-primary/25 line-through"
                       }`}
                     >
                       {s}
@@ -234,7 +234,7 @@ export default function ProductDetail({ product }: { product: Product }) {
               </div>
 
               {sizes.some((s) => !sizeInStock(s)) && (
-                <p className="mt-2.5 font-body text-[11px] font-light text-pearl/35">
+                <p className="mt-2.5 font-body text-[11px] font-light text-text-primary/35">
                   Struck-through sizes are sold out
                   {hasColours && colour ? ` in ${colour}` : ""}.
                 </p>
@@ -258,7 +258,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                   : "Select an available size"}
             </Button>
 
-            <p className="mt-3 font-body text-[11px] font-light text-pearl/40">
+            <p className="mt-3 font-body text-[11px] font-light text-text-primary/40">
               Delivery is quoted per order — we confirm it on WhatsApp before
               you pay.
             </p>
@@ -276,13 +276,13 @@ export default function ProductDetail({ product }: { product: Product }) {
       {/* ------------------------------------------------------------------ */}
       {/* The brief's "Add to Bag CTA is always visible" applies most literally
           here: on a phone the buy control must never be a scroll away. */}
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-pearl/10 bg-obsidian/95 backdrop-blur lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border-subtle bg-overlay-scrim backdrop-blur lg:hidden">
         <div className="flex items-center gap-4 px-5 py-3.5">
           <div className="min-w-0 flex-1">
-            <p className="font-body text-sm tabular-nums text-champagne">
+            <p className="font-body text-sm tabular-nums text-accent">
               {displayPrice > 0 ? formatKes(displayPrice) : "Price on request"}
             </p>
-            <p className="truncate font-body text-[10px] uppercase tracking-[0.15em] text-pearl/40">
+            <p className="truncate font-body text-[10px] uppercase tracking-[0.15em] text-text-primary/40">
               {[colour, size].filter(Boolean).join(" · ") ||
                 (soldOut ? "Sold out" : product.title)}
             </p>
@@ -313,7 +313,7 @@ function Merchandising({ product }: { product: Product }) {
   if (!hasDetail && chart.length === 0) return null;
 
   return (
-    <div className="mt-12 border-t border-pearl/8 pt-8">
+    <div className="mt-12 border-t border-border-subtle pt-8">
       <dl className="flex flex-col gap-5">
         {product.fabric && <Detail term="Fabric">{product.fabric}</Detail>}
         {product.fitNotes && <Detail term="Fit">{product.fitNotes}</Detail>}
@@ -334,10 +334,10 @@ function Detail({
 }) {
   return (
     <div className="grid grid-cols-[80px_1fr] gap-4 sm:grid-cols-[110px_1fr]">
-      <dt className="font-body text-[10px] uppercase tracking-[0.2em] text-pearl/35">
+      <dt className="font-body text-[10px] uppercase tracking-[0.2em] text-text-primary/35">
         {term}
       </dt>
-      <dd className="font-body text-sm font-light leading-relaxed text-pearl/60">
+      <dd className="font-body text-sm font-light leading-relaxed text-text-primary/60">
         {children}
       </dd>
     </div>
@@ -362,21 +362,21 @@ function SizeChart({ rows }: { rows: SizeChartRow[] }) {
 
   return (
     <div className="mt-9">
-      <h2 className="font-body text-[10px] uppercase tracking-[0.2em] text-pearl/35">
+      <h2 className="font-body text-[10px] uppercase tracking-[0.2em] text-text-primary/35">
         Size chart (cm)
       </h2>
 
       <div className="mt-3 overflow-x-auto">
         <table className="w-full border-collapse text-left">
           <thead>
-            <tr className="border-b border-pearl/12">
-              <th className="py-2.5 pr-4 font-body text-[10px] uppercase tracking-[0.15em] text-pearl/45">
+            <tr className="border-b border-border-subtle">
+              <th className="py-2.5 pr-4 font-body text-[10px] uppercase tracking-[0.15em] text-text-primary/45">
                 Size
               </th>
               {columns.map((c) => (
                 <th
                   key={c.key}
-                  className="py-2.5 pr-4 font-body text-[10px] uppercase tracking-[0.15em] text-pearl/45"
+                  className="py-2.5 pr-4 font-body text-[10px] uppercase tracking-[0.15em] text-text-primary/45"
                 >
                   {c.label}
                 </th>
@@ -385,14 +385,14 @@ function SizeChart({ rows }: { rows: SizeChartRow[] }) {
           </thead>
           <tbody>
             {rows.map((row) => (
-              <tr key={row.size} className="border-b border-pearl/6">
-                <td className="py-2.5 pr-4 font-body text-sm text-pearl/75">
+              <tr key={row.size} className="border-b border-border-subtle">
+                <td className="py-2.5 pr-4 font-body text-sm text-text-primary/75">
                   {row.size}
                 </td>
                 {columns.map((c) => (
                   <td
                     key={c.key}
-                    className="py-2.5 pr-4 font-body text-sm tabular-nums text-pearl/55"
+                    className="py-2.5 pr-4 font-body text-sm tabular-nums text-text-primary/55"
                   >
                     {row[c.key] ?? "—"}
                   </td>

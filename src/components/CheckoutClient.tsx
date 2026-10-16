@@ -88,7 +88,7 @@ export default function CheckoutClient() {
 
   if (!mounted) {
     return (
-      <p className="font-body text-sm text-pearl/40" aria-live="polite">
+      <p className="font-body text-sm text-text-primary/40" aria-live="polite">
         Loading your bag…
       </p>
     );
@@ -96,9 +96,9 @@ export default function CheckoutClient() {
 
   if (lines.length === 0 && state.status !== "done") {
     return (
-      <div className="border border-pearl/10 bg-charcoal px-6 py-14 text-center">
-        <p className="font-display text-xl text-pearl">Your bag is empty</p>
-        <p className="mt-2 font-body text-sm font-light text-pearl/50">
+      <div className="border border-border-subtle bg-surface-raised px-6 py-14 text-center">
+        <p className="font-display text-xl text-text-primary">Your bag is empty</p>
+        <p className="mt-2 font-body text-sm font-light text-text-primary/50">
           There is nothing to check out yet.
         </p>
         <Link
@@ -170,15 +170,15 @@ export default function CheckoutClient() {
       </div>
 
       <aside className="lg:sticky lg:top-24 lg:self-start">
-        <div className="border border-pearl/10 bg-charcoal">
-          <h2 className="border-b border-pearl/10 px-5 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-pearl/60">
+        <div className="border border-border-subtle bg-surface-raised">
+          <h2 className="border-b border-border-subtle px-5 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-text-primary/60">
             Your bag
           </h2>
 
-          <ul className="divide-y divide-pearl/8">
+          <ul className="divide-y divide-border-subtle">
             {lines.map((line) => (
               <li key={line.variantId} className="flex gap-3 px-5 py-4">
-                <div className="h-16 w-13 shrink-0 overflow-hidden bg-obsidian">
+                <div className="h-16 w-13 shrink-0 overflow-hidden bg-surface-base">
                   {line.imageUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -187,48 +187,48 @@ export default function CheckoutClient() {
                       className="h-full w-full object-cover"
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center font-display text-lg text-champagne/40">
+                    <div className="flex h-full w-full items-center justify-center font-display text-lg text-accent/40">
                       {line.title.charAt(0)}
                     </div>
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate font-body text-sm text-pearl">
+                  <p className="truncate font-body text-sm text-text-primary">
                     {line.title}
                   </p>
-                  <p className="mt-0.5 font-body text-[11px] uppercase tracking-wider text-pearl/40">
+                  <p className="mt-0.5 font-body text-[11px] uppercase tracking-wider text-text-primary/40">
                     {[line.color, line.size].filter(Boolean).join(" · ") ||
                       line.sku}
                   </p>
-                  <p className="mt-1 font-body text-[11px] text-pearl/40">
+                  <p className="mt-1 font-body text-[11px] text-text-primary/40">
                     Qty {line.qty}
                   </p>
                 </div>
-                <p className="shrink-0 font-body text-sm tabular-nums text-pearl">
+                <p className="shrink-0 font-body text-sm tabular-nums text-text-primary">
                   {formatKes(line.priceKes * line.qty)}
                 </p>
               </li>
             ))}
           </ul>
 
-          <div className="border-t border-pearl/10 px-5 py-4">
+          <div className="border-t border-border-subtle px-5 py-4">
             <div className="flex items-baseline justify-between">
-              <span className="font-body text-xs uppercase tracking-[0.2em] text-pearl/60">
+              <span className="font-body text-xs uppercase tracking-[0.2em] text-text-primary/60">
                 Subtotal
               </span>
-              <span className="font-body text-lg tabular-nums text-pearl">
+              <span className="font-body text-lg tabular-nums text-text-primary">
                 {formatKes(subtotal)}
               </span>
             </div>
             <div className="mt-2 flex items-baseline justify-between">
-              <span className="font-body text-xs uppercase tracking-[0.2em] text-pearl/60">
+              <span className="font-body text-xs uppercase tracking-[0.2em] text-text-primary/60">
                 Delivery
               </span>
-              <span className="font-body text-xs text-pearl/45">
+              <span className="font-body text-xs text-text-primary/45">
                 Quoted per order
               </span>
             </div>
-            <p className="mt-3 font-body text-[11px] font-light leading-relaxed text-pearl/40">
+            <p className="mt-3 font-body text-[11px] font-light leading-relaxed text-text-primary/40">
               We do not guess at delivery. Once we see your address we send the
               exact fee on WhatsApp, and you pay the subtotal plus that fee in
               one M-Pesa payment.
@@ -256,7 +256,7 @@ export default function CheckoutClient() {
             : "Place order"}
         </Button>
 
-        <p className="mt-3 text-center font-body text-[11px] font-light text-pearl/35">
+        <p className="mt-3 text-center font-body text-[11px] font-light text-text-primary/35">
           You will get an order number immediately. Nothing is charged yet.
         </p>
       </aside>
@@ -273,7 +273,7 @@ function Section({
 }) {
   return (
     <section>
-      <h2 className="mb-5 font-body text-[11px] uppercase tracking-[0.25em] text-pearl/60">
+      <h2 className="mb-5 font-body text-[11px] uppercase tracking-[0.25em] text-text-primary/60">
         {title}
       </h2>
       <div className="space-y-4">{children}</div>

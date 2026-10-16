@@ -70,8 +70,8 @@ function Card({
   children: React.ReactNode;
 }) {
   return (
-    <section className="border border-pearl/10 p-6">
-      <h2 className="font-body text-[10px] uppercase tracking-[0.25em] text-champagne">
+    <section className="border border-border-subtle p-6">
+      <h2 className="font-body text-[10px] uppercase tracking-[0.25em] text-accent">
         {title}
       </h2>
       <div className="mt-5">{children}</div>
@@ -145,22 +145,22 @@ export function VerifyPaymentForm({
     <Card title="Verify payment">
       <dl className="mb-5 space-y-2">
         <div className="flex justify-between gap-4">
-          <dt className="font-body text-[11px] uppercase tracking-[0.15em] text-pearl/40">
+          <dt className="font-body text-[11px] uppercase tracking-[0.15em] text-text-primary/40">
             M-Pesa code
           </dt>
-          <dd className="font-body text-sm tracking-wider text-pearl">
+          <dd className="font-body text-sm tracking-wider text-text-primary">
             {mpesaCode ?? "—"}
           </dd>
         </div>
         <div className="flex justify-between gap-4">
-          <dt className="font-body text-[11px] uppercase tracking-[0.15em] text-pearl/40">
+          <dt className="font-body text-[11px] uppercase tracking-[0.15em] text-text-primary/40">
             Paid from
           </dt>
-          <dd className="font-body text-sm text-pearl/80">{paymentPhone ?? "—"}</dd>
+          <dd className="font-body text-sm text-text-primary/80">{paymentPhone ?? "—"}</dd>
         </div>
       </dl>
 
-      <p className="mb-5 font-body text-[11px] font-light leading-relaxed text-pearl/40">
+      <p className="mb-5 font-body text-[11px] font-light leading-relaxed text-text-primary/40">
         Check the code against the M-Pesa statement before approving. Approving
         is what decrements stock and writes the sale to the ledger — it cannot be
         done twice.

@@ -232,7 +232,7 @@ export function VariantGrid({
       <input type="hidden" name="cells" value={JSON.stringify(payload)} />
 
       <div className="flex flex-wrap items-end justify-between gap-4">
-        <p className="max-w-prose font-body text-sm text-pearl/50">
+        <p className="max-w-prose font-body text-sm text-text-primary/50">
           Type a number into a cell to stock it. A blank cell means that
           combination does not exist. Clearing a cell to blank retires it —
           past orders keep their own copy of the name and price.
@@ -246,19 +246,19 @@ export function VariantGrid({
         </Button>
       </div>
 
-      <div className="overflow-x-auto border border-pearl/10">
+      <div className="overflow-x-auto border border-border-subtle">
         <table className="w-full border-collapse">
           <thead>
             <tr>
-              <th className="sticky left-0 z-10 min-w-[120px] border-b border-r border-pearl/10 bg-obsidian px-4 py-3 text-left font-body text-[10px] uppercase tracking-[0.25em] text-pearl/40">
+              <th className="sticky left-0 z-10 min-w-[120px] border-b border-r border-border-subtle bg-surface-base px-4 py-3 text-left font-body text-[10px] uppercase tracking-[0.25em] text-text-primary/40">
                 Size \\ Colour
               </th>
               {colors.map((color) => (
                 <th
                   key={color}
-                  className="min-w-[150px] border-b border-r border-pearl/10 px-4 py-3 text-left"
+                  className="min-w-[150px] border-b border-r border-border-subtle px-4 py-3 text-left"
                 >
-                  <span className="font-body text-[11px] uppercase tracking-[0.2em] text-pearl/80">
+                  <span className="font-body text-[11px] uppercase tracking-[0.2em] text-text-primary/80">
                     {label(color)}
                   </span>
                   {colors.length > 1 ? (
@@ -281,9 +281,9 @@ export function VariantGrid({
               <tr key={size}>
                 <th
                   scope="row"
-                  className="sticky left-0 z-10 border-b border-r border-pearl/10 bg-obsidian px-4 py-3 text-left"
+                  className="sticky left-0 z-10 border-b border-r border-border-subtle bg-surface-base px-4 py-3 text-left"
                 >
-                  <span className="font-body text-[11px] uppercase tracking-[0.2em] text-pearl/80">
+                  <span className="font-body text-[11px] uppercase tracking-[0.2em] text-text-primary/80">
                     {label(size)}
                   </span>
                   {sizes.length > 1 ? (
@@ -311,7 +311,7 @@ export function VariantGrid({
                   return (
                     <td
                       key={color}
-                      className="border-b border-r border-pearl/10 px-4 py-3 align-top"
+                      className="border-b border-r border-border-subtle px-4 py-3 align-top"
                     >
                       <input
                         type="text"
@@ -340,7 +340,7 @@ export function VariantGrid({
                         className={`${CONTROL_BASE} mt-2 font-mono`}
                       />
                       {sku ? (
-                        <p className="mt-2 truncate font-mono text-[10px] text-pearl/25">
+                        <p className="mt-2 truncate font-mono text-[10px] text-text-primary/25">
                           {sku}
                         </p>
                       ) : null}
@@ -357,7 +357,7 @@ export function VariantGrid({
         <div>
           <label
             htmlFor="new_size"
-            className="font-body text-[10px] uppercase tracking-[0.25em] text-pearl/50"
+            className="font-body text-[10px] uppercase tracking-[0.25em] text-text-primary/50"
           >
             Add a size
           </label>
@@ -384,7 +384,7 @@ export function VariantGrid({
         <div>
           <label
             htmlFor="new_color"
-            className="font-body text-[10px] uppercase tracking-[0.25em] text-pearl/50"
+            className="font-body text-[10px] uppercase tracking-[0.25em] text-text-primary/50"
           >
             Add a colour
           </label>
@@ -409,11 +409,11 @@ export function VariantGrid({
         </div>
       </div>
 
-      <div className="grid gap-6 border-t border-pearl/10 pt-6 sm:grid-cols-2">
+      <div className="grid gap-6 border-t border-border-subtle pt-6 sm:grid-cols-2">
         <div>
           <label
             htmlFor="default_price"
-            className="font-body text-[10px] uppercase tracking-[0.25em] text-pearl/50"
+            className="font-body text-[10px] uppercase tracking-[0.25em] text-text-primary/50"
           >
             Default price (KSh)
           </label>
@@ -427,7 +427,7 @@ export function VariantGrid({
             }
             className={`${CONTROL_BASE} mt-2 font-mono`}
           />
-          <p className="mt-2 font-body text-[11px] text-pearl/35">
+          <p className="mt-2 font-body text-[11px] text-text-primary/35">
             Used for any cell with no price of its own. Changing it does not
             touch sizes that already have their own.
           </p>
@@ -436,7 +436,7 @@ export function VariantGrid({
         <div>
           <label
             htmlFor="note"
-            className="font-body text-[10px] uppercase tracking-[0.25em] text-pearl/50"
+            className="font-body text-[10px] uppercase tracking-[0.25em] text-text-primary/50"
           >
             Note for the stock ledger
           </label>
@@ -448,7 +448,7 @@ export function VariantGrid({
             placeholder="e.g. restock from the October delivery"
             className={`${CONTROL_BASE} mt-2`}
           />
-          <p className="mt-2 font-body text-[11px] text-pearl/35">
+          <p className="mt-2 font-body text-[11px] text-text-primary/35">
             Recorded against every stock change this save makes, so a later
             discrepancy has an explanation.
           </p>
@@ -459,7 +459,7 @@ export function VariantGrid({
 
       <div className="flex flex-wrap items-center gap-4">
         <SubmitButton />
-        <p className="font-body text-[11px] text-pearl/35">
+        <p className="font-body text-[11px] text-text-primary/35">
           {stocked === 0
             ? "No cells filled in yet."
             : `${stocked} combination${stocked === 1 ? "" : "s"} will be stocked.`}

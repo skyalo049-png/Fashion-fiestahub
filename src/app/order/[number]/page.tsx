@@ -54,13 +54,13 @@ export default async function OrderPage({ params, searchParams }: PageProps) {
   if (!phone) {
     return (
       <main className="mx-auto max-w-md px-5 pb-24 pt-16 sm:px-8">
-        <p className="font-body text-[10px] uppercase tracking-[0.3em] text-champagne">
+        <p className="font-body text-[10px] uppercase tracking-[0.3em] text-accent">
           Order status
         </p>
-        <h1 className="mt-3 font-display text-2xl text-pearl sm:text-3xl">
+        <h1 className="mt-3 font-display text-2xl text-text-primary sm:text-3xl">
           Order {orderNumber}
         </h1>
-        <p className="mt-4 font-body text-sm font-light leading-relaxed text-pearl/50">
+        <p className="mt-4 font-body text-sm font-light leading-relaxed text-text-primary/50">
           Enter the phone number you used at checkout to see this order. We ask
           because the order number on its own is not a password.
         </p>
@@ -80,7 +80,7 @@ export default async function OrderPage({ params, searchParams }: PageProps) {
           </Button>
         </form>
 
-        <p className="mt-6 font-body text-[11px] font-light leading-relaxed text-pearl/35">
+        <p className="mt-6 font-body text-[11px] font-light leading-relaxed text-text-primary/35">
           Lost your order number? Check the WhatsApp message we sent when the
           order was placed, or message us and we will find it.
         </p>
@@ -122,10 +122,10 @@ export default async function OrderPage({ params, searchParams }: PageProps) {
   return (
     <main className="mx-auto max-w-6xl px-5 pb-24 pt-12 sm:px-8">
       <header className="mb-10">
-        <p className="font-body text-[10px] uppercase tracking-[0.3em] text-champagne">
+        <p className="font-body text-[10px] uppercase tracking-[0.3em] text-accent">
           Order status
         </p>
-        <h1 className="mt-3 font-display text-3xl text-pearl sm:text-4xl">
+        <h1 className="mt-3 font-display text-3xl text-text-primary sm:text-4xl">
           {isPayable(order.status) ? "Ready for payment" : "Your order"}
         </h1>
       </header>
@@ -154,8 +154,8 @@ export default async function OrderPage({ params, searchParams }: PageProps) {
 function Message({ title, body }: { title: string; body: string }) {
   return (
     <main className="mx-auto max-w-md px-5 pb-24 pt-16 sm:px-8">
-      <h1 className="font-display text-2xl text-pearl">{title}</h1>
-      <p className="mt-4 font-body text-sm font-light leading-relaxed text-pearl/50">
+      <h1 className="font-display text-2xl text-text-primary">{title}</h1>
+      <p className="mt-4 font-body text-sm font-light leading-relaxed text-text-primary/50">
         {body}
       </p>
       <Link

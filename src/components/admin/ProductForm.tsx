@@ -167,8 +167,8 @@ export function EditProductForm({ product }: { product: ProductFormValues }) {
         <span className="block font-body text-[11px] uppercase tracking-[0.2em] text-text-muted">
           Web address
         </span>
-        <p className="mt-2 font-mono text-xs text-pearl/45">/product/{product.slug}</p>
-        <p className="mt-2 font-body text-[11px] text-pearl/35">
+        <p className="mt-2 font-mono text-xs text-text-primary/45">/product/{product.slug}</p>
+        <p className="mt-2 font-body text-[11px] text-text-primary/35">
           {product.skuPrefix ? (
             <>
               SKUs are built from <span className="font-mono">{product.skuPrefix}</span>.
@@ -207,7 +207,7 @@ export function EditProductForm({ product }: { product: ProductFormValues }) {
         <Submit pendingLabel="Saving…">Save changes</Submit>
         <Link
           href={`/product/${product.slug}`}
-          className="font-body text-[11px] uppercase tracking-[0.25em] text-pearl/40 underline underline-offset-4 transition-colors hover:text-pearl"
+          className="font-body text-[11px] uppercase tracking-[0.25em] text-text-primary/40 underline underline-offset-4 transition-colors hover:text-text-primary"
         >
           View on site
         </Link>
@@ -239,7 +239,7 @@ export function DeleteProductForm({ slug }: { slug: string }) {
   return (
     <form action={action} className="space-y-4 border border-red-400/30 p-5">
       <input type="hidden" name="slug" value={slug} />
-      <p className="font-body text-sm text-pearl/70">
+      <p className="font-body text-sm text-text-primary/70">
         This removes the product, its sizes and its photos. Past orders keep
         their own copy of the name and price, so order history is unaffected.
       </p>

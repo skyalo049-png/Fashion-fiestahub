@@ -83,15 +83,15 @@ export default async function OrderDetailPage({
     <div>
       <Link
         href="/admin/orders"
-        className="font-body text-[11px] uppercase tracking-[0.2em] text-pearl/40 transition-colors hover:text-champagne"
+        className="font-body text-[11px] uppercase tracking-[0.2em] text-text-primary/40 transition-colors hover:text-accent"
       >
         ← Orders
       </Link>
 
-      <header className="mt-6 flex flex-wrap items-start justify-between gap-4 border-b border-pearl/10 pb-6">
+      <header className="mt-6 flex flex-wrap items-start justify-between gap-4 border-b border-border-subtle pb-6">
         <div>
-          <p className="font-mono text-lg text-pearl">{order.orderNumber}</p>
-          <p className="mt-1 font-body text-xs text-pearl/40">
+          <p className="font-mono text-lg text-text-primary">{order.orderNumber}</p>
+          <p className="mt-1 font-body text-xs text-text-primary/40">
             Placed {formatWhen(order.createdAt)}
           </p>
         </div>
@@ -103,29 +103,29 @@ export default async function OrderDetailPage({
       <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_360px]">
         {/* ---------------- left: what was ordered ---------------- */}
         <div className="space-y-8">
-          <section className="border border-pearl/10">
-            <h2 className="border-b border-pearl/10 px-5 py-4 font-body text-[10px] uppercase tracking-[0.25em] text-champagne">
+          <section className="border border-border-subtle">
+            <h2 className="border-b border-border-subtle px-5 py-4 font-body text-[10px] uppercase tracking-[0.25em] text-accent">
               Items
             </h2>
-            <ul className="divide-y divide-pearl/10">
+            <ul className="divide-y divide-border-subtle">
               {order.items.map((item, i) => (
                 <li
                   key={`${item.sku}-${i}`}
                   className="flex flex-wrap items-start justify-between gap-3 px-5 py-4"
                 >
                   <div className="min-w-0">
-                    <p className="font-body text-sm text-pearl">{item.title}</p>
-                    <p className="mt-1 font-mono text-[11px] text-pearl/40">
+                    <p className="font-body text-sm text-text-primary">{item.title}</p>
+                    <p className="mt-1 font-mono text-[11px] text-text-primary/40">
                       {item.sku}
                       {item.size ? ` · ${item.size}` : ""}
                       {item.color ? ` · ${item.color}` : ""}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="font-body text-sm text-pearl">
+                    <p className="font-body text-sm text-text-primary">
                       {formatKes(item.lineTotalKes)}
                     </p>
-                    <p className="mt-1 font-body text-[11px] text-pearl/40">
+                    <p className="mt-1 font-body text-[11px] text-text-primary/40">
                       {item.qty} × {formatKes(item.unitPriceKes)}
                     </p>
                   </div>
@@ -133,12 +133,12 @@ export default async function OrderDetailPage({
               ))}
             </ul>
 
-            <dl className="space-y-2 border-t border-pearl/10 px-5 py-4 font-body text-sm">
-              <div className="flex justify-between text-pearl/60">
+            <dl className="space-y-2 border-t border-border-subtle px-5 py-4 font-body text-sm">
+              <div className="flex justify-between text-text-primary/60">
                 <dt>Subtotal</dt>
                 <dd>{formatKes(order.subtotalKes)}</dd>
               </div>
-              <div className="flex justify-between text-pearl/60">
+              <div className="flex justify-between text-text-primary/60">
                 <dt>Delivery</dt>
                 <dd>
                   {order.deliveryFeeKes === null
@@ -146,7 +146,7 @@ export default async function OrderDetailPage({
                     : formatKes(order.deliveryFeeKes)}
                 </dd>
               </div>
-              <div className="flex justify-between border-t border-pearl/10 pt-2 text-pearl">
+              <div className="flex justify-between border-t border-border-subtle pt-2 text-text-primary">
                 <dt className="font-body text-[11px] uppercase tracking-[0.2em]">
                   Total
                 </dt>
@@ -159,21 +159,21 @@ export default async function OrderDetailPage({
             </dl>
           </section>
 
-          <section className="border border-pearl/10">
-            <h2 className="border-b border-pearl/10 px-5 py-4 font-body text-[10px] uppercase tracking-[0.25em] text-champagne">
+          <section className="border border-border-subtle">
+            <h2 className="border-b border-border-subtle px-5 py-4 font-body text-[10px] uppercase tracking-[0.25em] text-accent">
               Customer
             </h2>
             <div className="space-y-3 px-5 py-4 font-body text-sm">
-              <p className="text-pearl">{order.customer.fullName}</p>
-              <p className="text-pearl/60">{order.customer.phone}</p>
+              <p className="text-text-primary">{order.customer.fullName}</p>
+              <p className="text-text-primary/60">{order.customer.phone}</p>
               {order.customer.email ? (
-                <p className="text-pearl/60">{order.customer.email}</p>
+                <p className="text-text-primary/60">{order.customer.email}</p>
               ) : null}
               {order.customer.city ? (
-                <p className="text-pearl/60">Deliver to {order.customer.city}</p>
+                <p className="text-text-primary/60">Deliver to {order.customer.city}</p>
               ) : null}
               {order.notes ? (
-                <p className="border-l-2 border-pearl/15 pl-3 text-pearl/50">
+                <p className="border-l-2 border-border-default pl-3 text-text-primary/50">
                   {order.notes}
                 </p>
               ) : null}
@@ -191,30 +191,30 @@ export default async function OrderDetailPage({
             </div>
           </section>
 
-          <section className="border border-pearl/10">
-            <h2 className="border-b border-pearl/10 px-5 py-4 font-body text-[10px] uppercase tracking-[0.25em] text-champagne">
+          <section className="border border-border-subtle">
+            <h2 className="border-b border-border-subtle px-5 py-4 font-body text-[10px] uppercase tracking-[0.25em] text-accent">
               History
             </h2>
             {order.events.length === 0 ? (
-              <p className="px-5 py-4 font-body text-sm text-pearl/40">
+              <p className="px-5 py-4 font-body text-sm text-text-primary/40">
                 Nothing recorded yet.
               </p>
             ) : (
-              <ul className="divide-y divide-pearl/10">
+              <ul className="divide-y divide-border-subtle">
                 {order.events.map((event, i) => {
                   const detail = eventDetail(event.payload);
                   return (
                     <li key={i} className="px-5 py-4">
                       <div className="flex flex-wrap items-baseline justify-between gap-2">
-                        <p className="font-body text-sm text-pearl/80">
+                        <p className="font-body text-sm text-text-primary/80">
                           {EVENT_LABEL[event.type] ?? event.type}
                         </p>
-                        <p className="font-body text-[11px] text-pearl/35">
+                        <p className="font-body text-[11px] text-text-primary/35">
                           {formatWhen(event.createdAt)}
                         </p>
                       </div>
                       {detail ? (
-                        <p className="mt-1 font-body text-xs text-pearl/45">
+                        <p className="mt-1 font-body text-xs text-text-primary/45">
                           {detail}
                         </p>
                       ) : null}
@@ -229,31 +229,31 @@ export default async function OrderDetailPage({
         {/* ---------------- right: what to do about it ---------------- */}
         <div className="space-y-5">
           {needsVerification ? (
-            <section className="border border-champagne/40 p-6">
-              <h2 className="font-body text-[10px] uppercase tracking-[0.25em] text-champagne">
+            <section className="border border-accent/40 p-6">
+              <h2 className="font-body text-[10px] uppercase tracking-[0.25em] text-accent">
                 Payment claimed
               </h2>
               <dl className="mt-4 space-y-2 font-body text-sm">
                 <div className="flex justify-between gap-4">
-                  <dt className="text-pearl/50">M-Pesa code</dt>
-                  <dd className="font-mono text-pearl">
+                  <dt className="text-text-primary/50">M-Pesa code</dt>
+                  <dd className="font-mono text-text-primary">
                     {order.mpesaCode ?? "—"}
                   </dd>
                 </div>
                 <div className="flex justify-between gap-4">
-                  <dt className="text-pearl/50">Paid from</dt>
-                  <dd className="font-mono text-pearl/80">
+                  <dt className="text-text-primary/50">Paid from</dt>
+                  <dd className="font-mono text-text-primary/80">
                     {order.paymentPhone ?? "—"}
                   </dd>
                 </div>
                 <div className="flex justify-between gap-4">
-                  <dt className="text-pearl/50">Submitted</dt>
-                  <dd className="text-pearl/80">
+                  <dt className="text-text-primary/50">Submitted</dt>
+                  <dd className="text-text-primary/80">
                     {formatWhen(order.paymentSubmittedAt)}
                   </dd>
                 </div>
               </dl>
-              <p className="mt-4 font-body text-xs text-pearl/45">
+              <p className="mt-4 font-body text-xs text-text-primary/45">
                 Match that code against the M-Pesa message before approving.
                 Approving is what takes the stock off the shelf.
               </p>

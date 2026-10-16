@@ -74,10 +74,10 @@ export default function ProductCard({ product }: { product: Product }) {
   }
 
   return (
-    <article className="group flex flex-col bg-charcoal border border-pearl/8 hover:border-champagne/40 transition-colors duration-300">
+    <article className="group flex flex-col bg-surface-raised border border-border-subtle hover:border-accent/40 transition-colors duration-300">
       <Link
         href={`/product/${product.slug}`}
-        className="relative block aspect-[4/5] overflow-hidden bg-obsidian"
+        className="relative block aspect-[4/5] overflow-hidden bg-surface-base"
         aria-label={`View ${product.title}`}
       >
         {product.imageUrl ? (
@@ -92,8 +92,8 @@ export default function ProductCard({ product }: { product: Product }) {
             loading="lazy"
           />
         ) : (
-          <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-charcoal-2 to-obsidian">
-            <span className="font-display text-4xl text-champagne/25">
+          <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-surface-raised to-surface-base">
+            <span className="font-display text-4xl text-accent/25">
               {product.title.charAt(0)}
             </span>
           </div>
@@ -108,34 +108,34 @@ export default function ProductCard({ product }: { product: Product }) {
 
       <div className="flex flex-1 flex-col gap-3 p-5">
         <Link href={`/product/${product.slug}`} className="group/title">
-          <h2 className="font-display text-lg leading-snug text-pearl group-hover/title:text-champagne transition-colors">
+          <h2 className="font-display text-lg leading-snug text-text-primary group-hover/title:text-accent transition-colors">
             {product.title}
           </h2>
         </Link>
 
         {product.description && (
-          <p className="font-body text-sm font-light leading-relaxed text-pearl/50 line-clamp-2">
+          <p className="font-body text-sm font-light leading-relaxed text-text-primary/50 line-clamp-2">
             {product.description}
           </p>
         )}
 
         <div className="mt-1 flex items-baseline justify-between gap-3">
-          <span className="font-body text-champagne">
+          <span className="font-body text-accent">
             {product.fromPriceKes > 0
               ? formatKes(product.fromPriceKes)
               : "Price on request"}
           </span>
-          <span className="font-body text-[11px] tracking-widest uppercase text-pearl/35">
+          <span className="font-body text-[11px] tracking-widest uppercase text-text-primary/35">
             {soldOut ? "—" : `${product.totalAvailable} in stock`}
           </span>
         </div>
 
         {(colours.length > 0 || sizes.length > 0) && (
-          <div className="mt-2 flex flex-wrap gap-1.5 border-t border-pearl/8 pt-3">
+          <div className="mt-2 flex flex-wrap gap-1.5 border-t border-border-subtle pt-3">
             {colours.map((c) => (
               <span
                 key={c}
-                className="font-body text-[10px] tracking-wider uppercase px-2 py-1 border border-pearl/12 text-pearl/55"
+                className="font-body text-[10px] tracking-wider uppercase px-2 py-1 border border-border-subtle text-text-primary/55"
               >
                 {c}
               </span>
@@ -145,8 +145,8 @@ export default function ProductCard({ product }: { product: Product }) {
                 key={s}
                 className={
                   soldOutSizes.has(s) && inStock.length === 0
-                    ? "font-body text-[10px] tracking-wider uppercase px-2 py-1 border border-pearl/10 text-pearl/25 line-through"
-                    : "font-body text-[10px] tracking-wider uppercase px-2 py-1 border border-champagne/20 text-champagne/70"
+                    ? "font-body text-[10px] tracking-wider uppercase px-2 py-1 border border-border-subtle text-text-primary/25 line-through"
+                    : "font-body text-[10px] tracking-wider uppercase px-2 py-1 border border-accent/20 text-accent/70"
                 }
               >
                 {s}

@@ -26,13 +26,13 @@ export default function SiteHeader() {
   const count = mounted ? cartCount(lines) : 0;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-pearl/8 bg-obsidian/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-border-subtle bg-overlay-scrim backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="group">
-          <span className="font-display text-base tracking-wide text-pearl group-hover:text-champagne transition-colors">
+          <span className="font-display text-base tracking-wide text-text-primary group-hover:text-accent transition-colors">
             {site.name}
           </span>
-          <span className="ml-3 hidden font-body text-[10px] uppercase tracking-[0.25em] text-pearl/35 sm:inline">
+          <span className="ml-3 hidden font-body text-[10px] uppercase tracking-[0.25em] text-text-primary/35 sm:inline">
             {site.city}
           </span>
         </Link>

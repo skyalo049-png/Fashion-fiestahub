@@ -53,7 +53,7 @@ export default function CartDrawer() {
         type="button"
         aria-label="Close bag"
         onClick={close}
-        className="absolute inset-0 bg-obsidian/70 backdrop-blur-sm"
+        className="absolute inset-0 bg-overlay-scrim backdrop-blur-sm"
       />
 
       <div
@@ -62,16 +62,16 @@ export default function CartDrawer() {
         aria-modal="true"
         aria-label="Shopping bag"
         tabIndex={-1}
-        className="relative flex h-full w-full max-w-md flex-col border-l border-pearl/10 bg-charcoal outline-none"
+        className="relative flex h-full w-full max-w-md flex-col border-l border-border-subtle bg-surface-raised outline-none"
       >
-        <div className="flex items-center justify-between border-b border-pearl/10 px-6 py-5">
-          <h2 className="font-body text-xs uppercase tracking-[0.3em] text-pearl/60">
+        <div className="flex items-center justify-between border-b border-border-subtle px-6 py-5">
+          <h2 className="font-body text-xs uppercase tracking-[0.3em] text-text-primary/60">
             Your bag
           </h2>
           <button
             type="button"
             onClick={close}
-            className="font-body text-xs uppercase tracking-[0.2em] text-pearl/45 transition-colors hover:text-champagne"
+            className="font-body text-xs uppercase tracking-[0.2em] text-text-primary/45 transition-colors hover:text-accent"
           >
             Close
           </button>
@@ -79,23 +79,23 @@ export default function CartDrawer() {
 
         {lines.length === 0 ? (
           <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
-            <p className="font-body text-sm font-light text-pearl/50">
+            <p className="font-body text-sm font-light text-text-primary/50">
               Nothing in the bag yet.
             </p>
             <Link
               href="/"
               onClick={close}
-              className="font-body text-xs uppercase tracking-[0.2em] text-champagne underline-offset-4 hover:underline"
+              className="font-body text-xs uppercase tracking-[0.2em] text-accent underline-offset-4 hover:underline"
             >
               Browse the collection
             </Link>
           </div>
         ) : (
           <>
-            <ul className="flex-1 divide-y divide-pearl/8 overflow-y-auto">
+            <ul className="flex-1 divide-y divide-border-subtle overflow-y-auto">
               {lines.map((line) => (
                 <li key={line.variantId} className="flex gap-4 px-6 py-5">
-                  <div className="h-24 w-20 shrink-0 overflow-hidden bg-obsidian">
+                  <div className="h-24 w-20 shrink-0 overflow-hidden bg-surface-base">
                     {line.imageUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
@@ -104,8 +104,8 @@ export default function CartDrawer() {
                         className="h-full w-full object-cover"
                       />
                     ) : (
-                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-charcoal-2 to-obsidian">
-                        <span className="font-display text-2xl text-champagne/25">
+                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-surface-raised to-surface-base">
+                        <span className="font-display text-2xl text-accent/25">
                           {line.title.charAt(0)}
                         </span>
                       </div>
@@ -117,40 +117,40 @@ export default function CartDrawer() {
                       <Link
                         href={`/product/${line.productSlug}`}
                         onClick={close}
-                        className="font-display text-sm leading-snug text-pearl hover:text-champagne"
+                        className="font-display text-sm leading-snug text-text-primary hover:text-accent"
                       >
                         {line.title}
                       </Link>
-                      <p className="mt-1 font-body text-[10px] uppercase tracking-[0.15em] text-pearl/40">
+                      <p className="mt-1 font-body text-[10px] uppercase tracking-[0.15em] text-text-primary/40">
                         {[line.color, line.size].filter(Boolean).join(" · ") ||
                           line.sku}
                       </p>
                     </div>
 
                     <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center border border-pearl/15">
+                      <div className="flex items-center border border-border-default">
                         <button
                           type="button"
                           aria-label="Decrease quantity"
                           onClick={() => setQty(line.variantId, line.qty - 1)}
-                          className="px-2.5 py-1 font-body text-sm text-pearl/70 hover:text-champagne"
+                          className="px-2.5 py-1 font-body text-sm text-text-primary/70 hover:text-accent"
                         >
                           −
                         </button>
-                        <span className="min-w-6 text-center font-body text-sm tabular-nums text-pearl">
+                        <span className="min-w-6 text-center font-body text-sm tabular-nums text-text-primary">
                           {line.qty}
                         </span>
                         <button
                           type="button"
                           aria-label="Increase quantity"
                           onClick={() => setQty(line.variantId, line.qty + 1)}
-                          className="px-2.5 py-1 font-body text-sm text-pearl/70 hover:text-champagne"
+                          className="px-2.5 py-1 font-body text-sm text-text-primary/70 hover:text-accent"
                         >
                           +
                         </button>
                       </div>
 
-                      <span className="font-body text-sm tabular-nums text-champagne">
+                      <span className="font-body text-sm tabular-nums text-accent">
                         {formatKes(line.priceKes * line.qty)}
                       </span>
                     </div>
@@ -158,7 +158,7 @@ export default function CartDrawer() {
                     <button
                       type="button"
                       onClick={() => remove(line.variantId)}
-                      className="self-start font-body text-[10px] uppercase tracking-[0.15em] text-pearl/35 underline-offset-4 hover:text-pearl/70 hover:underline"
+                      className="self-start font-body text-[10px] uppercase tracking-[0.15em] text-text-primary/35 underline-offset-4 hover:text-text-primary/70 hover:underline"
                     >
                       Remove
                     </button>
@@ -167,19 +167,19 @@ export default function CartDrawer() {
               ))}
             </ul>
 
-            <div className="border-t border-pearl/10 px-6 py-5">
+            <div className="border-t border-border-subtle px-6 py-5">
               <div className="flex items-baseline justify-between">
-                <span className="font-body text-xs uppercase tracking-[0.2em] text-pearl/50">
+                <span className="font-body text-xs uppercase tracking-[0.2em] text-text-primary/50">
                   Subtotal
                 </span>
-                <span className="font-body text-lg tabular-nums text-pearl">
+                <span className="font-body text-lg tabular-nums text-text-primary">
                   {formatKes(subtotal)}
                 </span>
               </div>
 
               {/* Set the expectation here rather than surprising them on the
                   confirmation screen. The order genuinely has no total yet. */}
-              <p className="mt-2 font-body text-[11px] font-light leading-relaxed text-pearl/40">
+              <p className="mt-2 font-body text-[11px] font-light leading-relaxed text-text-primary/40">
                 Delivery is quoted per order. We confirm it on WhatsApp before
                 you pay.
               </p>

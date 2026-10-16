@@ -42,28 +42,28 @@ export default async function ProductDetailPage({
     <div>
       <Link
         href="/admin/products"
-        className="font-body text-[11px] uppercase tracking-[0.2em] text-pearl/40 transition-colors hover:text-champagne"
+        className="font-body text-[11px] uppercase tracking-[0.2em] text-text-primary/40 transition-colors hover:text-accent"
       >
         ← Products
       </Link>
 
-      <header className="mt-6 flex flex-wrap items-start justify-between gap-4 border-b border-pearl/10 pb-6">
+      <header className="mt-6 flex flex-wrap items-start justify-between gap-4 border-b border-border-subtle pb-6">
         <div className="min-w-0">
-          <h1 className="font-display text-3xl text-pearl">{product.title}</h1>
-          <p className="mt-2 font-mono text-[11px] text-pearl/35">
+          <h1 className="font-display text-3xl text-text-primary">{product.title}</h1>
+          <p className="mt-2 font-mono text-[11px] text-text-primary/35">
             /product/{product.slug}
             {product.skuPrefix ? (
-              <span className="text-pearl/25"> · {product.skuPrefix}</span>
+              <span className="text-text-primary/25"> · {product.skuPrefix}</span>
             ) : null}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-4">
-          <span className="font-body text-xs text-pearl/40">
+          <span className="font-body text-xs text-text-primary/40">
             {totalStock} in stock
           </span>
           <Link
             href={`/product/${product.slug}`}
-            className="border border-pearl/20 px-4 py-2 font-body text-[11px] uppercase tracking-[0.2em] text-pearl/60 transition-colors hover:border-pearl/40 hover:text-pearl"
+            className="border border-border-default px-4 py-2 font-body text-[11px] uppercase tracking-[0.2em] text-text-primary/60 transition-colors hover:border-border-strong hover:text-text-primary"
           >
             View on site
           </Link>
@@ -74,7 +74,7 @@ export default async function ProductDetailPage({
         {/* ---------------- left: the daily work ---------------- */}
         <div className="space-y-10">
           <section>
-            <h2 className="border-b border-pearl/10 pb-3 font-body text-[10px] uppercase tracking-[0.25em] text-champagne">
+            <h2 className="border-b border-border-subtle pb-3 font-body text-[10px] uppercase tracking-[0.25em] text-accent">
               Sizes, colours and stock
             </h2>
             <div className="mt-6">
@@ -88,7 +88,7 @@ export default async function ProductDetailPage({
           </section>
 
           <section>
-            <h2 className="border-b border-pearl/10 pb-3 font-body text-[10px] uppercase tracking-[0.25em] text-champagne">
+            <h2 className="border-b border-border-subtle pb-3 font-body text-[10px] uppercase tracking-[0.25em] text-accent">
               Photos
             </h2>
             <div className="mt-6">
@@ -104,7 +104,7 @@ export default async function ProductDetailPage({
         {/* ---------------- right: the copy ---------------- */}
         <div className="space-y-10">
           <section>
-            <h2 className="border-b border-pearl/10 pb-3 font-body text-[10px] uppercase tracking-[0.25em] text-champagne">
+            <h2 className="border-b border-border-subtle pb-3 font-body text-[10px] uppercase tracking-[0.25em] text-accent">
               Details
             </h2>
             <div className="mt-6">
@@ -123,8 +123,8 @@ export default async function ProductDetailPage({
             </div>
           </section>
 
-          <section className="border-t border-pearl/10 pt-8">
-            <h2 className="font-body text-[10px] uppercase tracking-[0.25em] text-pearl/40">
+          <section className="border-t border-border-subtle pt-8">
+            <h2 className="font-body text-[10px] uppercase tracking-[0.25em] text-text-primary/40">
               Danger
             </h2>
             <div className="mt-4">

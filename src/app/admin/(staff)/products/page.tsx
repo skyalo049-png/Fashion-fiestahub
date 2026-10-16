@@ -40,13 +40,13 @@ export default async function ProductsPage() {
 
   return (
     <div>
-      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-pearl/10 pb-6">
+      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-border-subtle pb-6">
         <div>
-          <p className="font-body text-[10px] uppercase tracking-[0.4em] text-champagne">
+          <p className="font-body text-[10px] uppercase tracking-[0.4em] text-accent">
             Staff
           </p>
-          <h1 className="mt-2 font-display text-3xl text-pearl">Products</h1>
-          <p className="mt-2 max-w-prose font-body text-sm text-pearl/50">
+          <h1 className="mt-2 font-display text-3xl text-text-primary">Products</h1>
+          <p className="mt-2 max-w-prose font-body text-sm text-text-primary/50">
             Prices and stock are edited here. A saved change is live on the shop
             the moment the page is refreshed.
           </p>
@@ -61,9 +61,9 @@ export default async function ProductsPage() {
       </header>
 
       {products.length === 0 ? (
-        <div className="mt-16 border border-dashed border-pearl/15 px-6 py-16 text-center">
-          <p className="font-display text-xl text-pearl/80">No products yet</p>
-          <p className="mx-auto mt-3 max-w-sm font-body text-sm text-pearl/40">
+        <div className="mt-16 border border-dashed border-border-default px-6 py-16 text-center">
+          <p className="font-display text-xl text-text-primary/80">No products yet</p>
+          <p className="mx-auto mt-3 max-w-sm font-body text-sm text-text-primary/40">
             Create one, then fill in its sizes and colours. A product with no
             sizes cannot be sold, so the grid is the next step after saving.
           </p>
@@ -75,16 +75,16 @@ export default async function ProductsPage() {
           </Link>
         </div>
       ) : (
-        <ul className="mt-6 divide-y divide-pearl/10 border border-pearl/10">
+        <ul className="mt-6 divide-y divide-border-subtle border border-border-subtle">
           {products.map((product) => (
             <li key={product.id}>
               <Link
                 href={`/admin/products/${product.slug}`}
-                className="grid grid-cols-1 gap-3 px-5 py-5 transition-colors hover:bg-pearl/[0.03] sm:grid-cols-[1fr_auto] sm:items-center"
+                className="grid grid-cols-1 gap-3 px-5 py-5 transition-colors hover:bg-text-primary/[0.03] sm:grid-cols-[1fr_auto] sm:items-center"
               >
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-3">
-                    <span className="font-body text-base text-pearl">
+                    <span className="font-body text-base text-text-primary">
                       {product.title}
                     </span>
                     <Badge tone={STATUS_TONE[product.status] ?? "neutral"}>
@@ -95,27 +95,27 @@ export default async function ProductsPage() {
                     ) : null}
                   </div>
 
-                  <p className="mt-2 font-mono text-[11px] text-pearl/35">
+                  <p className="mt-2 font-mono text-[11px] text-text-primary/35">
                     /product/{product.slug}
                     {product.skuPrefix ? (
-                      <span className="text-pearl/25">
+                      <span className="text-text-primary/25">
                         {" "}
                         · {product.skuPrefix}
                       </span>
                     ) : null}
                   </p>
 
-                  <p className="mt-1 font-body text-xs text-pearl/40">
+                  <p className="mt-1 font-body text-xs text-text-primary/40">
                     {product.variantCount === 0
                       ? "No sizes yet"
                       : `${product.variantCount} size${product.variantCount === 1 ? "" : "s"} and colour${product.variantCount === 1 ? "" : "s"}`}
-                    <span className="text-pearl/25"> · </span>
+                    <span className="text-text-primary/25"> · </span>
                     {product.totalStock} in stock
                   </p>
                 </div>
 
                 <div className="text-left sm:text-right">
-                  <p className="font-body text-base text-pearl">
+                  <p className="font-body text-base text-text-primary">
                     {product.fromPriceKes === null
                       ? "—"
                       : `from ${formatKes(product.fromPriceKes)}`}
