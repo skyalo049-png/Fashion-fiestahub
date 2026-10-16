@@ -12,6 +12,7 @@ import {
   type ProductActionResult,
 } from "@/lib/action-state";
 import type { AdminProductImage } from "@/lib/admin-products";
+import Field, { LABEL } from "@/components/ui/Field";
 
 /**
  * A product's photos.
@@ -58,12 +59,6 @@ function Feedback({ state }: { state: ProductActionResult }) {
   );
 }
 
-const inputClass =
-  "mt-2 w-full border border-pearl/20 bg-transparent px-4 py-3 font-body text-sm text-pearl placeholder:text-pearl/25 focus:border-champagne focus:outline-none";
-
-const labelClass =
-  "font-body text-[10px] uppercase tracking-[0.25em] text-pearl/50";
-
 function UploadForm({ productId, slug }: { productId: string; slug: string }) {
   const [state, action] = useActionState(uploadProductPhoto, INITIAL_PRODUCT_ACTION);
 
@@ -73,7 +68,7 @@ function UploadForm({ productId, slug }: { productId: string; slug: string }) {
       <input type="hidden" name="slug" value={slug} />
 
       <div>
-        <label htmlFor="photo" className={labelClass}>
+        <label htmlFor="photo" className={LABEL}>
           Photo
         </label>
         <input
@@ -89,21 +84,12 @@ function UploadForm({ productId, slug }: { productId: string; slug: string }) {
         </p>
       </div>
 
-      <div>
-        <label htmlFor="alt" className={labelClass}>
-          Description for screen readers
-        </label>
-        <input
-          id="alt"
-          name="alt"
-          placeholder="Ankara wrap dress in indigo, worn belted"
-          className={inputClass}
-        />
-        <p className="mt-2 font-body text-[11px] text-pearl/35">
-          Worth writing. It is what a blind customer hears, and it is what the
-          search engines index.
-        </p>
-      </div>
+      <Field
+        label="Description for screen readers"
+        name="alt"
+        placeholder="Ankara wrap dress in indigo, worn belted"
+        hint="Worth writing. It is what a blind customer hears, and it is what the search engines index."
+      />
 
       <Feedback state={state} />
       <Submit pendingLabel="Uploading…">Add photo</Submit>

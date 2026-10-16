@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useMemo, useRef, useState } from "react";
 
 import { placeOrder, type CheckoutState } from "@/app/checkout/actions";
+import Field from "@/components/ui/Field";
 import { cartSubtotal, useCart } from "@/lib/cart";
 import { formatKes } from "@/lib/format";
 
@@ -286,35 +287,3 @@ function Section({
   );
 }
 
-function Field({
-  label,
-  name,
-  hint,
-  ...rest
-}: {
-  label: string;
-  name: string;
-  hint?: string;
-} & React.InputHTMLAttributes<HTMLInputElement>) {
-  return (
-    <div>
-      <label
-        htmlFor={name}
-        className="block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-      >
-        {label}
-      </label>
-      <input
-        id={name}
-        name={name}
-        className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-sm text-pearl outline-none transition-colors placeholder:text-pearl/25 focus:border-champagne"
-        {...rest}
-      />
-      {hint && (
-        <p className="mt-1.5 font-body text-[11px] font-light text-pearl/35">
-          {hint}
-        </p>
-      )}
-    </div>
-  );
-}

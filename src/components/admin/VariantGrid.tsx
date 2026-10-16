@@ -9,6 +9,7 @@ import {
   type VariantActionResult,
 } from "@/lib/action-state";
 import type { AdminVariant } from "@/lib/admin-products";
+import { CONTROL_BASE } from "@/components/ui/Field";
 
 /**
  * The colour x size grid.
@@ -113,9 +114,6 @@ function Feedback({ state }: { state: VariantActionResult }) {
     </p>
   );
 }
-
-const inputClass =
-  "w-full border border-pearl/20 bg-transparent px-3 py-2 font-body text-sm text-pearl placeholder:text-pearl/25 focus:border-champagne focus:outline-none";
 
 export function VariantGrid({
   productId,
@@ -327,7 +325,7 @@ export function VariantGrid({
                         }
                         placeholder="—"
                         aria-label={`Stock for ${label(size)} ${label(color)}`}
-                        className={`${inputClass} font-mono`}
+                        className={`${CONTROL_BASE} font-mono`}
                       />
                       <input
                         type="text"
@@ -340,7 +338,7 @@ export function VariantGrid({
                         }
                         placeholder={defaultPrice ? `${defaultPrice}` : "price"}
                         aria-label={`Price for ${label(size)} ${label(color)}`}
-                        className="mt-2 w-full border border-pearl/10 bg-transparent px-3 py-1.5 font-mono text-xs text-pearl/70 placeholder:text-pearl/20 focus:border-champagne focus:outline-none"
+                        className={`${CONTROL_BASE} mt-2 font-mono`}
                       />
                       {sku ? (
                         <p className="mt-2 truncate font-mono text-[10px] text-pearl/25">
@@ -376,7 +374,7 @@ export function VariantGrid({
                 }
               }}
               placeholder="XL"
-              className={`${inputClass} w-28 uppercase`}
+              className={`${CONTROL_BASE} w-28 uppercase`}
             />
             <button
               type="button"
@@ -407,7 +405,7 @@ export function VariantGrid({
                 }
               }}
               placeholder="Indigo"
-              className={`${inputClass} w-40`}
+              className={`${CONTROL_BASE} w-40`}
             />
             <button
               type="button"
@@ -436,7 +434,7 @@ export function VariantGrid({
             onChange={(e) =>
               setDefaultPrice(e.target.value.replace(/[^0-9]/g, ""))
             }
-            className={`${inputClass} mt-2 font-mono`}
+            className={`${CONTROL_BASE} mt-2 font-mono`}
           />
           <p className="mt-2 font-body text-[11px] text-pearl/35">
             Used for any cell with no price of its own. Changing it does not
@@ -457,7 +455,7 @@ export function VariantGrid({
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="e.g. restock from the October delivery"
-            className={`${inputClass} mt-2`}
+            className={`${CONTROL_BASE} mt-2`}
           />
           <p className="mt-2 font-body text-[11px] text-pearl/35">
             Recorded against every stock change this save makes, so a later

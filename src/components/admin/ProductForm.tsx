@@ -9,6 +9,7 @@ import {
   deleteProduct,
   updateProduct,
 } from "@/app/admin/product-actions";
+import Field from "@/components/ui/Field";
 import {
   INITIAL_PRODUCT_ACTION,
   type ProductActionResult,
@@ -41,12 +42,6 @@ function slugify(title: string): string {
     .replace(/^-+|-+$/g, "")
     .slice(0, 80);
 }
-
-const inputClass =
-  "mt-2 w-full border border-pearl/20 bg-transparent px-4 py-3 font-body text-sm text-pearl placeholder:text-pearl/25 focus:border-champagne focus:outline-none";
-
-const labelClass =
-  "font-body text-[10px] uppercase tracking-[0.25em] text-pearl/50";
 
 function Submit({ children, pendingLabel }: { children: string; pendingLabel: string }) {
   const { pending } = useFormStatus();
@@ -103,101 +98,57 @@ export function CreateProductForm() {
 
   return (
     <form action={action} className="space-y-6">
-      <div>
-        <label htmlFor="title" className={labelClass}>
-          Title
-        </label>
-        <input
-          id="title"
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Ankara Wrap Dress"
-          className={inputClass}
-        />
-      </div>
+      <Field
+        label="Title"
+        name="title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="Ankara Wrap Dress"
+      />
 
-      <div>
-        <label htmlFor="slug" className={labelClass}>
-          Web address
-        </label>
-        <input
-          id="slug"
-          name="slug"
-          value={effectiveSlug}
-          onChange={(e) => {
-            setSlugTouched(true);
-            setSlug(e.target.value);
-          }}
-          placeholder="ankara-wrap-dress"
-          className={`${inputClass} font-mono text-xs`}
-        />
-        <p className="mt-2 font-body text-[11px] text-pearl/35">
-          {effectiveSlug
+      <Field
+        label="Web address"
+        name="slug"
+        value={effectiveSlug}
+        onChange={(e) => {
+          setSlugTouched(true);
+          setSlug(e.target.value);
+        }}
+        placeholder="ankara-wrap-dress"
+        controlClassName="font-mono text-xs"
+        hint={
+          effectiveSlug
             ? `/product/${effectiveSlug}`
-            : "Filled in from the title."}
-        </p>
-      </div>
+            : "Filled in from the title."
+        }
+      />
 
-      <div>
-        <label htmlFor="sku_prefix" className={labelClass}>
-          SKU prefix
-        </label>
-        <input
-          id="sku_prefix"
-          name="sku_prefix"
-          placeholder="FFH-AWD"
-          className={`${inputClass} font-mono text-xs`}
-        />
-        <p className="mt-2 font-body text-[11px] text-pearl/35">
-          Three letters for this product. Every size and colour gets a SKU built
-          from it, and it cannot be changed later.
-        </p>
-      </div>
+      <Field
+        label="SKU prefix"
+        name="sku_prefix"
+        placeholder="FFH-AWD"
+        controlClassName="font-mono text-xs"
+        hint="Three letters for this product. Every size and colour gets a SKU built from it, and it cannot be changed later."
+      />
 
-      <div>
-        <label htmlFor="description" className={labelClass}>
-          Description
-        </label>
-        <textarea
-          id="description"
-          name="description"
-          rows={6}
-          placeholder="What it is, how it falls, what it is lined with."
-          className={inputClass}
-        />
-      </div>
+      <Field
+        as="textarea"
+        label="Description"
+        name="description"
+        rows={6}
+        placeholder="What it is, how it falls, what it is lined with."
+      />
 
       <div className="grid gap-6 sm:grid-cols-3">
-        <div>
-          <label htmlFor="fabric" className={labelClass}>
-            Fabric
-          </label>
-          <input id="fabric" name="fabric" className={inputClass} />
-        </div>
-        <div>
-          <label htmlFor="care" className={labelClass}>
-            Care
-          </label>
-          <input id="care" name="care" className={inputClass} />
-        </div>
-        <div>
-          <label htmlFor="fit_notes" className={labelClass}>
-            Fit
-          </label>
-          <input id="fit_notes" name="fit_notes" className={inputClass} />
-        </div>
+        <Field label="Fabric" name="fabric" />
+        <Field label="Care" name="care" />
+        <Field label="Fit" name="fit_notes" />
       </div>
 
-      <div>
-        <label htmlFor="status" className={labelClass}>
-          Visibility
-        </label>
-        <select id="status" name="status" defaultValue="draft" className={inputClass}>
-          <option value="draft">Draft — hidden from the shop</option>
-          <option value="active">Active — on sale</option>
-        </select>
-      </div>
+      <Field as="select" label="Visibility" name="status" defaultValue="draft">
+        <option value="draft">Draft — hidden from the shop</option>
+        <option value="active">Active — on sale</option>
+      </Field>
 
       <Feedback state={state} />
 
@@ -213,20 +164,12 @@ export function EditProductForm({ product }: { product: ProductFormValues }) {
     <form action={action} className="space-y-6">
       <input type="hidden" name="slug" value={product.slug} />
 
-      <div>
-        <label htmlFor="title" className={labelClass}>
-          Title
-        </label>
-        <input
-          id="title"
-          name="title"
-          defaultValue={product.title}
-          className={inputClass}
-        />
-      </div>
+      <Field label="Title" name="title" defaultValue={product.title} />
 
       <div>
-        <span className={labelClass}>Web address</span>
+        <span className="block font-body text-[11px] uppercase tracking-[0.2em] text-text-muted">
+          Web address
+        </span>
         <p className="mt-2 font-mono text-xs text-pearl/45">/product/{product.slug}</p>
         <p className="mt-2 font-body text-[11px] text-pearl/35">
           {product.skuPrefix ? (
@@ -240,58 +183,26 @@ export function EditProductForm({ product }: { product: ProductFormValues }) {
         </p>
       </div>
 
-      <div>
-        <label htmlFor="description" className={labelClass}>
-          Description
-        </label>
-        <textarea
-          id="description"
-          name="description"
-          rows={8}
-          defaultValue={product.description}
-          className={inputClass}
-        />
-        <p className="mt-2 font-body text-[11px] text-pearl/35">
-          Blank lines separate paragraphs.
-        </p>
-      </div>
+      <Field
+        as="textarea"
+        label="Description"
+        name="description"
+        rows={8}
+        defaultValue={product.description}
+        hint="Blank lines separate paragraphs."
+      />
 
       <div className="grid gap-6 sm:grid-cols-3">
-        <div>
-          <label htmlFor="fabric" className={labelClass}>
-            Fabric
-          </label>
-          <input id="fabric" name="fabric" defaultValue={product.fabric} className={inputClass} />
-        </div>
-        <div>
-          <label htmlFor="care" className={labelClass}>
-            Care
-          </label>
-          <input id="care" name="care" defaultValue={product.care} className={inputClass} />
-        </div>
-        <div>
-          <label htmlFor="fit_notes" className={labelClass}>
-            Fit
-          </label>
-          <input
-            id="fit_notes"
-            name="fit_notes"
-            defaultValue={product.fitNotes}
-            className={inputClass}
-          />
-        </div>
+        <Field label="Fabric" name="fabric" defaultValue={product.fabric} />
+        <Field label="Care" name="care" defaultValue={product.care} />
+        <Field label="Fit" name="fit_notes" defaultValue={product.fitNotes} />
       </div>
 
-      <div>
-        <label htmlFor="status" className={labelClass}>
-          Visibility
-        </label>
-        <select id="status" name="status" defaultValue={product.status} className={inputClass}>
-          <option value="draft">Draft — hidden from the shop</option>
-          <option value="active">Active — on sale</option>
-          <option value="archived">Archived — retired, keeps its history</option>
-        </select>
-      </div>
+      <Field as="select" label="Visibility" name="status" defaultValue={product.status}>
+        <option value="draft">Draft — hidden from the shop</option>
+        <option value="active">Active — on sale</option>
+        <option value="archived">Archived — retired, keeps its history</option>
+      </Field>
 
       <Feedback state={state} />
 
@@ -339,19 +250,14 @@ export function DeleteProductForm({ slug }: { slug: string }) {
         This removes the product, its sizes and its photos. Past orders keep
         their own copy of the name and price, so order history is unaffected.
       </p>
-      <div>
-        <label htmlFor="confirm" className={labelClass}>
-          Type <span className="font-mono text-pearl/70">{slug}</span> to confirm
-        </label>
-        <input
-          id="confirm"
-          name="confirm"
-          value={typed}
-          onChange={(e) => setTyped(e.target.value)}
-          autoComplete="off"
-          className={`${inputClass} font-mono text-xs`}
-        />
-      </div>
+      <Field
+        label={`Type ${slug} to confirm`}
+        name="confirm"
+        value={typed}
+        onChange={(e) => setTyped(e.target.value)}
+        autoComplete="off"
+        controlClassName="font-mono text-xs"
+      />
       <Feedback state={state} />
       <div className="flex flex-wrap gap-4">
         <button
