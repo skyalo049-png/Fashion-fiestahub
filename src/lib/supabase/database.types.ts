@@ -25,14 +25,14 @@ export type Database = {
           Tables: {
             "addresses": {
                   Row: {
-                    "area": string | null,"city": string | null,"county": string | null,"created_at": string,"customer_id": string,"id": string,"is_default": boolean,"label": string | null,"line1": string,"line2": string | null,"phone": string | null
+                    "area": string | null,"city": string | null,"county": string | null,"created_at": string,"customer_id": string,"id": string,"is_default": boolean,"label": string | null,"line1": string | null,"line2": string | null,"phone": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "area"?: string | null,"city"?: string | null,"county"?: string | null,"created_at"?: string,"customer_id": string,"id"?: string,"is_default"?: boolean,"label"?: string | null,"line1": string,"line2"?: string | null,"phone"?: string | null
+                    "area"?: string | null,"city"?: string | null,"county"?: string | null,"created_at"?: string,"customer_id": string,"id"?: string,"is_default"?: boolean,"label"?: string | null,"line1"?: string | null,"line2"?: string | null,"phone"?: string | null
                   }
                   Update: {
-                    "area"?: string | null,"city"?: string | null,"county"?: string | null,"created_at"?: string,"customer_id"?: string,"id"?: string,"is_default"?: boolean,"label"?: string | null,"line1"?: string,"line2"?: string | null,"phone"?: string | null
+                    "area"?: string | null,"city"?: string | null,"county"?: string | null,"created_at"?: string,"customer_id"?: string,"id"?: string,"is_default"?: boolean,"label"?: string | null,"line1"?: string | null,"line2"?: string | null,"phone"?: string | null
                   }
                   Relationships: [
                     {
@@ -197,14 +197,14 @@ isOneToOne: false
                   ]
                 },"orders": {
                   Row: {
-                    "address_id": string | null,"created_at": string,"customer_id": string,"delivery_fee_kes": number | null,"id": number,"notes": string | null,"order_number": string,"reservation_expires_at": string,"status": Database["public"]['Enums']["order_status"],"subtotal_kes": number,"total_kes": number | null,"updated_at": string
+                    "address_id": string | null,"created_at": string,"customer_id": string,"delivery_fee_kes": number | null,"id": number,"mpesa_code": string | null,"notes": string | null,"order_number": string,"payment_phone": string | null,"payment_submitted_at": string | null,"payment_verified_at": string | null,"payment_verified_by": string | null,"reservation_expires_at": string,"status": Database["public"]['Enums']["order_status"],"subtotal_kes": number,"total_kes": number | null,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "address_id"?: string | null,"created_at"?: string,"customer_id": string,"delivery_fee_kes"?: number | null,"id"?: number,"notes"?: string | null,"order_number": string,"reservation_expires_at": string,"status"?: Database["public"]['Enums']["order_status"],"subtotal_kes"?: number,"total_kes"?: number | null,"updated_at"?: string
+                    "address_id"?: string | null,"created_at"?: string,"customer_id": string,"delivery_fee_kes"?: number | null,"id"?: number,"mpesa_code"?: string | null,"notes"?: string | null,"order_number": string,"payment_phone"?: string | null,"payment_submitted_at"?: string | null,"payment_verified_at"?: string | null,"payment_verified_by"?: string | null,"reservation_expires_at": string,"status"?: Database["public"]['Enums']["order_status"],"subtotal_kes"?: number,"total_kes"?: number | null,"updated_at"?: string
                   }
                   Update: {
-                    "address_id"?: string | null,"created_at"?: string,"customer_id"?: string,"delivery_fee_kes"?: number | null,"id"?: number,"notes"?: string | null,"order_number"?: string,"reservation_expires_at"?: string,"status"?: Database["public"]['Enums']["order_status"],"subtotal_kes"?: number,"total_kes"?: number | null,"updated_at"?: string
+                    "address_id"?: string | null,"created_at"?: string,"customer_id"?: string,"delivery_fee_kes"?: number | null,"id"?: number,"mpesa_code"?: string | null,"notes"?: string | null,"order_number"?: string,"payment_phone"?: string | null,"payment_submitted_at"?: string | null,"payment_verified_at"?: string | null,"payment_verified_by"?: string | null,"reservation_expires_at"?: string,"status"?: Database["public"]['Enums']["order_status"],"subtotal_kes"?: number,"total_kes"?: number | null,"updated_at"?: string
                   }
                   Relationships: [
                     {
@@ -275,14 +275,14 @@ isOneToOne: false
                   ]
                 },"products": {
                   Row: {
-                    "created_at": string,"description": string | null,"id": string,"slug": string,"status": Database["public"]['Enums']["product_status"],"title": string,"updated_at": string
+                    "care": string | null,"created_at": string,"description": string | null,"fabric": string | null,"fit_notes": string | null,"id": string,"size_chart": Json | null,"sku_prefix": string | null,"slug": string,"status": Database["public"]['Enums']["product_status"],"title": string,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "created_at"?: string,"description"?: string | null,"id"?: string,"slug": string,"status"?: Database["public"]['Enums']["product_status"],"title": string,"updated_at"?: string
+                    "care"?: string | null,"created_at"?: string,"description"?: string | null,"fabric"?: string | null,"fit_notes"?: string | null,"id"?: string,"size_chart"?: Json | null,"sku_prefix"?: string | null,"slug": string,"status"?: Database["public"]['Enums']["product_status"],"title": string,"updated_at"?: string
                   }
                   Update: {
-                    "created_at"?: string,"description"?: string | null,"id"?: string,"slug"?: string,"status"?: Database["public"]['Enums']["product_status"],"title"?: string,"updated_at"?: string
+                    "care"?: string | null,"created_at"?: string,"description"?: string | null,"fabric"?: string | null,"fit_notes"?: string | null,"id"?: string,"size_chart"?: Json | null,"sku_prefix"?: string | null,"slug"?: string,"status"?: Database["public"]['Enums']["product_status"],"title"?: string,"updated_at"?: string
                   }
                   Relationships: [
                     
@@ -321,7 +321,13 @@ isOneToOne: false
                 }
           }
           Functions: {
-            "create_order":
+            "admin_list_orders":
+{ Args: { "p_limit"?: number,"p_offset"?: number,"p_status"?: string }; Returns: Json
+                           },
+"admin_order_detail":
+{ Args: { "p_order_number": string }; Returns: Json
+                           },
+"create_order":
 { Args: { "p_address": Json,"p_email": string,"p_full_name": string,"p_items": Json,"p_notes"?: string,"p_phone": string }; Returns: Json
                            },
 "expire_stale_reservations":
@@ -335,10 +341,37 @@ isOneToOne: false
                            },
 "normalize_phone":
 { Args: { "raw": string }; Returns: string
+                           },
+"purge_lookup_attempts":
+{ Args: Record<PropertyKey, never>; Returns: number
+                           },
+"quote_delivery":
+{ Args: { "p_fee_kes": number,"p_note"?: string,"p_order_number": string }; Returns: Json
+                           },
+"save_product_variants":
+{ Args: { "p_cells": Json,"p_default_price": number,"p_note"?: string,"p_product_id": string }; Returns: Json
+                           },
+"set_order_status":
+{ Args: { "p_note"?: string,"p_order_number": string,"p_status": string }; Returns: Json
+                           },
+"set_variant_stock":
+{ Args: { "p_note"?: string,"p_reason"?: string,"p_stock_qty": number,"p_variant_id": string }; Returns: Json
+                           },
+"sku_code":
+{ Args: { "p_fallback"?: string,"p_text": string }; Returns: string
+                           },
+"submit_payment_proof":
+{ Args: { "p_mpesa_code": string,"p_order_number": string,"p_payment_phone"?: string,"p_phone": string }; Returns: Json
+                           },
+"verify_payment":
+{ Args: { "p_approve": boolean,"p_order_number": string,"p_reason"?: string }; Returns: Json
+                           },
+"whoami":
+{ Args: Record<PropertyKey, never>; Returns: Json
                            }
           }
           Enums: {
-            "event_actor": "customer"|"staff"|"system","movement_reason": "reserve"|"release"|"sale"|"adjustment"|"restock","order_status": "awaiting_delivery_quote"|"awaiting_payment"|"paid"|"processing"|"shipped"|"delivered"|"cancelled","product_status": "draft"|"active"|"archived"
+            "event_actor": "customer"|"staff"|"system","movement_reason": "reserve"|"release"|"sale"|"adjustment"|"restock","order_status": "awaiting_delivery_quote"|"awaiting_payment"|"awaiting_payment_verification"|"paid"|"processing"|"shipped"|"delivered"|"cancelled","product_status": "draft"|"active"|"archived"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -458,7 +491,7 @@ export const Constants = {
           }
         },"public": {
           Enums: {
-            "event_actor": ["customer", "staff", "system"],"movement_reason": ["reserve", "release", "sale", "adjustment", "restock"],"order_status": ["awaiting_delivery_quote", "awaiting_payment", "paid", "processing", "shipped", "delivered", "cancelled"],"product_status": ["draft", "active", "archived"]
+            "event_actor": ["customer", "staff", "system"],"movement_reason": ["reserve", "release", "sale", "adjustment", "restock"],"order_status": ["awaiting_delivery_quote", "awaiting_payment", "awaiting_payment_verification", "paid", "processing", "shipped", "delivered", "cancelled"],"product_status": ["draft", "active", "archived"]
           }
         }
 } as const
