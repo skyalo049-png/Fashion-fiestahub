@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lora, Outfit } from "next/font/google";
 
 import CartDrawer from "@/components/CartDrawer";
+import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import { site, absoluteUrl } from "@/lib/site";
 
@@ -76,6 +77,7 @@ export default function RootLayout({
       <body className={`${lora.variable} ${outfit.variable} antialiased`}>
         <SiteHeader />
         {children}
+        <SiteFooter />
         <CartDrawer />
       </body>
     </html>
