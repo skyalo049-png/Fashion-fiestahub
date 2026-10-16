@@ -124,10 +124,15 @@ html {
   scroll-behavior: smooth;
 }
 
+/*
+ * Body sits outside any [data-theme] wrapper, so it reads the :root defaults —
+ * which are the brand scope. The same two names resolve to the light ground
+ * inside a commerce subtree.
+ */
 body {
   font-family: var(--font-body);
-  background-color: var(--color-obsidian);
-  color: var(--color-pearl);
+  background-color: var(--surface-base);
+  color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
 }
 
