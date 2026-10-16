@@ -9,6 +9,8 @@ import {
   type OrderStatus,
   type ProofState,
 } from "@/app/order/actions";
+import Button, { buttonClass } from "@/components/ui/Button";
+import Field from "@/components/ui/Field";
 import { formatKes } from "@/lib/format";
 import { formatKePhone, payments, whatsappLink } from "@/lib/site";
 
@@ -125,7 +127,7 @@ export default function OrderStatusView(props: Props) {
               href={wa}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-block bg-champagne px-6 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light"
+              className={buttonClass("primary", "md", "mt-6")}
             >
               Message us on WhatsApp
             </a>
@@ -225,7 +227,7 @@ export default function OrderStatusView(props: Props) {
 
         <Link
           href="/"
-          className="block border border-pearl/15 px-5 py-3 text-center font-body text-[11px] uppercase tracking-[0.25em] text-pearl/60 transition-colors hover:border-champagne/40 hover:text-champagne"
+          className={buttonClass("secondary", "md")}
         >
           Continue shopping
         </Link>
@@ -367,41 +369,24 @@ function PayPanel({
         <input type="hidden" name="order_number" value={orderNumber} />
         <input type="hidden" name="phone" value={phone} />
 
-        <div>
-          <label
-            htmlFor="mpesa_code"
-            className="block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-          >
-            M-Pesa confirmation code
-          </label>
-          <input
-            id="mpesa_code"
-            name="mpesa_code"
-            required
-            autoComplete="off"
-            autoCapitalize="characters"
-            spellCheck={false}
-            placeholder="SJL4K2M9QP"
-            className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-base uppercase tracking-[0.15em] text-pearl outline-none transition-colors placeholder:tracking-normal placeholder:text-pearl/25 focus:border-champagne"
-          />
-        </div>
+        <Field
+          label="M-Pesa confirmation code"
+          name="mpesa_code"
+          required
+          autoComplete="off"
+          autoCapitalize="characters"
+          spellCheck={false}
+          placeholder="SJL4K2M9QP"
+          controlClassName="text-base uppercase tracking-[0.15em] placeholder:tracking-normal"
+        />
 
-        <div>
-          <label
-            htmlFor="payment_phone"
-            className="block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-          >
-            Number you paid from
-          </label>
-          <input
-            id="payment_phone"
-            name="payment_phone"
-            type="tel"
-            inputMode="tel"
-            placeholder="Only if it is different from above"
-            className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-sm text-pearl outline-none transition-colors placeholder:text-pearl/25 focus:border-champagne"
-          />
-        </div>
+        <Field
+          label="Number you paid from"
+          name="payment_phone"
+          type="tel"
+          inputMode="tel"
+          placeholder="Only if it is different from above"
+        />
 
         {state.status === "error" && (
           <p
@@ -421,13 +406,14 @@ function PayPanel({
           </p>
         )}
 
-        <button
+        <Button
           type="submit"
+          size="lg"
           disabled={pending || state.status === "ok"}
-          className="block w-full bg-champagne px-6 py-3.5 font-body text-xs uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light disabled:cursor-wait disabled:opacity-60"
+          className="w-full disabled:cursor-wait"
         >
           {pending ? "Sending…" : "I have paid"}
-        </button>
+        </Button>
 
         <p className="font-body text-[11px] font-light leading-relaxed text-pearl/40">
           We check every code against our M-Pesa statement by hand before your

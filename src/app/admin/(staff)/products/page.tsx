@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { buttonClass } from "@/components/ui/Button";
 import { listProducts } from "@/lib/admin-products";
 import { formatKes } from "@/lib/format";
 
@@ -46,7 +47,7 @@ export default async function ProductsPage() {
 
         <Link
           href="/admin/products/new"
-          className="border border-champagne bg-champagne px-5 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light"
+          className={buttonClass("primary")}
         >
           New product
         </Link>
@@ -61,7 +62,7 @@ export default async function ProductsPage() {
           </p>
           <Link
             href="/admin/products/new"
-            className="mt-6 inline-block border border-champagne/60 px-5 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-champagne transition-colors hover:bg-champagne/10"
+            className={buttonClass("outline", "md", "mt-6")}
           >
             New product
           </Link>

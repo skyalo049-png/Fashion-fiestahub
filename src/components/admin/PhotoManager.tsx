@@ -12,6 +12,7 @@ import {
   type ProductActionResult,
 } from "@/lib/action-state";
 import type { AdminProductImage } from "@/lib/admin-products";
+import Button, { IconButton } from "@/components/ui/Button";
 import Field, { LABEL } from "@/components/ui/Field";
 
 /**
@@ -31,13 +32,9 @@ import Field, { LABEL } from "@/components/ui/Field";
 function Submit({ children, pendingLabel }: { children: string; pendingLabel: string }) {
   const { pending } = useFormStatus();
   return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="border border-champagne bg-champagne px-5 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light disabled:opacity-60"
-    >
+    <Button type="submit" disabled={pending}>
       {pending ? pendingLabel : children}
-    </button>
+    </Button>
   );
 }
 
@@ -118,14 +115,14 @@ function DeleteButton({ imageId, slug, url }: { imageId: string; slug: string; u
 function RemoveButton() {
   const { pending } = useFormStatus();
   return (
-    <button
+    <IconButton
       type="submit"
       disabled={pending}
       aria-label="Remove this photo"
-      className="flex h-8 w-8 items-center justify-center border border-pearl/30 bg-obsidian/80 font-body text-sm text-pearl/70 transition-colors hover:border-red-400/60 hover:text-red-300 disabled:opacity-50"
+      className="border border-pearl/30 bg-obsidian/80 text-sm text-pearl/70 hover:border-red-400/60 hover:text-red-300"
     >
       {pending ? "…" : "×"}
-    </button>
+    </IconButton>
   );
 }
 

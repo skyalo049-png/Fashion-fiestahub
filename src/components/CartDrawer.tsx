@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
+import { buttonClass } from "@/components/ui/Button";
 import { cartSubtotal, useCart } from "@/lib/cart";
 import { formatKes } from "@/lib/format";
 
@@ -186,7 +187,7 @@ export default function CartDrawer() {
               <Link
                 href="/checkout"
                 onClick={close}
-                className="mt-5 block w-full bg-champagne px-6 py-3.5 text-center font-body text-xs uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light"
+                className={buttonClass("primary", "lg", "mt-5 w-full")}
               >
                 Checkout
               </Link>

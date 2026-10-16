@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { buttonClass } from "@/components/ui/Button";
 import { getInventory, type InventoryRow } from "@/lib/admin-inventory";
 import { formatKes } from "@/lib/format";
 
@@ -109,7 +110,7 @@ export default async function InventoryPage() {
           </p>
           <Link
             href="/admin/products"
-            className="mt-6 inline-block border border-champagne/60 px-5 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-champagne transition-colors hover:bg-champagne/10"
+            className={buttonClass("outline", "md", "mt-6")}
           >
             Go to products
           </Link>

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import OrderStatusView from "@/components/OrderStatus";
+import Button, { buttonClass } from "@/components/ui/Button";
+import Field from "@/components/ui/Field";
 import { isPayable, lookupOrder, recallOrderPhone } from "@/lib/orders";
 import { site } from "@/lib/site";
 
@@ -64,30 +66,18 @@ export default async function OrderPage({ params, searchParams }: PageProps) {
         </p>
 
         <form method="get" className="mt-8 space-y-4">
-          <div>
-            <label
-              htmlFor="phone"
-              className="block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-            >
-              Phone number
-            </label>
-            <input
-              id="phone"
-              name="phone"
-              type="tel"
-              inputMode="tel"
-              required
-              autoComplete="tel"
-              placeholder="07XX XXX XXX"
-              className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-sm text-pearl outline-none transition-colors placeholder:text-pearl/25 focus:border-champagne"
-            />
-          </div>
-          <button
-            type="submit"
-            className="block w-full bg-champagne px-6 py-3.5 font-body text-xs uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light"
-          >
+          <Field
+            label="Phone number"
+            name="phone"
+            type="tel"
+            inputMode="tel"
+            required
+            autoComplete="tel"
+            placeholder="07XX XXX XXX"
+          />
+          <Button type="submit" size="lg" className="w-full">
             View order
-          </button>
+          </Button>
         </form>
 
         <p className="mt-6 font-body text-[11px] font-light leading-relaxed text-pearl/35">
@@ -170,7 +160,7 @@ function Message({ title, body }: { title: string; body: string }) {
       </p>
       <Link
         href="/"
-        className="mt-8 inline-block border border-pearl/15 px-6 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-pearl/60 transition-colors hover:border-champagne/40 hover:text-champagne"
+        className={buttonClass("secondary", "md", "mt-8")}
       >
         Back to the shop
       </Link>

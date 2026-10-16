@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+import Button, { buttonClass } from "@/components/ui/Button";
 import { useCart } from "@/lib/cart";
 import type { Product } from "@/lib/catalogue";
 import { formatKes } from "@/lib/format";
@@ -157,21 +158,17 @@ export default function ProductCard({ product }: { product: Product }) {
             line regardless of how long the title or description ran. */}
         <div className="mt-auto pt-4">
           {soldOut ? (
-            <span className="block w-full border border-pearl/10 px-5 py-3 text-center font-body text-[11px] uppercase tracking-[0.25em] text-pearl/30">
+            <span className={buttonClass("secondary", "md", "w-full opacity-60")}>
               Sold out
             </span>
           ) : singleVariant ? (
-            <button
-              type="button"
-              onClick={addSingle}
-              className="block w-full bg-champagne px-5 py-3 text-center font-body text-[11px] uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light"
-            >
+            <Button onClick={addSingle} className="w-full">
               Add to bag
-            </button>
+            </Button>
           ) : (
             <Link
               href={`/product/${product.slug}`}
-              className="block w-full border border-champagne/40 px-5 py-3 text-center font-body text-[11px] uppercase tracking-[0.25em] text-champagne transition-colors hover:bg-champagne hover:text-obsidian"
+              className={buttonClass("outline", "md", "w-full")}
             >
               Select size
             </Link>

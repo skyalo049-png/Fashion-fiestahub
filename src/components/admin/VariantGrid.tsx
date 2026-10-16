@@ -10,6 +10,7 @@ import {
 } from "@/lib/action-state";
 import type { AdminVariant } from "@/lib/admin-products";
 import { CONTROL_BASE } from "@/components/ui/Field";
+import Button from "@/components/ui/Button";
 
 /**
  * The colour x size grid.
@@ -87,13 +88,9 @@ function seed(variants: AdminVariant[]): Record<string, Cell> {
 
 function Submit({ pending }: { pending: boolean }) {
   return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="border border-champagne bg-champagne px-5 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light disabled:opacity-60"
-    >
+    <Button type="submit" disabled={pending}>
       {pending ? "Saving…" : "Save the grid"}
-    </button>
+    </Button>
   );
 }
 
@@ -240,13 +237,13 @@ export function VariantGrid({
           combination does not exist. Clearing a cell to blank retires it —
           past orders keep their own copy of the name and price.
         </p>
-        <button
-          type="button"
+        <Button
+          variant="ghost"
           onClick={useDefaultEverywhere}
-          className="font-body text-[11px] uppercase tracking-[0.25em] text-pearl/40 underline underline-offset-4 transition-colors hover:text-pearl"
+          className="underline underline-offset-4"
         >
           Use the default price in every cell
-        </button>
+        </Button>
       </div>
 
       <div className="overflow-x-auto border border-pearl/10">
@@ -265,14 +262,15 @@ export function VariantGrid({
                     {label(color)}
                   </span>
                   {colors.length > 1 ? (
-                    <button
-                      type="button"
+                    <Button
+                      variant="ghost"
+                      size="sm"
                       onClick={() => removeColor(color)}
                       aria-label={`Remove colour ${label(color)}`}
-                      className="ml-3 font-body text-[10px] text-pearl/30 transition-colors hover:text-red-300"
+                      className="ml-2 px-2 hover:text-red-300"
                     >
                       ×
-                    </button>
+                    </Button>
                   ) : null}
                 </th>
               ))}
@@ -289,14 +287,15 @@ export function VariantGrid({
                     {label(size)}
                   </span>
                   {sizes.length > 1 ? (
-                    <button
-                      type="button"
+                    <Button
+                      variant="ghost"
+                      size="sm"
                       onClick={() => removeSize(size)}
                       aria-label={`Remove size ${label(size)}`}
-                      className="ml-3 font-body text-[10px] text-pearl/30 transition-colors hover:text-red-300"
+                      className="ml-2 px-2 hover:text-red-300"
                     >
                       ×
-                    </button>
+                    </Button>
                   ) : null}
                 </th>
 
@@ -376,13 +375,9 @@ export function VariantGrid({
               placeholder="XL"
               className={`${CONTROL_BASE} w-28 uppercase`}
             />
-            <button
-              type="button"
-              onClick={addSize}
-              className="border border-pearl/20 px-4 py-2 font-body text-[11px] uppercase tracking-[0.2em] text-pearl/60 transition-colors hover:border-pearl/40 hover:text-pearl"
-            >
+            <Button variant="secondary" size="sm" onClick={addSize}>
               Add
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -407,13 +402,9 @@ export function VariantGrid({
               placeholder="Indigo"
               className={`${CONTROL_BASE} w-40`}
             />
-            <button
-              type="button"
-              onClick={addColor}
-              className="border border-pearl/20 px-4 py-2 font-body text-[11px] uppercase tracking-[0.2em] text-pearl/60 transition-colors hover:border-pearl/40 hover:text-pearl"
-            >
+            <Button variant="secondary" size="sm" onClick={addColor}>
               Add
-            </button>
+            </Button>
           </div>
         </div>
       </div>

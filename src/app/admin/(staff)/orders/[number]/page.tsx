@@ -6,6 +6,7 @@ import {
   QuoteDeliveryForm,
   VerifyPaymentForm,
 } from "@/components/admin/OrderActions";
+import { buttonClass } from "@/components/ui/Button";
 import { ORDER_STATUS_LABEL, STATUS_TONE } from "@/lib/admin";
 import { getOrderDetail } from "@/lib/admin-orders";
 import { formatKes, formatWhen } from "@/lib/format";
@@ -186,7 +187,7 @@ export default async function OrderDetailPage({
                   href={whatsapp}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-block border border-champagne/50 px-4 py-2 font-body text-[11px] uppercase tracking-[0.2em] text-champagne transition-colors hover:bg-champagne/10"
+                  className={buttonClass("outline", "sm")}
                 >
                   Message on WhatsApp
                 </a>

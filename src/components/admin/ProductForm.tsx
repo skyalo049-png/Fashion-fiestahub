@@ -9,6 +9,7 @@ import {
   deleteProduct,
   updateProduct,
 } from "@/app/admin/product-actions";
+import Button from "@/components/ui/Button";
 import Field from "@/components/ui/Field";
 import {
   INITIAL_PRODUCT_ACTION,
@@ -46,13 +47,9 @@ function slugify(title: string): string {
 function Submit({ children, pendingLabel }: { children: string; pendingLabel: string }) {
   const { pending } = useFormStatus();
   return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="w-full border border-champagne bg-champagne px-5 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light disabled:opacity-60 sm:w-auto"
-    >
+    <Button type="submit" disabled={pending} className="w-full sm:w-auto">
       {pending ? pendingLabel : children}
-    </button>
+    </Button>
   );
 }
 
@@ -233,13 +230,9 @@ export function DeleteProductForm({ slug }: { slug: string }) {
 
   if (!open) {
     return (
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="font-body text-[11px] uppercase tracking-[0.25em] text-red-300/60 underline underline-offset-4 transition-colors hover:text-red-300"
-      >
+      <Button variant="dangerGhost" onClick={() => setOpen(true)}>
         Delete this product
-      </button>
+      </Button>
     );
   }
 
@@ -260,20 +253,12 @@ export function DeleteProductForm({ slug }: { slug: string }) {
       />
       <Feedback state={state} />
       <div className="flex flex-wrap gap-4">
-        <button
-          type="submit"
-          disabled={typed !== slug}
-          className="border border-red-400/50 px-5 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-red-200/90 transition-colors hover:bg-red-400/10 disabled:opacity-40"
-        >
+        <Button type="submit" variant="danger" disabled={typed !== slug}>
           Delete permanently
-        </button>
-        <button
-          type="button"
-          onClick={() => setOpen(false)}
-          className="font-body text-[11px] uppercase tracking-[0.25em] text-pearl/40 transition-colors hover:text-pearl"
-        >
+        </Button>
+        <Button variant="ghost" onClick={() => setOpen(false)}>
           Cancel
-        </button>
+        </Button>
       </div>
     </form>
   );

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import { cartCount, useCart } from "@/lib/cart";
 import { site } from "@/lib/site";
+import Button from "@/components/ui/Button";
 
 /**
  * Header with the bag button.
@@ -36,15 +37,16 @@ export default function SiteHeader() {
           </span>
         </Link>
 
-        <button
-          type="button"
+        <Button
+          variant="secondary"
+          size="sm"
           onClick={open}
           aria-label={`Open bag, ${count} ${count === 1 ? "item" : "items"}`}
-          className="relative flex items-center gap-2 border border-pearl/15 px-3.5 py-2 font-body text-[11px] uppercase tracking-[0.2em] text-pearl/75 transition-colors hover:border-champagne/50 hover:text-champagne"
+          className="gap-2"
         >
           Bag
-          <span className="tabular-nums text-champagne">{count}</span>
-        </button>
+          <span className="tabular-nums text-accent">{count}</span>
+        </Button>
       </div>
     </header>
   );

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import Button from "@/components/ui/Button";
 import { useCart } from "@/lib/cart";
 import type { Product, SizeChartRow, Variant } from "@/lib/catalogue";
 import { formatKes } from "@/lib/format";
@@ -238,22 +239,19 @@ export default function ProductDetail({ product }: { product: Product }) {
 
           {/* Desktop CTA. The mobile equivalent is the sticky bar below. */}
           <div className="mt-9 hidden lg:block">
-            <button
-              type="button"
+            <Button
               onClick={addToBag}
               disabled={!selectedAvailable}
-              className={`w-full px-8 py-4 font-body text-xs uppercase tracking-[0.3em] transition-colors ${
-                selectedAvailable
-                  ? "bg-champagne text-obsidian hover:bg-champagne-light"
-                  : "cursor-not-allowed border border-pearl/10 text-pearl/30"
-              }`}
+              size="lg"
+              variant={selectedAvailable ? "primary" : "secondary"}
+              className="w-full tracking-[0.3em]"
             >
               {selectedAvailable
                 ? "Add to bag"
                 : soldOut
                   ? "Sold out"
                   : "Select an available size"}
-            </button>
+            </Button>
 
             <p className="mt-3 font-body text-[11px] font-light text-pearl/40">
               Delivery is quoted per order — we confirm it on WhatsApp before
@@ -285,18 +283,14 @@ export default function ProductDetail({ product }: { product: Product }) {
             </p>
           </div>
 
-          <button
-            type="button"
+          <Button
             onClick={addToBag}
             disabled={!selectedAvailable}
-            className={`shrink-0 px-6 py-3 font-body text-[11px] uppercase tracking-[0.25em] transition-colors ${
-              selectedAvailable
-                ? "bg-champagne text-obsidian active:bg-champagne-light"
-                : "cursor-not-allowed border border-pearl/10 text-pearl/30"
-            }`}
+            variant={selectedAvailable ? "primary" : "secondary"}
+            className="shrink-0"
           >
             {selectedAvailable ? "Add to bag" : "Sold out"}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

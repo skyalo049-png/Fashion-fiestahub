@@ -9,6 +9,8 @@ import {
   verifyPayment,
 } from "@/app/admin/order-actions";
 import { INITIAL_ACTION, type ActionResult } from "@/lib/action-state";
+import Button from "@/components/ui/Button";
+import Field from "@/components/ui/Field";
 
 /**
  * The three staff actions on an order, each rendered only when it is legal for
@@ -30,21 +32,16 @@ function Submit({
   tone?: "primary" | "danger";
 }) {
   const { pending } = useFormStatus();
-  const classes =
-    tone === "danger"
-      ? "border-red-400/40 text-red-300/90 hover:bg-red-400/10"
-      : "bg-champagne text-obsidian hover:bg-champagne-light";
 
   return (
-    <button
+    <Button
       type="submit"
+      variant={tone === "danger" ? "danger" : "primary"}
       disabled={pending}
-      className={`w-full border px-5 py-3 font-body text-[11px] uppercase tracking-[0.25em] transition-colors disabled:opacity-60 ${
-        tone === "danger" ? classes : `border-transparent ${classes}`
-      }`}
+      className="w-full"
     >
       {pending ? pendingLabel : children}
-    </button>
+    </Button>
   );
 }
 
@@ -99,14 +96,8 @@ export function QuoteDeliveryForm({
       <form action={action}>
         <input type="hidden" name="order_number" value={orderNumber} />
 
-        <label
-          htmlFor="fee_kes"
-          className="block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-        >
-          Delivery fee (KSh)
-        </label>
-        <input
-          id="fee_kes"
+        <Field
+          label="Delivery fee (KSh)"
           name="fee_kes"
           type="number"
           min={0}
@@ -114,21 +105,15 @@ export function QuoteDeliveryForm({
           inputMode="numeric"
           required
           defaultValue={currentFee ?? ""}
-          className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-sm text-pearl outline-none transition-colors focus:border-champagne"
         />
 
-        <label
-          htmlFor="quote_note"
-          className="mt-4 block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-        >
-          Note to customer (optional)
-        </label>
-        <textarea
-          id="quote_note"
+        <Field
+          label="Note to customer (optional)"
           name="note"
+          as="textarea"
           rows={2}
           placeholder="e.g. 350 to Nakuru, sent by Easy Coach tomorrow"
-          className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-sm text-pearl outline-none transition-colors placeholder:text-pearl/25 focus:border-champagne"
+          className="mt-4"
         />
 
         <div className="mt-5">
@@ -184,35 +169,18 @@ export function VerifyPaymentForm({
       <form action={action}>
         <input type="hidden" name="order_number" value={orderNumber} />
 
-        <label
-          htmlFor="verify_reason"
-          className="block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-        >
-          Reason (optional, shown to customer)
-        </label>
-        <input
-          id="verify_reason"
+        <Field
+          label="Reason (optional, shown to customer)"
           name="reason"
-          className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-sm text-pearl outline-none transition-colors focus:border-champagne"
         />
 
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
-          <button
-            type="submit"
-            name="approve"
-            value="true"
-            className="border border-transparent bg-champagne px-5 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light"
-          >
+          <Button type="submit" name="approve" value="true">
             Approve payment
-          </button>
-          <button
-            type="submit"
-            name="approve"
-            value="false"
-            className="border border-red-400/40 px-5 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-red-300/90 transition-colors hover:bg-red-400/10"
-          >
+          </Button>
+          <Button type="submit" name="approve" value="false" variant="danger">
             Reject
-          </button>
+          </Button>
         </div>
         <Feedback state={state} />
       </form>
@@ -258,36 +226,24 @@ export function AdvanceStatusForm({
       <form action={action}>
         <input type="hidden" name="order_number" value={orderNumber} />
 
-        <label
-          htmlFor="next_status"
-          className="block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-        >
-          Move to
-        </label>
-        <select
-          id="next_status"
+        <Field
+          label="Move to"
           name="status"
+          as="select"
           defaultValue={options[0]}
-          className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-sm text-pearl outline-none transition-colors focus:border-champagne"
         >
           {options.map((s) => (
             <option key={s} value={s}>
               {s.replaceAll("_", " ")}
             </option>
           ))}
-        </select>
+        </Field>
 
-        <label
-          htmlFor="status_note"
-          className="mt-4 block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-        >
-          Note (optional, shown to customer)
-        </label>
-        <input
-          id="status_note"
+        <Field
+          label="Note (optional, shown to customer)"
           name="note"
           placeholder="e.g. handed to the courier"
-          className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-sm text-pearl outline-none transition-colors placeholder:text-pearl/25 focus:border-champagne"
+          className="mt-4"
         />
 
         <div className="mt-5">

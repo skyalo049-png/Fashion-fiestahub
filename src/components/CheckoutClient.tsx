@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useMemo, useRef, useState } from "react";
 
 import { placeOrder, type CheckoutState } from "@/app/checkout/actions";
+import Button, { buttonClass } from "@/components/ui/Button";
 import Field from "@/components/ui/Field";
 import { cartSubtotal, useCart } from "@/lib/cart";
 import { formatKes } from "@/lib/format";
@@ -102,7 +103,7 @@ export default function CheckoutClient() {
         </p>
         <Link
           href="/"
-          className="mt-7 inline-block border border-champagne/40 px-7 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-champagne transition-colors hover:bg-champagne hover:text-obsidian"
+          className={buttonClass("outline", "md", "mt-7")}
         >
           Browse the collection
         </Link>
@@ -158,21 +159,13 @@ export default function CheckoutClient() {
               <option key={town} value={town} />
             ))}
           </datalist>
-          <div>
-            <label
-              htmlFor="notes"
-              className="block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-            >
-              Delivery notes
-            </label>
-            <textarea
-              id="notes"
-              name="notes"
-              rows={3}
-              className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-sm text-pearl outline-none transition-colors placeholder:text-pearl/25 focus:border-champagne"
-              placeholder="Estate, gate code, a landmark, the best time to call…"
-            />
-          </div>
+          <Field
+            label="Delivery notes"
+            name="notes"
+            as="textarea"
+            rows={3}
+            placeholder="Estate, gate code, a landmark, the best time to call…"
+          />
         </Section>
       </div>
 
@@ -252,15 +245,16 @@ export default function CheckoutClient() {
           </p>
         )}
 
-        <button
+        <Button
           type="submit"
+          size="lg"
           disabled={pending || state.status === "done"}
-          className="mt-5 block w-full bg-champagne px-6 py-4 font-body text-xs uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light disabled:cursor-wait disabled:opacity-60"
+          className="mt-5 w-full disabled:cursor-wait"
         >
           {pending || state.status === "done"
             ? "Placing your order…"
             : "Place order"}
-        </button>
+        </Button>
 
         <p className="mt-3 text-center font-body text-[11px] font-light text-pearl/35">
           You will get an order number immediately. Nothing is charged yet.

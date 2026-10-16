@@ -4,19 +4,16 @@ import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 
 import { signIn } from "@/app/admin/auth-actions";
+import Button from "@/components/ui/Button";
 import Field from "@/components/ui/Field";
 import { INITIAL_LOGIN, type LoginState } from "@/lib/action-state";
 
 function Submit() {
   const { pending } = useFormStatus();
   return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="mt-6 w-full bg-champagne px-6 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light disabled:opacity-60"
-    >
+    <Button type="submit" disabled={pending} className="mt-6 w-full">
       {pending ? "Signing in…" : "Sign in"}
-    </button>
+    </Button>
   );
 }
 
