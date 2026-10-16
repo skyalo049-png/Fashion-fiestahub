@@ -79,13 +79,10 @@ export const ORDER_STATUS_LABEL: Record<string, string> = {
   cancelled: "Cancelled",
 };
 
-export const STATUS_TONE: Record<string, string> = {
-  awaiting_delivery_quote: "text-champagne border-champagne/40",
-  awaiting_payment_verification: "text-champagne border-champagne/40",
-  awaiting_payment: "text-pearl/70 border-pearl/20",
-  paid: "text-emerald-300 border-emerald-400/40",
-  processing: "text-pearl/70 border-pearl/20",
-  shipped: "text-pearl/70 border-pearl/20",
-  delivered: "text-pearl/50 border-pearl/15",
-  cancelled: "text-red-300/80 border-red-400/30",
-};
+/**
+ * Re-exported, not defined here. This module is `server-only` and the customer
+ * status screen is a client component, so the map has to live somewhere both
+ * can reach — otherwise the two screens drift apart again, which is exactly
+ * what happened when it was written twice.
+ */
+export { ORDER_STATUS_TONE as STATUS_TONE } from "@/lib/order-status";

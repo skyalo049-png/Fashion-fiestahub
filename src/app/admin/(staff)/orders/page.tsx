@@ -1,8 +1,10 @@
 import Link from "next/link";
 
-import { ORDER_STATUS_LABEL, STATUS_TONE } from "@/lib/admin";
+import Badge from "@/components/ui/Badge";
+import { ORDER_STATUS_LABEL } from "@/lib/admin";
 import { listOrders } from "@/lib/admin-orders";
 import { formatKes, formatWhen } from "@/lib/format";
+import { ORDER_STATUS_TONE } from "@/lib/order-status";
 
 export const metadata = { title: "Orders" };
 
@@ -123,14 +125,9 @@ export default async function OrdersPage({
                     <span className="font-mono text-sm text-pearl">
                       {order.orderNumber}
                     </span>
-                    <span
-                      className={[
-                        "border px-2 py-0.5 font-body text-[10px] uppercase tracking-[0.2em]",
-                        STATUS_TONE[order.status] ?? "border-pearl/20 text-pearl/60",
-                      ].join(" ")}
-                    >
+                    <Badge tone={ORDER_STATUS_TONE[order.status] ?? "neutral"}>
                       {ORDER_STATUS_LABEL[order.status] ?? order.status}
-                    </span>
+                    </Badge>
                     {order.mpesaCode ? (
                       <span className="font-mono text-[11px] text-champagne/80">
                         {order.mpesaCode}

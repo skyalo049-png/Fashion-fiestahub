@@ -68,6 +68,20 @@
   --color-border-strong: var(--border-strong);
 
   --color-focus-ring: var(--focus-ring);
+
+  /* --- Status tones. A badge says the same thing on either ground. --- */
+  --color-tone-neutral: var(--tone-neutral);
+  --color-tone-muted: var(--tone-muted);
+  --color-tone-accent: var(--tone-accent);
+  --color-tone-success: var(--tone-success);
+  --color-tone-danger: var(--tone-danger);
+
+  --color-tone-neutral-border: var(--tone-neutral-border);
+  --color-tone-accent-border: var(--tone-accent-border);
+  --color-tone-success-border: var(--tone-success-border);
+  --color-tone-danger-border: var(--tone-danger-border);
+
+  --color-overlay-scrim: var(--overlay-scrim);
 }
 
 /* --- Brand scope: champagne on obsidian. The default. --- */
@@ -91,6 +105,26 @@
 
   --focus-ring: var(--color-champagne);
 
+  /*
+   * Status tones. The success and danger hues are literal values because no
+   * brand colour means "paid" or "cancelled" — they are the Tailwind
+   * emerald/red steps the hand-written pills already used, recorded once here
+   * instead of re-typed in eleven files. Scoped, not global: the pearl ground
+   * needs a different step of each, and that is the whole point of a tone.
+   */
+  --tone-neutral: color-mix(in srgb, var(--color-pearl) 70%, var(--color-obsidian));
+  --tone-muted: color-mix(in srgb, var(--color-pearl) 45%, var(--color-obsidian));
+  --tone-accent: var(--color-champagne);
+  --tone-success: #6ee7b7;
+  --tone-danger: #fca5a5;
+
+  --tone-neutral-border: color-mix(in srgb, var(--color-pearl) 20%, transparent);
+  --tone-accent-border: color-mix(in srgb, var(--color-champagne) 40%, transparent);
+  --tone-success-border: color-mix(in srgb, #34d399 40%, transparent);
+  --tone-danger-border: color-mix(in srgb, #f87171 40%, transparent);
+
+  --overlay-scrim: color-mix(in srgb, var(--color-obsidian) 90%, transparent);
+
   color-scheme: dark;
 }
 
@@ -113,6 +147,25 @@
   --border-strong: color-mix(in srgb, var(--color-champagne-ink) 45%, transparent);
 
   --focus-ring: var(--color-champagne-ink);
+
+  /*
+   * Tones, stepped down for the pearl ground. emerald-300 on pearl is about
+   * 1.4:1 and red-300 is worse — the brand-scope values are not dim here, they
+   * are invisible, and a badge is the one element whose entire job is to be
+   * read. Each tone moves until it clears 4.5:1 against pearl.
+   */
+  --tone-neutral: var(--color-mist);
+  --tone-muted: color-mix(in srgb, var(--color-mist) 70%, var(--color-pearl));
+  --tone-accent: var(--color-champagne-ink);
+  --tone-success: #065f46;
+  --tone-danger: #991b1b;
+
+  --tone-neutral-border: color-mix(in srgb, var(--color-obsidian) 24%, transparent);
+  --tone-accent-border: color-mix(in srgb, var(--color-champagne-ink) 45%, transparent);
+  --tone-success-border: color-mix(in srgb, #065f46 40%, transparent);
+  --tone-danger-border: color-mix(in srgb, #991b1b 40%, transparent);
+
+  --overlay-scrim: color-mix(in srgb, var(--color-obsidian) 82%, transparent);
 
   color-scheme: light;
 }

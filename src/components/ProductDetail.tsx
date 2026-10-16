@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import { useCart } from "@/lib/cart";
 import type { Product, SizeChartRow, Variant } from "@/lib/catalogue";
@@ -113,9 +114,13 @@ export default function ProductDetail({ product }: { product: Product }) {
             )}
 
             {soldOut && (
-              <span className="absolute top-4 left-4 border border-pearl/15 bg-obsidian/90 px-3 py-1.5 font-body text-[10px] uppercase tracking-[0.2em] text-pearl/70">
+              <Badge
+                tone="neutral"
+                size="md"
+                className="absolute top-4 left-4 bg-overlay-scrim"
+              >
                 Sold out
-              </span>
+              </Badge>
             )}
           </div>
 

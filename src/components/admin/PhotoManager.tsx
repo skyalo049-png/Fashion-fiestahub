@@ -12,6 +12,7 @@ import {
   type ProductActionResult,
 } from "@/lib/action-state";
 import type { AdminProductImage } from "@/lib/admin-products";
+import Badge from "@/components/ui/Badge";
 import Button, { IconButton } from "@/components/ui/Button";
 import Field, { LABEL } from "@/components/ui/Field";
 
@@ -153,9 +154,9 @@ export function PhotoManager({
                 className="aspect-[3/4] w-full border border-pearl/10 object-cover"
               />
               {index === 0 ? (
-                <span className="absolute left-2 top-2 border border-champagne/60 bg-obsidian/80 px-2 py-0.5 font-body text-[9px] uppercase tracking-[0.2em] text-champagne">
+                <Badge tone="accent" className="absolute left-2 top-2 bg-overlay-scrim">
                   Main
-                </span>
+                </Badge>
               ) : null}
               <DeleteButton imageId={image.id} slug={slug} url={image.url} />
               {image.alt ? (

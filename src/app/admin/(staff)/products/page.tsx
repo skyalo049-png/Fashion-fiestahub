@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import Badge, { type BadgeTone } from "@/components/ui/Badge";
 import { buttonClass } from "@/components/ui/Button";
 import { listProducts } from "@/lib/admin-products";
 import { formatKes } from "@/lib/format";
@@ -16,10 +17,16 @@ export const metadata = { title: "Products" };
  * disappear from the screen.
  */
 
-const STATUS_TONE: Record<string, string> = {
-  active: "text-emerald-300 border-emerald-400/40",
-  draft: "text-champagne border-champagne/40",
-  archived: "text-pearl/50 border-pearl/15",
+/**
+ * A tone, not a class string. The old map pinned Tailwind colour steps, which
+ * meant this page and `lib/admin.ts` could quietly disagree about what
+ * "active" looks like — and they did. Both now name the tone and the token
+ * sheet decides the hue.
+ */
+const STATUS_TONE: Record<string, BadgeTone> = {
+  active: "success",
+  draft: "accent",
+  archived: "muted",
 };
 
 const STATUS_LABEL: Record<string, string> = {
@@ -80,19 +87,11 @@ export default async function ProductsPage() {
                     <span className="font-body text-base text-pearl">
                       {product.title}
                     </span>
-                    <span
-                      className={[
-                        "border px-2 py-0.5 font-body text-[10px] uppercase tracking-[0.2em]",
-                        STATUS_TONE[product.status] ??
-                          "border-pearl/20 text-pearl/60",
-                      ].join(" ")}
-                    >
+                    <Badge tone={STATUS_TONE[product.status] ?? "neutral"}>
                       {STATUS_LABEL[product.status] ?? product.status}
-                    </span>
+                    </Badge>
                     {product.totalStock === 0 ? (
-                      <span className="border border-red-400/40 px-2 py-0.5 font-body text-[10px] uppercase tracking-[0.2em] text-red-300/80">
-                        Out of stock
-                      </span>
+                      <Badge tone="danger">Out of stock</Badge>
                     ) : null}
                   </div>
 

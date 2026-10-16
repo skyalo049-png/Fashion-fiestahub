@@ -6,6 +6,7 @@ import {
   QuoteDeliveryForm,
   VerifyPaymentForm,
 } from "@/components/admin/OrderActions";
+import Badge from "@/components/ui/Badge";
 import { buttonClass } from "@/components/ui/Button";
 import { ORDER_STATUS_LABEL, STATUS_TONE } from "@/lib/admin";
 import { getOrderDetail } from "@/lib/admin-orders";
@@ -94,14 +95,9 @@ export default async function OrderDetailPage({
             Placed {formatWhen(order.createdAt)}
           </p>
         </div>
-        <span
-          className={[
-            "border px-3 py-1 font-body text-[10px] uppercase tracking-[0.2em]",
-            STATUS_TONE[order.status] ?? "border-pearl/20 text-pearl/60",
-          ].join(" ")}
-        >
+        <Badge tone={STATUS_TONE[order.status] ?? "neutral"}>
           {ORDER_STATUS_LABEL[order.status] ?? order.status}
-        </span>
+        </Badge>
       </header>
 
       <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_360px]">

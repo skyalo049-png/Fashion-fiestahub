@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import Badge from "@/components/ui/Badge";
 import { buttonClass } from "@/components/ui/Button";
 import { getInventory, type InventoryRow } from "@/lib/admin-inventory";
 import { formatKes } from "@/lib/format";
@@ -17,25 +18,9 @@ export const metadata = { title: "Inventory" };
  */
 
 function StockPill({ qty, threshold }: { qty: number; threshold: number }) {
-  if (qty === 0) {
-    return (
-      <span className="border border-red-400/40 px-2 py-0.5 font-body text-[10px] uppercase tracking-[0.2em] text-red-300/80">
-        Out
-      </span>
-    );
-  }
-  if (qty <= threshold) {
-    return (
-      <span className="border border-champagne/40 px-2 py-0.5 font-body text-[10px] uppercase tracking-[0.2em] text-champagne">
-        Low
-      </span>
-    );
-  }
-  return (
-    <span className="border border-pearl/15 px-2 py-0.5 font-body text-[10px] uppercase tracking-[0.2em] text-pearl/50">
-      Ok
-    </span>
-  );
+  if (qty === 0) return <Badge tone="danger">Out</Badge>;
+  if (qty <= threshold) return <Badge tone="accent">Low</Badge>;
+  return <Badge tone="neutral">Ok</Badge>;
 }
 
 function variantName(row: InventoryRow): string {

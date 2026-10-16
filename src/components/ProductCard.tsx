@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+import Badge from "@/components/ui/Badge";
 import Button, { buttonClass } from "@/components/ui/Button";
 import { useCart } from "@/lib/cart";
 import type { Product } from "@/lib/catalogue";
@@ -99,9 +100,9 @@ export default function ProductCard({ product }: { product: Product }) {
         )}
 
         {soldOut && (
-          <span className="absolute top-3 left-3 bg-obsidian/90 border border-pearl/15 px-2.5 py-1 font-body text-[10px] tracking-[0.2em] uppercase text-pearl/70">
+          <Badge tone="neutral" className="absolute top-3 left-3 bg-overlay-scrim">
             Sold out
-          </span>
+          </Badge>
         )}
       </Link>
 

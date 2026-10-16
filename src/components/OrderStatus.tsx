@@ -9,9 +9,11 @@ import {
   type OrderStatus,
   type ProofState,
 } from "@/app/order/actions";
+import Badge from "@/components/ui/Badge";
 import Button, { buttonClass } from "@/components/ui/Button";
 import Field from "@/components/ui/Field";
 import { formatKes } from "@/lib/format";
+import { ORDER_STATUS_TONE } from "@/lib/order-status";
 import { formatKePhone, payments, whatsappLink } from "@/lib/site";
 
 /**
@@ -76,17 +78,6 @@ const STATUS_COPY: Record<OrderStatus, { label: string; next: string }> = {
   },
 };
 
-const BADGE: Record<OrderStatus, string> = {
-  awaiting_delivery_quote: "border-champagne/40 text-champagne",
-  awaiting_payment: "border-champagne/40 text-champagne",
-  awaiting_payment_verification: "border-pearl/25 text-pearl/70",
-  paid: "border-emerald-400/40 text-emerald-300",
-  processing: "border-emerald-400/40 text-emerald-300",
-  shipped: "border-emerald-400/40 text-emerald-300",
-  delivered: "border-emerald-400/40 text-emerald-300",
-  cancelled: "border-red-400/40 text-red-300",
-};
-
 export default function OrderStatusView(props: Props) {
   const {
     orderNumber,
@@ -110,11 +101,9 @@ export default function OrderStatusView(props: Props) {
     <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
       <div className="space-y-8">
         <section className="border border-pearl/10 bg-charcoal p-6 sm:p-8">
-          <span
-            className={`inline-block border px-3 py-1 font-body text-[10px] uppercase tracking-[0.25em] ${BADGE[status]}`}
-          >
+          <Badge tone={ORDER_STATUS_TONE[status] ?? "neutral"} size="md">
             {copy.label}
-          </span>
+          </Badge>
           <h2 className="mt-4 font-display text-2xl text-pearl sm:text-3xl">
             Order {orderNumber}
           </h2>
