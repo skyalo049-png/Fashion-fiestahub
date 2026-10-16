@@ -25,14 +25,14 @@ export type Database = {
           Tables: {
             "addresses": {
                   Row: {
-                    "area": string | null,"city": string | null,"county": string | null,"created_at": string,"customer_id": string,"id": string,"is_default": boolean,"label": string | null,"line1": string,"line2": string | null,"phone": string | null
+                    "area": string | null,"city": string | null,"county": string | null,"created_at": string,"customer_id": string,"id": string,"is_default": boolean,"label": string | null,"line1": string | null,"line2": string | null,"phone": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "area"?: string | null,"city"?: string | null,"county"?: string | null,"created_at"?: string,"customer_id": string,"id"?: string,"is_default"?: boolean,"label"?: string | null,"line1": string,"line2"?: string | null,"phone"?: string | null
+                    "area"?: string | null,"city"?: string | null,"county"?: string | null,"created_at"?: string,"customer_id": string,"id"?: string,"is_default"?: boolean,"label"?: string | null,"line1"?: string | null,"line2"?: string | null,"phone"?: string | null
                   }
                   Update: {
-                    "area"?: string | null,"city"?: string | null,"county"?: string | null,"created_at"?: string,"customer_id"?: string,"id"?: string,"is_default"?: boolean,"label"?: string | null,"line1"?: string,"line2"?: string | null,"phone"?: string | null
+                    "area"?: string | null,"city"?: string | null,"county"?: string | null,"created_at"?: string,"customer_id"?: string,"id"?: string,"is_default"?: boolean,"label"?: string | null,"line1"?: string | null,"line2"?: string | null,"phone"?: string | null
                   }
                   Relationships: [
                     {
@@ -275,14 +275,14 @@ isOneToOne: false
                   ]
                 },"products": {
                   Row: {
-                    "care": string | null,"created_at": string,"description": string | null,"fabric": string | null,"fit_notes": string | null,"id": string,"size_chart": Json | null,"slug": string,"status": Database["public"]['Enums']["product_status"],"title": string,"updated_at": string
+                    "care": string | null,"created_at": string,"description": string | null,"fabric": string | null,"fit_notes": string | null,"id": string,"size_chart": Json | null,"sku_prefix": string | null,"slug": string,"status": Database["public"]['Enums']["product_status"],"title": string,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "care"?: string | null,"created_at"?: string,"description"?: string | null,"fabric"?: string | null,"fit_notes"?: string | null,"id"?: string,"size_chart"?: Json | null,"slug": string,"status"?: Database["public"]['Enums']["product_status"],"title": string,"updated_at"?: string
+                    "care"?: string | null,"created_at"?: string,"description"?: string | null,"fabric"?: string | null,"fit_notes"?: string | null,"id"?: string,"size_chart"?: Json | null,"sku_prefix"?: string | null,"slug": string,"status"?: Database["public"]['Enums']["product_status"],"title": string,"updated_at"?: string
                   }
                   Update: {
-                    "care"?: string | null,"created_at"?: string,"description"?: string | null,"fabric"?: string | null,"fit_notes"?: string | null,"id"?: string,"size_chart"?: Json | null,"slug"?: string,"status"?: Database["public"]['Enums']["product_status"],"title"?: string,"updated_at"?: string
+                    "care"?: string | null,"created_at"?: string,"description"?: string | null,"fabric"?: string | null,"fit_notes"?: string | null,"id"?: string,"size_chart"?: Json | null,"sku_prefix"?: string | null,"slug"?: string,"status"?: Database["public"]['Enums']["product_status"],"title"?: string,"updated_at"?: string
                   }
                   Relationships: [
                     
@@ -321,7 +321,13 @@ isOneToOne: false
                 }
           }
           Functions: {
-            "create_order":
+            "admin_list_orders":
+{ Args: { "p_limit"?: number,"p_offset"?: number,"p_status"?: string }; Returns: Json
+                           },
+"admin_order_detail":
+{ Args: { "p_order_number": string }; Returns: Json
+                           },
+"create_order":
 { Args: { "p_address": Json,"p_email": string,"p_full_name": string,"p_items": Json,"p_notes"?: string,"p_phone": string }; Returns: Json
                            },
 "expire_stale_reservations":
@@ -339,11 +345,29 @@ isOneToOne: false
 "purge_lookup_attempts":
 { Args: Record<PropertyKey, never>; Returns: number
                            },
+"quote_delivery":
+{ Args: { "p_fee_kes": number,"p_note"?: string,"p_order_number": string }; Returns: Json
+                           },
+"save_product_variants":
+{ Args: { "p_cells": Json,"p_default_price": number,"p_note"?: string,"p_product_id": string }; Returns: Json
+                           },
+"set_order_status":
+{ Args: { "p_note"?: string,"p_order_number": string,"p_status": string }; Returns: Json
+                           },
+"set_variant_stock":
+{ Args: { "p_note"?: string,"p_reason"?: string,"p_stock_qty": number,"p_variant_id": string }; Returns: Json
+                           },
+"sku_code":
+{ Args: { "p_fallback"?: string,"p_text": string }; Returns: string
+                           },
 "submit_payment_proof":
 { Args: { "p_mpesa_code": string,"p_order_number": string,"p_payment_phone"?: string,"p_phone": string }; Returns: Json
                            },
 "verify_payment":
 { Args: { "p_approve": boolean,"p_order_number": string,"p_reason"?: string }; Returns: Json
+                           },
+"whoami":
+{ Args: Record<PropertyKey, never>; Returns: Json
                            }
           }
           Enums: {
