@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import Badge from "@/components/ui/Badge";
@@ -81,16 +82,17 @@ export default function ProductCard({ product }: { product: Product }) {
         aria-label={`View ${product.title}`}
       >
         {product.imageUrl ? (
-          // Local files under public/, so a plain img avoids the optimizer
-          // needing a remote-pattern config. Swap to next/image when the real
-          // shoot lands and sizes are known.
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          // `fill` rather than width/height: the frame is a fixed 4:5 box and
+          // the photograph is whatever the shoot produced, so the container
+          // owns the aspect ratio and the optimizer just picks a source.
+          // `sizes` matches the grid below (1 / 2 / 3 columns) — without it the
+          // browser assumes 100vw and pulls the largest candidate every time.
+          <Image
             src={product.imageUrl}
             alt={product.imageAlt}
-            width={800}
-            height={1000}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
             loading="lazy"
           />
         ) : (
