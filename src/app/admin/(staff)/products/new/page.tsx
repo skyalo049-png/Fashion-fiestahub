@@ -22,14 +22,14 @@ export default function NewProductPage() {
     <div className="max-w-2xl">
       <Link
         href="/admin/products"
-        className="font-body text-[11px] uppercase tracking-[0.2em] text-pearl/40 transition-colors hover:text-champagne"
+        className="font-body text-[11px] uppercase tracking-[0.2em] text-text-primary/40 transition-colors hover:text-accent"
       >
         ← Products
       </Link>
 
-      <header className="mt-6 border-b border-pearl/10 pb-6">
-        <h1 className="font-display text-3xl text-pearl">New product</h1>
-        <p className="mt-2 max-w-prose font-body text-sm text-pearl/50">
+      <header className="mt-6 border-b border-border-subtle pb-6">
+        <h1 className="font-display text-3xl text-text-primary">New product</h1>
+        <p className="mt-2 max-w-prose font-body text-sm text-text-primary/50">
           Save the product first, then add its sizes, colours and photos on the
           next screen.
         </p>

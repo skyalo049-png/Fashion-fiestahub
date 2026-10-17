@@ -1,3 +1,9 @@
+import Table, {
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@/components/ui/Table";
 import { listClients } from "@/lib/admin-clients";
 import { formatKes, formatWhen } from "@/lib/format";
 
@@ -22,12 +28,12 @@ export default async function ClientsPage() {
 
   return (
     <div>
-      <header className="border-b border-pearl/10 pb-6">
-        <p className="font-body text-[10px] uppercase tracking-[0.4em] text-champagne">
+      <header className="border-b border-border-subtle pb-6">
+        <p className="font-body text-[10px] uppercase tracking-[0.4em] text-accent">
           Staff
         </p>
-        <h1 className="mt-2 font-display text-3xl text-pearl">Clients</h1>
-        <p className="mt-2 max-w-prose font-body text-sm text-pearl/50">
+        <h1 className="mt-2 font-display text-3xl text-text-primary">Clients</h1>
+        <p className="mt-2 max-w-prose font-body text-sm text-text-primary/50">
           {total === 0
             ? "Nobody has placed an order yet."
             : `${total} customer${total === 1 ? "" : "s"}, newest first.`}
@@ -35,73 +41,62 @@ export default async function ClientsPage() {
       </header>
 
       {clients.length === 0 ? (
-        <div className="mt-16 border border-dashed border-pearl/15 px-6 py-16 text-center">
-          <p className="font-display text-xl text-pearl/80">No clients yet</p>
-          <p className="mx-auto mt-3 max-w-sm font-body text-sm text-pearl/40">
+        <div className="mt-16 border border-dashed border-border-default px-6 py-16 text-center">
+          <p className="font-display text-xl text-text-primary/80">No clients yet</p>
+          <p className="mx-auto mt-3 max-w-sm font-body text-sm text-text-primary/40">
             A customer record is created the moment an order is placed. There is
             nothing to show until the first one comes in.
           </p>
         </div>
       ) : (
-        <div className="mt-6 overflow-x-auto">
-          <table className="w-full min-w-[720px] border-collapse text-left">
-            <thead>
-              <tr className="border-b border-pearl/10">
-                {[
-                  "Name",
-                  "Phone",
-                  "Email",
-                  "Orders",
-                  "Lifetime",
-                  "Last order",
-                ].map((heading) => (
-                  <th
-                    key={heading}
-                    className="pb-3 pr-4 font-body text-[10px] uppercase tracking-[0.2em] text-pearl/40"
-                  >
-                    {heading}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-pearl/10">
-              {clients.map((client) => (
-                <tr key={client.id} className="text-pearl/70">
-                  <td className="py-3 pr-4 font-body text-sm text-pearl">
-                    {client.fullName ?? (
-                      <span className="text-pearl/35">No name given</span>
-                    )}
-                  </td>
-                  <td className="py-3 pr-4 font-mono text-[11px]">
-                    {client.phone}
-                  </td>
-                  <td className="py-3 pr-4 font-body text-xs text-pearl/50">
-                    {client.email ?? (
-                      <span className="text-pearl/25">—</span>
-                    )}
-                  </td>
-                  <td className="py-3 pr-4 font-body text-xs">
-                    {client.orderCount}
-                  </td>
-                  <td className="py-3 pr-4 font-body text-xs text-pearl">
-                    {client.lifetimeKes > 0 ? (
-                      formatKes(client.lifetimeKes)
-                    ) : (
-                      <span className="text-pearl/30">—</span>
-                    )}
-                  </td>
-                  <td className="py-3 pr-4 font-body text-xs text-pearl/40">
-                    {client.lastOrderAt ? (
-                      formatWhen(client.lastOrderAt)
-                    ) : (
-                      <span className="text-pearl/25">—</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <Table className="mt-6">
+          <TableHead
+            headings={[
+              "Name",
+              "Phone",
+              "Email",
+              "Orders",
+              "Lifetime",
+              "Last order",
+            ]}
+          />
+          <TableBody>
+            {clients.map((client) => (
+              <TableRow key={client.id}>
+                <TableCell className="font-body text-sm text-text-primary">
+                  {client.fullName ?? (
+                    <span className="text-text-primary/35">No name given</span>
+                  )}
+                </TableCell>
+                <TableCell className="font-mono text-[11px]">
+                  {client.phone}
+                </TableCell>
+                <TableCell className="font-body text-xs text-text-primary/50">
+                  {client.email ?? (
+                    <span className="text-text-primary/25">—</span>
+                  )}
+                </TableCell>
+                <TableCell className="font-body text-xs">
+                  {client.orderCount}
+                </TableCell>
+                <TableCell className="font-body text-xs text-text-primary">
+                  {client.lifetimeKes > 0 ? (
+                    formatKes(client.lifetimeKes)
+                  ) : (
+                    <span className="text-text-primary/30">—</span>
+                  )}
+                </TableCell>
+                <TableCell className="font-body text-xs text-text-primary/40">
+                  {client.lastOrderAt ? (
+                    formatWhen(client.lastOrderAt)
+                  ) : (
+                    <span className="text-text-primary/25">—</span>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       )}
     </div>
   );

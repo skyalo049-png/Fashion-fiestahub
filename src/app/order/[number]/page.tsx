@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import OrderStatusView from "@/components/OrderStatus";
+import Button, { buttonClass } from "@/components/ui/Button";
+import Field from "@/components/ui/Field";
 import { isPayable, lookupOrder, recallOrderPhone } from "@/lib/orders";
 import { site } from "@/lib/site";
 
@@ -52,45 +54,33 @@ export default async function OrderPage({ params, searchParams }: PageProps) {
   if (!phone) {
     return (
       <main className="mx-auto max-w-md px-5 pb-24 pt-16 sm:px-8">
-        <p className="font-body text-[10px] uppercase tracking-[0.3em] text-champagne">
+        <p className="font-body text-[10px] uppercase tracking-[0.3em] text-accent">
           Order status
         </p>
-        <h1 className="mt-3 font-display text-2xl text-pearl sm:text-3xl">
+        <h1 className="mt-3 font-display text-2xl text-text-primary sm:text-3xl">
           Order {orderNumber}
         </h1>
-        <p className="mt-4 font-body text-sm font-light leading-relaxed text-pearl/50">
+        <p className="mt-4 font-body text-sm font-light leading-relaxed text-text-primary/50">
           Enter the phone number you used at checkout to see this order. We ask
           because the order number on its own is not a password.
         </p>
 
         <form method="get" className="mt-8 space-y-4">
-          <div>
-            <label
-              htmlFor="phone"
-              className="block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-            >
-              Phone number
-            </label>
-            <input
-              id="phone"
-              name="phone"
-              type="tel"
-              inputMode="tel"
-              required
-              autoComplete="tel"
-              placeholder="07XX XXX XXX"
-              className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-sm text-pearl outline-none transition-colors placeholder:text-pearl/25 focus:border-champagne"
-            />
-          </div>
-          <button
-            type="submit"
-            className="block w-full bg-champagne px-6 py-3.5 font-body text-xs uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light"
-          >
+          <Field
+            label="Phone number"
+            name="phone"
+            type="tel"
+            inputMode="tel"
+            required
+            autoComplete="tel"
+            placeholder="07XX XXX XXX"
+          />
+          <Button type="submit" size="lg" className="w-full">
             View order
-          </button>
+          </Button>
         </form>
 
-        <p className="mt-6 font-body text-[11px] font-light leading-relaxed text-pearl/35">
+        <p className="mt-6 font-body text-[11px] font-light leading-relaxed text-text-primary/35">
           Lost your order number? Check the WhatsApp message we sent when the
           order was placed, or message us and we will find it.
         </p>
@@ -132,10 +122,10 @@ export default async function OrderPage({ params, searchParams }: PageProps) {
   return (
     <main className="mx-auto max-w-6xl px-5 pb-24 pt-12 sm:px-8">
       <header className="mb-10">
-        <p className="font-body text-[10px] uppercase tracking-[0.3em] text-champagne">
+        <p className="font-body text-[10px] uppercase tracking-[0.3em] text-accent">
           Order status
         </p>
-        <h1 className="mt-3 font-display text-3xl text-pearl sm:text-4xl">
+        <h1 className="mt-3 font-display text-3xl text-text-primary sm:text-4xl">
           {isPayable(order.status) ? "Ready for payment" : "Your order"}
         </h1>
       </header>
@@ -164,13 +154,13 @@ export default async function OrderPage({ params, searchParams }: PageProps) {
 function Message({ title, body }: { title: string; body: string }) {
   return (
     <main className="mx-auto max-w-md px-5 pb-24 pt-16 sm:px-8">
-      <h1 className="font-display text-2xl text-pearl">{title}</h1>
-      <p className="mt-4 font-body text-sm font-light leading-relaxed text-pearl/50">
+      <h1 className="font-display text-2xl text-text-primary">{title}</h1>
+      <p className="mt-4 font-body text-sm font-light leading-relaxed text-text-primary/50">
         {body}
       </p>
       <Link
         href="/"
-        className="mt-8 inline-block border border-pearl/15 px-6 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-pearl/60 transition-colors hover:border-champagne/40 hover:text-champagne"
+        className={buttonClass("secondary", "md", "mt-8")}
       >
         Back to the shop
       </Link>

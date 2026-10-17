@@ -1,8 +1,10 @@
 import Link from "next/link";
 
-import { ORDER_STATUS_LABEL, STATUS_TONE } from "@/lib/admin";
+import Badge from "@/components/ui/Badge";
+import { ORDER_STATUS_LABEL } from "@/lib/admin";
 import { listOrders } from "@/lib/admin-orders";
 import { formatKes, formatWhen } from "@/lib/format";
+import { ORDER_STATUS_TONE } from "@/lib/order-status";
 
 export const metadata = { title: "Orders" };
 
@@ -63,12 +65,12 @@ export default async function OrdersPage({
 
   return (
     <div>
-      <header className="border-b border-pearl/10 pb-6">
-        <p className="font-body text-[10px] uppercase tracking-[0.4em] text-champagne">
+      <header className="border-b border-border-subtle pb-6">
+        <p className="font-body text-[10px] uppercase tracking-[0.4em] text-accent">
           Staff
         </p>
-        <h1 className="mt-2 font-display text-3xl text-pearl">Orders</h1>
-        <p className="mt-2 max-w-prose font-body text-sm text-pearl/50">
+        <h1 className="mt-2 font-display text-3xl text-text-primary">Orders</h1>
+        <p className="mt-2 max-w-prose font-body text-sm text-text-primary/50">
           Verify the M-Pesa code before you mark an order paid — that is the step
           that takes the money out of the shelf.
         </p>
@@ -76,7 +78,7 @@ export default async function OrdersPage({
 
       <nav
         aria-label="Filter by status"
-        className="mt-6 flex flex-wrap gap-2 border-b border-pearl/10 pb-6"
+        className="mt-6 flex flex-wrap gap-2 border-b border-border-subtle pb-6"
       >
         {tabs.map((tab) => {
           const isActive = active === tab.key;
@@ -88,12 +90,12 @@ export default async function OrdersPage({
               className={[
                 "border px-3 py-2 font-body text-[11px] uppercase tracking-[0.2em] transition-colors",
                 isActive
-                  ? "border-champagne bg-champagne text-obsidian"
-                  : "border-pearl/15 text-pearl/60 hover:border-pearl/40 hover:text-pearl",
+                  ? "border-accent bg-accent text-text-inverse"
+                  : "border-border-default text-text-primary/60 hover:border-border-strong hover:text-text-primary",
               ].join(" ")}
             >
               {tab.label}
-              <span className={isActive ? "ml-2 text-obsidian/60" : "ml-2 text-pearl/40"}>
+              <span className={isActive ? "ml-2 text-text-inverse/60" : "ml-2 text-text-primary/40"}>
                 {tab.count}
               </span>
             </Link>
@@ -102,60 +104,55 @@ export default async function OrdersPage({
       </nav>
 
       {orders.length === 0 ? (
-        <div className="mt-16 border border-dashed border-pearl/15 px-6 py-16 text-center">
-          <p className="font-display text-xl text-pearl/80">Nothing in this queue</p>
-          <p className="mx-auto mt-3 max-w-sm font-body text-sm text-pearl/40">
+        <div className="mt-16 border border-dashed border-border-default px-6 py-16 text-center">
+          <p className="font-display text-xl text-text-primary/80">Nothing in this queue</p>
+          <p className="mx-auto mt-3 max-w-sm font-body text-sm text-text-primary/40">
             {active === "all"
               ? "No orders yet. They appear here the moment a customer checks out."
               : `No orders are ${(ORDER_STATUS_LABEL[active] ?? active).toLowerCase()} right now.`}
           </p>
         </div>
       ) : (
-        <ul className="mt-6 divide-y divide-pearl/10 border border-pearl/10">
+        <ul className="mt-6 divide-y divide-border-subtle border border-border-subtle">
           {orders.map((order) => (
             <li key={order.orderNumber}>
               <Link
                 href={`/admin/orders/${order.orderNumber}`}
-                className="grid grid-cols-1 gap-3 px-5 py-5 transition-colors hover:bg-pearl/[0.03] sm:grid-cols-[1fr_auto] sm:items-center"
+                className="grid grid-cols-1 gap-3 px-5 py-5 transition-colors hover:bg-text-primary/[0.03] sm:grid-cols-[1fr_auto] sm:items-center"
               >
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-3">
-                    <span className="font-mono text-sm text-pearl">
+                    <span className="font-mono text-sm text-text-primary">
                       {order.orderNumber}
                     </span>
-                    <span
-                      className={[
-                        "border px-2 py-0.5 font-body text-[10px] uppercase tracking-[0.2em]",
-                        STATUS_TONE[order.status] ?? "border-pearl/20 text-pearl/60",
-                      ].join(" ")}
-                    >
+                    <Badge tone={ORDER_STATUS_TONE[order.status] ?? "neutral"}>
                       {ORDER_STATUS_LABEL[order.status] ?? order.status}
-                    </span>
+                    </Badge>
                     {order.mpesaCode ? (
-                      <span className="font-mono text-[11px] text-champagne/80">
+                      <span className="font-mono text-[11px] text-accent/80">
                         {order.mpesaCode}
                       </span>
                     ) : null}
                   </div>
 
-                  <p className="mt-2 truncate font-body text-sm text-pearl/70">
+                  <p className="mt-2 truncate font-body text-sm text-text-primary/70">
                     {order.fullName}
                     {order.city ? (
-                      <span className="text-pearl/40"> · {order.city}</span>
+                      <span className="text-text-primary/40"> · {order.city}</span>
                     ) : null}
                   </p>
 
-                  <p className="mt-1 font-body text-xs text-pearl/40">
+                  <p className="mt-1 font-body text-xs text-text-primary/40">
                     {order.phone}
-                    <span className="text-pearl/25"> · </span>
+                    <span className="text-text-primary/25"> · </span>
                     {order.itemCount} item{order.itemCount === 1 ? "" : "s"}
-                    <span className="text-pearl/25"> · </span>
+                    <span className="text-text-primary/25"> · </span>
                     {formatWhen(order.createdAt)}
                   </p>
                 </div>
 
                 <div className="text-left sm:text-right">
-                  <p className="font-body text-base text-pearl">
+                  <p className="font-body text-base text-text-primary">
                     {order.totalKes !== null
                       ? formatKes(order.totalKes)
                       : order.deliveryFeeKes === null
@@ -163,7 +160,7 @@ export default async function OrdersPage({
                         : "—"}
                   </p>
                   {order.deliveryFeeKes === null ? (
-                    <p className="mt-1 font-body text-[10px] uppercase tracking-[0.2em] text-champagne/70">
+                    <p className="mt-1 font-body text-[10px] uppercase tracking-[0.2em] text-accent/70">
                       No delivery fee yet
                     </p>
                   ) : null}

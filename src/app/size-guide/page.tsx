@@ -235,7 +235,7 @@ export default function SizeGuidePage() {
         guide cannot fix.
       </p>
 
-      <p className="text-pearl/40">
+      <p className="text-text-primary/40">
         Measuring in Nairobi and would rather we did it? Message us and we will
         arrange a time at our {site.city} pickup point.
       </p>

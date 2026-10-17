@@ -24,13 +24,13 @@ export default function CheckoutPage() {
   return (
     <main className="mx-auto max-w-6xl px-5 pb-24 pt-12 sm:px-8">
       <header className="mb-10">
-        <p className="font-body text-[10px] uppercase tracking-[0.3em] text-champagne">
+        <p className="font-body text-[10px] uppercase tracking-[0.3em] text-accent">
           Checkout
         </p>
-        <h1 className="mt-3 font-display text-3xl text-pearl sm:text-4xl">
+        <h1 className="mt-3 font-display text-3xl text-text-primary sm:text-4xl">
           Almost yours
         </h1>
-        <p className="mt-3 max-w-xl font-body text-sm font-light leading-relaxed text-pearl/50">
+        <p className="mt-3 max-w-xl font-body text-sm font-light leading-relaxed text-text-primary/50">
           No account needed. We hold your items while we confirm delivery, then
           you pay by M-Pesa.
         </p>

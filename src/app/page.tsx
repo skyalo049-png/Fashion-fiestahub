@@ -18,33 +18,33 @@ export default async function Home() {
   return (
     <main className="min-h-screen">
       <header className="mx-auto max-w-6xl px-6 pt-16 pb-12">
-        <p className="font-body text-xs tracking-[0.3em] uppercase text-champagne">
+        <p className="font-body text-xs tracking-[0.3em] uppercase text-accent">
           {site.city}, {site.country}
         </p>
 
-        <h1 className="font-display text-4xl sm:text-5xl font-semibold mt-5 leading-tight text-pearl max-w-2xl">
+        <h1 className="font-display text-4xl sm:text-5xl font-semibold mt-5 leading-tight text-text-primary max-w-2xl">
           {site.tagline}
         </h1>
 
-        <p className="font-body font-light text-base mt-5 leading-relaxed text-pearl/55 max-w-xl">
+        <p className="font-body font-light text-base mt-5 leading-relaxed text-text-primary/55 max-w-xl">
           {site.description}
         </p>
 
-        <div className="mt-10 h-px bg-gradient-to-r from-champagne to-transparent" />
+        <div className="mt-10 h-px bg-gradient-to-r from-accent to-transparent" />
       </header>
 
       <section className="mx-auto max-w-6xl px-6 pb-16">
         <div className="flex items-baseline justify-between mb-8">
-          <h2 className="font-body text-xs tracking-[0.3em] uppercase text-pearl/45">
+          <h2 className="font-body text-xs tracking-[0.3em] uppercase text-text-primary/45">
             The collection
           </h2>
-          <span className="font-body text-xs tracking-widest uppercase text-pearl/30">
+          <span className="font-body text-xs tracking-widest uppercase text-text-primary/30">
             {products.length} {products.length === 1 ? "piece" : "pieces"}
           </span>
         </div>
 
         {products.length === 0 ? (
-          <p className="font-body text-sm text-pearl/45">
+          <p className="font-body text-sm text-text-primary/45">
             Nothing is published yet. Add a product and set its status to
             &ldquo;active&rdquo; in the admin dashboard.
           </p>
@@ -58,11 +58,11 @@ export default async function Home() {
       </section>
 
       <footer className="mx-auto max-w-6xl px-6 pb-20">
-        <div className="border-t border-pearl/8 pt-8 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
-          <p className="font-body text-xs tracking-widest uppercase text-pearl/35">
+        <div className="border-t border-border-subtle pt-8 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+          <p className="font-body text-xs tracking-widest uppercase text-text-primary/35">
             M-Pesa accepted · Nairobi delivery · Nationwide shipping
           </p>
-          <p className="font-body text-xs tracking-widest uppercase text-pearl/25">
+          <p className="font-body text-xs tracking-widest uppercase text-text-primary/25">
             Delivery quoted per order
           </p>
         </div>

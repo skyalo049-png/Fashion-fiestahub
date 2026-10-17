@@ -12,6 +12,9 @@ import {
   type ProductActionResult,
 } from "@/lib/action-state";
 import type { AdminProductImage } from "@/lib/admin-products";
+import Badge from "@/components/ui/Badge";
+import Button, { IconButton } from "@/components/ui/Button";
+import Field, { LABEL } from "@/components/ui/Field";
 
 /**
  * A product's photos.
@@ -30,13 +33,9 @@ import type { AdminProductImage } from "@/lib/admin-products";
 function Submit({ children, pendingLabel }: { children: string; pendingLabel: string }) {
   const { pending } = useFormStatus();
   return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="border border-champagne bg-champagne px-5 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light disabled:opacity-60"
-    >
+    <Button type="submit" disabled={pending}>
       {pending ? pendingLabel : children}
-    </button>
+    </Button>
   );
 }
 
@@ -58,22 +57,16 @@ function Feedback({ state }: { state: ProductActionResult }) {
   );
 }
 
-const inputClass =
-  "mt-2 w-full border border-pearl/20 bg-transparent px-4 py-3 font-body text-sm text-pearl placeholder:text-pearl/25 focus:border-champagne focus:outline-none";
-
-const labelClass =
-  "font-body text-[10px] uppercase tracking-[0.25em] text-pearl/50";
-
 function UploadForm({ productId, slug }: { productId: string; slug: string }) {
   const [state, action] = useActionState(uploadProductPhoto, INITIAL_PRODUCT_ACTION);
 
   return (
-    <form action={action} className="space-y-5 border border-pearl/10 p-5">
+    <form action={action} className="space-y-5 border border-border-subtle p-5">
       <input type="hidden" name="product_id" value={productId} />
       <input type="hidden" name="slug" value={slug} />
 
       <div>
-        <label htmlFor="photo" className={labelClass}>
+        <label htmlFor="photo" className={LABEL}>
           Photo
         </label>
         <input
@@ -81,29 +74,20 @@ function UploadForm({ productId, slug }: { productId: string; slug: string }) {
           name="photo"
           type="file"
           accept="image/*"
-          className="mt-2 w-full font-body text-sm text-pearl/70 file:mr-4 file:border file:border-pearl/20 file:bg-transparent file:px-4 file:py-2 file:font-body file:text-[11px] file:uppercase file:tracking-[0.2em] file:text-pearl/60 hover:file:border-pearl/40"
+          className="mt-2 w-full font-body text-sm text-text-primary/70 file:mr-4 file:border file:border-border-default file:bg-transparent file:px-4 file:py-2 file:font-body file:text-[11px] file:uppercase file:tracking-[0.2em] file:text-text-primary/60 hover:file:border-border-strong"
         />
-        <p className="mt-2 font-body text-[11px] text-pearl/35">
+        <p className="mt-2 font-body text-[11px] text-text-primary/35">
           JPG or PNG, up to 5 MB. Portrait shots around 1200 x 1600 look right
           in the product page.
         </p>
       </div>
 
-      <div>
-        <label htmlFor="alt" className={labelClass}>
-          Description for screen readers
-        </label>
-        <input
-          id="alt"
-          name="alt"
-          placeholder="Ankara wrap dress in indigo, worn belted"
-          className={inputClass}
-        />
-        <p className="mt-2 font-body text-[11px] text-pearl/35">
-          Worth writing. It is what a blind customer hears, and it is what the
-          search engines index.
-        </p>
-      </div>
+      <Field
+        label="Description for screen readers"
+        name="alt"
+        placeholder="Ankara wrap dress in indigo, worn belted"
+        hint="Worth writing. It is what a blind customer hears, and it is what the search engines index."
+      />
 
       <Feedback state={state} />
       <Submit pendingLabel="Uploading…">Add photo</Submit>
@@ -121,7 +105,7 @@ function DeleteButton({ imageId, slug, url }: { imageId: string; slug: string; u
       <input type="hidden" name="url" value={url} />
       <RemoveButton />
       {state.status === "error" ? (
-        <p className="mt-2 max-w-[180px] bg-obsidian/90 px-2 py-1 font-body text-[10px] text-red-200/90">
+        <p className="mt-2 max-w-[180px] bg-overlay-scrim px-2 py-1 font-body text-[10px] text-red-200/90">
           {state.message}
         </p>
       ) : null}
@@ -132,14 +116,14 @@ function DeleteButton({ imageId, slug, url }: { imageId: string; slug: string; u
 function RemoveButton() {
   const { pending } = useFormStatus();
   return (
-    <button
+    <IconButton
       type="submit"
       disabled={pending}
       aria-label="Remove this photo"
-      className="flex h-8 w-8 items-center justify-center border border-pearl/30 bg-obsidian/80 font-body text-sm text-pearl/70 transition-colors hover:border-red-400/60 hover:text-red-300 disabled:opacity-50"
+      className="border border-border-default bg-overlay-scrim text-sm text-text-primary/70 hover:border-red-400/60 hover:text-red-300"
     >
       {pending ? "…" : "×"}
-    </button>
+    </IconButton>
   );
 }
 
@@ -155,7 +139,7 @@ export function PhotoManager({
   return (
     <div className="space-y-6">
       {images.length === 0 ? (
-        <p className="border border-dashed border-pearl/15 px-5 py-10 text-center font-body text-sm text-pearl/40">
+        <p className="border border-dashed border-border-default px-5 py-10 text-center font-body text-sm text-text-primary/40">
           No photos yet. A product with no photo shows an empty frame in the
           shop.
         </p>
@@ -167,20 +151,22 @@ export function PhotoManager({
               <img
                 src={image.url}
                 alt={image.alt ?? ""}
-                className="aspect-[3/4] w-full border border-pearl/10 object-cover"
+                width={600}
+                height={800}
+                className="aspect-[3/4] w-full border border-border-subtle object-cover"
               />
               {index === 0 ? (
-                <span className="absolute left-2 top-2 border border-champagne/60 bg-obsidian/80 px-2 py-0.5 font-body text-[9px] uppercase tracking-[0.2em] text-champagne">
+                <Badge tone="accent" className="absolute left-2 top-2 bg-overlay-scrim">
                   Main
-                </span>
+                </Badge>
               ) : null}
               <DeleteButton imageId={image.id} slug={slug} url={image.url} />
               {image.alt ? (
-                <p className="mt-2 font-body text-[11px] text-pearl/40">
+                <p className="mt-2 font-body text-[11px] text-text-primary/40">
                   {image.alt}
                 </p>
               ) : (
-                <p className="mt-2 font-body text-[11px] text-pearl/25">
+                <p className="mt-2 font-body text-[11px] text-text-primary/25">
                   No description
                 </p>
               )}

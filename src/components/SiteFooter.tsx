@@ -15,14 +15,14 @@ import { site } from "@/lib/site";
 export default function SiteFooter() {
   return (
     <footer className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
-      <div className="border-t border-pearl/8 pt-8">
+      <div className="border-t border-border-subtle pt-8">
         <nav aria-label="Shop policies">
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
             {policies.map((policy) => (
               <li key={policy.href}>
                 <Link
                   href={policy.href}
-                  className="font-body text-[11px] uppercase tracking-[0.2em] text-pearl/45 transition-colors hover:text-champagne"
+                  className="font-body text-[11px] uppercase tracking-[0.2em] text-text-primary/45 transition-colors hover:text-accent"
                 >
                   {policy.label}
                 </Link>
@@ -32,10 +32,10 @@ export default function SiteFooter() {
         </nav>
 
         <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-body text-[11px] uppercase tracking-[0.2em] text-pearl/30">
+          <p className="font-body text-[11px] uppercase tracking-[0.2em] text-text-primary/30">
             M-Pesa accepted · {site.city} delivery · Nationwide shipping
           </p>
-          <p className="font-body text-[11px] uppercase tracking-[0.2em] text-pearl/25">
+          <p className="font-body text-[11px] uppercase tracking-[0.2em] text-text-primary/25">
             Delivery quoted per order
           </p>
         </div>

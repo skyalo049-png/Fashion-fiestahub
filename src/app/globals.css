@@ -1,10 +1,33 @@
 @import "tailwindcss";
 
 /*
- * Palette ported verbatim from the old storefront (src/index.css).
- * Do not "tidy" these values — they are the brand.
+ * ============================================================================
+ * Fashion Fiesta Hub — token sheet
+ * ============================================================================
+ *
+ * This file is the ONLY place a raw colour value is allowed to appear. Every
+ * component reads a semantic token (bg-surface-base, text-primary, ...) and
+ * never a palette name, never a hex.
+ *
+ * Two layers:
+ *   1. `@theme` — the brand palette, literal, fixed. Ported verbatim from the
+ *      old storefront. Do not "tidy" these values; they are the brand.
+ *   2. `@theme inline` + [data-theme] — the semantic layer. `inline` is what
+ *      makes `bg-surface-base` compile to `var(--surface-base)`, so one
+ *      component renders correctly under either theme without knowing which
+ *      theme it is in. That is the whole point of the split.
+ *
+ * Two scopes:
+ *   [data-theme="brand"]    — champagne on obsidian. Homepage, lookbook,
+ *                             collection landings, the PDP image band.
+ *   [data-theme="commerce"] — the light ground. PLP, PDP detail, bag,
+ *                             checkout, account. Money changes hands here, and
+ *                             dark surfaces convert badly on cheap Android
+ *                             screens in Nairobi daylight.
  */
+
 @theme {
+  /* --- Raw palette. The brand. --- */
   --color-champagne: #c9a96e;
   --color-champagne-light: #e8d5b0;
   --color-champagne-dark: #9c7a48;
@@ -13,15 +36,138 @@
   --color-charcoal-2: #242428;
   --color-mist: #6b6b72;
   --color-pearl: #f4f0eb;
+
+  /*
+   * champagne-ink — champagne darkened until it clears 4.5:1 against pearl
+   * (measured 5.15:1). The undarkened `champagne` measures 1.97:1 on pearl and
+   * `champagne-dark` measures 3.50:1, so neither may carry body text on the
+   * light ground. Same hue, extended downward — not a new colour.
+   */
+  --color-champagne-ink: #7f5f36;
 }
 
-/*
- * Font vars must be `@theme inline` — they reference the CSS variables that
- * next/font generates (--font-lora / --font-outfit) from layout.tsx.
- */
 @theme inline {
   --font-display: var(--font-lora), Georgia, serif;
   --font-body: var(--font-outfit), system-ui, sans-serif;
+
+  /* --- Semantic layer. These are the names components use. --- */
+  --color-surface-base: var(--surface-base);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-sunken: var(--surface-sunken);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-muted: var(--text-muted);
+  --color-text-inverse: var(--text-inverse);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-border-strong: var(--border-strong);
+
+  --color-focus-ring: var(--focus-ring);
+
+  /* --- Status tones. A badge says the same thing on either ground. --- */
+  --color-tone-neutral: var(--tone-neutral);
+  --color-tone-muted: var(--tone-muted);
+  --color-tone-accent: var(--tone-accent);
+  --color-tone-success: var(--tone-success);
+  --color-tone-danger: var(--tone-danger);
+
+  --color-tone-neutral-border: var(--tone-neutral-border);
+  --color-tone-accent-border: var(--tone-accent-border);
+  --color-tone-success-border: var(--tone-success-border);
+  --color-tone-danger-border: var(--tone-danger-border);
+
+  --color-overlay-scrim: var(--overlay-scrim);
+}
+
+/* --- Brand scope: champagne on obsidian. The default. --- */
+:root,
+[data-theme="brand"] {
+  --surface-base: var(--color-obsidian);
+  --surface-raised: var(--color-charcoal);
+  --surface-sunken: color-mix(in srgb, var(--color-obsidian) 55%, black);
+
+  --text-primary: var(--color-pearl);
+  --text-muted: color-mix(in srgb, var(--color-pearl) 55%, var(--color-obsidian));
+  --text-inverse: var(--color-obsidian);
+
+  --accent: var(--color-champagne);
+  --accent-hover: var(--color-champagne-light);
+  --accent-ink: var(--color-obsidian);
+
+  --border-subtle: color-mix(in srgb, var(--color-pearl) 12%, transparent);
+  --border-default: color-mix(in srgb, var(--color-pearl) 20%, transparent);
+  --border-strong: color-mix(in srgb, var(--color-champagne) 40%, transparent);
+
+  --focus-ring: var(--color-champagne);
+
+  /*
+   * Status tones. The success and danger hues are literal values because no
+   * brand colour means "paid" or "cancelled" — they are the Tailwind
+   * emerald/red steps the hand-written pills already used, recorded once here
+   * instead of re-typed in eleven files. Scoped, not global: the pearl ground
+   * needs a different step of each, and that is the whole point of a tone.
+   */
+  --tone-neutral: color-mix(in srgb, var(--color-pearl) 70%, var(--color-obsidian));
+  --tone-muted: color-mix(in srgb, var(--color-pearl) 45%, var(--color-obsidian));
+  --tone-accent: var(--color-champagne);
+  --tone-success: #6ee7b7;
+  --tone-danger: #fca5a5;
+
+  --tone-neutral-border: color-mix(in srgb, var(--color-pearl) 20%, transparent);
+  --tone-accent-border: color-mix(in srgb, var(--color-champagne) 40%, transparent);
+  --tone-success-border: color-mix(in srgb, #34d399 40%, transparent);
+  --tone-danger-border: color-mix(in srgb, #f87171 40%, transparent);
+
+  --overlay-scrim: color-mix(in srgb, var(--color-obsidian) 90%, transparent);
+
+  color-scheme: dark;
+}
+
+/* --- Commerce scope: the light ground. --- */
+[data-theme="commerce"] {
+  --surface-base: var(--color-pearl);
+  --surface-raised: color-mix(in srgb, var(--color-pearl) 45%, white);
+  --surface-sunken: color-mix(in srgb, var(--color-pearl) 92%, black);
+
+  --text-primary: var(--color-obsidian);
+  --text-muted: var(--color-mist); /* 4.66:1 on pearl — passes */
+  --text-inverse: var(--color-pearl);
+
+  --accent: var(--color-champagne-ink); /* 5.15:1 on pearl — passes */
+  --accent-hover: color-mix(in srgb, var(--color-champagne-ink) 82%, black);
+  --accent-ink: var(--color-pearl);
+
+  --border-subtle: color-mix(in srgb, var(--color-obsidian) 14%, transparent);
+  --border-default: color-mix(in srgb, var(--color-obsidian) 28%, transparent);
+  --border-strong: color-mix(in srgb, var(--color-champagne-ink) 45%, transparent);
+
+  --focus-ring: var(--color-champagne-ink);
+
+  /*
+   * Tones, stepped down for the pearl ground. emerald-300 on pearl is about
+   * 1.4:1 and red-300 is worse — the brand-scope values are not dim here, they
+   * are invisible, and a badge is the one element whose entire job is to be
+   * read. Each tone moves until it clears 4.5:1 against pearl.
+   */
+  --tone-neutral: var(--color-mist);
+  --tone-muted: color-mix(in srgb, var(--color-mist) 70%, var(--color-pearl));
+  --tone-accent: var(--color-champagne-ink);
+  --tone-success: #065f46;
+  --tone-danger: #991b1b;
+
+  --tone-neutral-border: color-mix(in srgb, var(--color-obsidian) 24%, transparent);
+  --tone-accent-border: color-mix(in srgb, var(--color-champagne-ink) 45%, transparent);
+  --tone-success-border: color-mix(in srgb, #065f46 40%, transparent);
+  --tone-danger-border: color-mix(in srgb, #991b1b 40%, transparent);
+
+  --overlay-scrim: color-mix(in srgb, var(--color-obsidian) 82%, transparent);
+
+  color-scheme: light;
 }
 
 *,
@@ -34,11 +180,49 @@ html {
   scroll-behavior: smooth;
 }
 
+/*
+ * Body sits outside any [data-theme] wrapper, so it reads the :root defaults —
+ * which are the brand scope. The same two names resolve to the light ground
+ * inside a commerce subtree.
+ */
 body {
   font-family: var(--font-body);
-  background-color: var(--color-obsidian);
-  color: var(--color-pearl);
+  background-color: var(--surface-base);
+  color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Focus is never removed. The browser default ring is invisible on obsidian in
+ * several engines, so every focusable element gets an explicit one that reads
+ * the theme's own ring colour.
+ */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/*
+ * Skip link. Off-screen until it takes focus, then it lands in the top-left
+ * corner. Rendered by layout.tsx as the first focusable element on the page.
+ */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-champagne);
+  color: var(--color-obsidian);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
 }
 
 ::-webkit-scrollbar {
@@ -48,9 +232,27 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #c9a96e44;
+  background: color-mix(in srgb, var(--color-champagne) 27%, transparent);
   border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-champagne);
+}
+
+/*
+ * Motion is opt-in. Anything that animates must collapse under this, including
+ * the smooth scroll above — a long smooth scroll is a vestibular trigger.
+ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import Badge, { type BadgeTone } from "@/components/ui/Badge";
+import { buttonClass } from "@/components/ui/Button";
 import { listProducts } from "@/lib/admin-products";
 import { formatKes } from "@/lib/format";
 
@@ -15,10 +17,16 @@ export const metadata = { title: "Products" };
  * disappear from the screen.
  */
 
-const STATUS_TONE: Record<string, string> = {
-  active: "text-emerald-300 border-emerald-400/40",
-  draft: "text-champagne border-champagne/40",
-  archived: "text-pearl/50 border-pearl/15",
+/**
+ * A tone, not a class string. The old map pinned Tailwind colour steps, which
+ * meant this page and `lib/admin.ts` could quietly disagree about what
+ * "active" looks like — and they did. Both now name the tone and the token
+ * sheet decides the hue.
+ */
+const STATUS_TONE: Record<string, BadgeTone> = {
+  active: "success",
+  draft: "accent",
+  archived: "muted",
 };
 
 const STATUS_LABEL: Record<string, string> = {
@@ -32,13 +40,13 @@ export default async function ProductsPage() {
 
   return (
     <div>
-      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-pearl/10 pb-6">
+      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-border-subtle pb-6">
         <div>
-          <p className="font-body text-[10px] uppercase tracking-[0.4em] text-champagne">
+          <p className="font-body text-[10px] uppercase tracking-[0.4em] text-accent">
             Staff
           </p>
-          <h1 className="mt-2 font-display text-3xl text-pearl">Products</h1>
-          <p className="mt-2 max-w-prose font-body text-sm text-pearl/50">
+          <h1 className="mt-2 font-display text-3xl text-text-primary">Products</h1>
+          <p className="mt-2 max-w-prose font-body text-sm text-text-primary/50">
             Prices and stock are edited here. A saved change is live on the shop
             the moment the page is refreshed.
           </p>
@@ -46,76 +54,68 @@ export default async function ProductsPage() {
 
         <Link
           href="/admin/products/new"
-          className="border border-champagne bg-champagne px-5 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light"
+          className={buttonClass("primary")}
         >
           New product
         </Link>
       </header>
 
       {products.length === 0 ? (
-        <div className="mt-16 border border-dashed border-pearl/15 px-6 py-16 text-center">
-          <p className="font-display text-xl text-pearl/80">No products yet</p>
-          <p className="mx-auto mt-3 max-w-sm font-body text-sm text-pearl/40">
+        <div className="mt-16 border border-dashed border-border-default px-6 py-16 text-center">
+          <p className="font-display text-xl text-text-primary/80">No products yet</p>
+          <p className="mx-auto mt-3 max-w-sm font-body text-sm text-text-primary/40">
             Create one, then fill in its sizes and colours. A product with no
             sizes cannot be sold, so the grid is the next step after saving.
           </p>
           <Link
             href="/admin/products/new"
-            className="mt-6 inline-block border border-champagne/60 px-5 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-champagne transition-colors hover:bg-champagne/10"
+            className={buttonClass("outline", "md", "mt-6")}
           >
             New product
           </Link>
         </div>
       ) : (
-        <ul className="mt-6 divide-y divide-pearl/10 border border-pearl/10">
+        <ul className="mt-6 divide-y divide-border-subtle border border-border-subtle">
           {products.map((product) => (
             <li key={product.id}>
               <Link
                 href={`/admin/products/${product.slug}`}
-                className="grid grid-cols-1 gap-3 px-5 py-5 transition-colors hover:bg-pearl/[0.03] sm:grid-cols-[1fr_auto] sm:items-center"
+                className="grid grid-cols-1 gap-3 px-5 py-5 transition-colors hover:bg-text-primary/[0.03] sm:grid-cols-[1fr_auto] sm:items-center"
               >
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-3">
-                    <span className="font-body text-base text-pearl">
+                    <span className="font-body text-base text-text-primary">
                       {product.title}
                     </span>
-                    <span
-                      className={[
-                        "border px-2 py-0.5 font-body text-[10px] uppercase tracking-[0.2em]",
-                        STATUS_TONE[product.status] ??
-                          "border-pearl/20 text-pearl/60",
-                      ].join(" ")}
-                    >
+                    <Badge tone={STATUS_TONE[product.status] ?? "neutral"}>
                       {STATUS_LABEL[product.status] ?? product.status}
-                    </span>
+                    </Badge>
                     {product.totalStock === 0 ? (
-                      <span className="border border-red-400/40 px-2 py-0.5 font-body text-[10px] uppercase tracking-[0.2em] text-red-300/80">
-                        Out of stock
-                      </span>
+                      <Badge tone="danger">Out of stock</Badge>
                     ) : null}
                   </div>
 
-                  <p className="mt-2 font-mono text-[11px] text-pearl/35">
+                  <p className="mt-2 font-mono text-[11px] text-text-primary/35">
                     /product/{product.slug}
                     {product.skuPrefix ? (
-                      <span className="text-pearl/25">
+                      <span className="text-text-primary/25">
                         {" "}
                         · {product.skuPrefix}
                       </span>
                     ) : null}
                   </p>
 
-                  <p className="mt-1 font-body text-xs text-pearl/40">
+                  <p className="mt-1 font-body text-xs text-text-primary/40">
                     {product.variantCount === 0
                       ? "No sizes yet"
                       : `${product.variantCount} size${product.variantCount === 1 ? "" : "s"} and colour${product.variantCount === 1 ? "" : "s"}`}
-                    <span className="text-pearl/25"> · </span>
+                    <span className="text-text-primary/25"> · </span>
                     {product.totalStock} in stock
                   </p>
                 </div>
 
                 <div className="text-left sm:text-right">
-                  <p className="font-body text-base text-pearl">
+                  <p className="font-body text-base text-text-primary">
                     {product.fromPriceKes === null
                       ? "—"
                       : `from ${formatKes(product.fromPriceKes)}`}

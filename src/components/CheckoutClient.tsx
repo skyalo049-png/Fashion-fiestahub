@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useMemo, useRef, useState } from "react";
 
 import { placeOrder, type CheckoutState } from "@/app/checkout/actions";
+import Button, { buttonClass } from "@/components/ui/Button";
+import Field from "@/components/ui/Field";
 import { cartSubtotal, useCart } from "@/lib/cart";
 import { formatKes } from "@/lib/format";
 
@@ -86,7 +88,7 @@ export default function CheckoutClient() {
 
   if (!mounted) {
     return (
-      <p className="font-body text-sm text-pearl/40" aria-live="polite">
+      <p className="font-body text-sm text-text-primary/40" aria-live="polite">
         Loading your bag…
       </p>
     );
@@ -94,14 +96,14 @@ export default function CheckoutClient() {
 
   if (lines.length === 0 && state.status !== "done") {
     return (
-      <div className="border border-pearl/10 bg-charcoal px-6 py-14 text-center">
-        <p className="font-display text-xl text-pearl">Your bag is empty</p>
-        <p className="mt-2 font-body text-sm font-light text-pearl/50">
+      <div className="border border-border-subtle bg-surface-raised px-6 py-14 text-center">
+        <p className="font-display text-xl text-text-primary">Your bag is empty</p>
+        <p className="mt-2 font-body text-sm font-light text-text-primary/50">
           There is nothing to check out yet.
         </p>
         <Link
           href="/"
-          className="mt-7 inline-block border border-champagne/40 px-7 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-champagne transition-colors hover:bg-champagne hover:text-obsidian"
+          className={buttonClass("outline", "md", "mt-7")}
         >
           Browse the collection
         </Link>
@@ -157,84 +159,78 @@ export default function CheckoutClient() {
               <option key={town} value={town} />
             ))}
           </datalist>
-          <div>
-            <label
-              htmlFor="notes"
-              className="block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-            >
-              Delivery notes
-            </label>
-            <textarea
-              id="notes"
-              name="notes"
-              rows={3}
-              className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-sm text-pearl outline-none transition-colors placeholder:text-pearl/25 focus:border-champagne"
-              placeholder="Estate, gate code, a landmark, the best time to call…"
-            />
-          </div>
+          <Field
+            label="Delivery notes"
+            name="notes"
+            as="textarea"
+            rows={3}
+            placeholder="Estate, gate code, a landmark, the best time to call…"
+          />
         </Section>
       </div>
 
       <aside className="lg:sticky lg:top-24 lg:self-start">
-        <div className="border border-pearl/10 bg-charcoal">
-          <h2 className="border-b border-pearl/10 px-5 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-pearl/60">
+        <div className="border border-border-subtle bg-surface-raised">
+          <h2 className="border-b border-border-subtle px-5 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-text-primary/60">
             Your bag
           </h2>
 
-          <ul className="divide-y divide-pearl/8">
+          <ul className="divide-y divide-border-subtle">
             {lines.map((line) => (
               <li key={line.variantId} className="flex gap-3 px-5 py-4">
-                <div className="h-16 w-13 shrink-0 overflow-hidden bg-obsidian">
+                <div className="h-16 w-13 shrink-0 overflow-hidden bg-surface-base">
                   {line.imageUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={line.imageUrl}
                       alt=""
+                      width={130}
+                      height={160}
                       className="h-full w-full object-cover"
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center font-display text-lg text-champagne/40">
+                    <div className="flex h-full w-full items-center justify-center font-display text-lg text-accent/40">
                       {line.title.charAt(0)}
                     </div>
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate font-body text-sm text-pearl">
+                  <p className="truncate font-body text-sm text-text-primary">
                     {line.title}
                   </p>
-                  <p className="mt-0.5 font-body text-[11px] uppercase tracking-wider text-pearl/40">
+                  <p className="mt-0.5 font-body text-[11px] uppercase tracking-wider text-text-primary/40">
                     {[line.color, line.size].filter(Boolean).join(" · ") ||
                       line.sku}
                   </p>
-                  <p className="mt-1 font-body text-[11px] text-pearl/40">
+                  <p className="mt-1 font-body text-[11px] text-text-primary/40">
                     Qty {line.qty}
                   </p>
                 </div>
-                <p className="shrink-0 font-body text-sm tabular-nums text-pearl">
+                <p className="shrink-0 font-body text-sm tabular-nums text-text-primary">
                   {formatKes(line.priceKes * line.qty)}
                 </p>
               </li>
             ))}
           </ul>
 
-          <div className="border-t border-pearl/10 px-5 py-4">
+          <div className="border-t border-border-subtle px-5 py-4">
             <div className="flex items-baseline justify-between">
-              <span className="font-body text-xs uppercase tracking-[0.2em] text-pearl/60">
+              <span className="font-body text-xs uppercase tracking-[0.2em] text-text-primary/60">
                 Subtotal
               </span>
-              <span className="font-body text-lg tabular-nums text-pearl">
+              <span className="font-body text-lg tabular-nums text-text-primary">
                 {formatKes(subtotal)}
               </span>
             </div>
             <div className="mt-2 flex items-baseline justify-between">
-              <span className="font-body text-xs uppercase tracking-[0.2em] text-pearl/60">
+              <span className="font-body text-xs uppercase tracking-[0.2em] text-text-primary/60">
                 Delivery
               </span>
-              <span className="font-body text-xs text-pearl/45">
+              <span className="font-body text-xs text-text-primary/45">
                 Quoted per order
               </span>
             </div>
-            <p className="mt-3 font-body text-[11px] font-light leading-relaxed text-pearl/40">
+            <p className="mt-3 font-body text-[11px] font-light leading-relaxed text-text-primary/40">
               We do not guess at delivery. Once we see your address we send the
               exact fee on WhatsApp, and you pay the subtotal plus that fee in
               one M-Pesa payment.
@@ -251,17 +247,18 @@ export default function CheckoutClient() {
           </p>
         )}
 
-        <button
+        <Button
           type="submit"
+          size="lg"
           disabled={pending || state.status === "done"}
-          className="mt-5 block w-full bg-champagne px-6 py-4 font-body text-xs uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light disabled:cursor-wait disabled:opacity-60"
+          className="mt-5 w-full disabled:cursor-wait"
         >
           {pending || state.status === "done"
             ? "Placing your order…"
             : "Place order"}
-        </button>
+        </Button>
 
-        <p className="mt-3 text-center font-body text-[11px] font-light text-pearl/35">
+        <p className="mt-3 text-center font-body text-[11px] font-light text-text-primary/35">
           You will get an order number immediately. Nothing is charged yet.
         </p>
       </aside>
@@ -278,7 +275,7 @@ function Section({
 }) {
   return (
     <section>
-      <h2 className="mb-5 font-body text-[11px] uppercase tracking-[0.25em] text-pearl/60">
+      <h2 className="mb-5 font-body text-[11px] uppercase tracking-[0.25em] text-text-primary/60">
         {title}
       </h2>
       <div className="space-y-4">{children}</div>
@@ -286,35 +283,3 @@ function Section({
   );
 }
 
-function Field({
-  label,
-  name,
-  hint,
-  ...rest
-}: {
-  label: string;
-  name: string;
-  hint?: string;
-} & React.InputHTMLAttributes<HTMLInputElement>) {
-  return (
-    <div>
-      <label
-        htmlFor={name}
-        className="block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-      >
-        {label}
-      </label>
-      <input
-        id={name}
-        name={name}
-        className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-sm text-pearl outline-none transition-colors placeholder:text-pearl/25 focus:border-champagne"
-        {...rest}
-      />
-      {hint && (
-        <p className="mt-1.5 font-body text-[11px] font-light text-pearl/35">
-          {hint}
-        </p>
-      )}
-    </div>
-  );
-}

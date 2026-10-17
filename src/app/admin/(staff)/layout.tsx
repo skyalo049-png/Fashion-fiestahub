@@ -39,13 +39,13 @@ export default async function AdminLayout({
     return (
       <main className="flex min-h-screen items-center justify-center px-5">
         <div className="max-w-md text-center">
-          <p className="font-body text-[10px] uppercase tracking-[0.3em] text-champagne">
+          <p className="font-body text-[10px] uppercase tracking-[0.3em] text-accent">
             Staff area
           </p>
-          <h1 className="mt-3 font-display text-2xl text-pearl">
+          <h1 className="mt-3 font-display text-2xl text-text-primary">
             Not authorised
           </h1>
-          <p className="mt-3 font-body text-sm font-light leading-relaxed text-pearl/50">
+          <p className="mt-3 font-body text-sm font-light leading-relaxed text-text-primary/50">
             {me.user_id
               ? "You are signed in, but this account is not on the staff list."
               : "You are not signed in."}
@@ -53,7 +53,7 @@ export default async function AdminLayout({
           <form action={signOut} className="mt-6">
             <button
               type="submit"
-              className="font-body text-[11px] uppercase tracking-[0.25em] text-champagne underline underline-offset-4"
+              className="font-body text-[11px] uppercase tracking-[0.25em] text-accent underline underline-offset-4"
             >
               Sign out
             </button>
@@ -65,54 +65,54 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen">
-      <header className="border-b border-pearl/10">
+      <header className="border-b border-border-subtle">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
           <div className="flex items-baseline gap-6">
             <Link
               href="/admin/orders"
-              className="font-display text-lg text-pearl"
+              className="font-display text-lg text-text-primary"
             >
               Fashion Fiesta Hub
             </Link>
-            <span className="font-body text-[10px] uppercase tracking-[0.3em] text-champagne">
+            <span className="font-body text-[10px] uppercase tracking-[0.3em] text-accent">
               Staff
             </span>
           </div>
           <nav className="flex items-center gap-6">
             <Link
               href="/admin/orders"
-              className="font-body text-xs uppercase tracking-[0.2em] text-pearl/60 transition-colors hover:text-pearl"
+              className="font-body text-xs uppercase tracking-[0.2em] text-text-primary/60 transition-colors hover:text-text-primary"
             >
               Orders
             </Link>
             <Link
               href="/admin/products"
-              className="font-body text-xs uppercase tracking-[0.2em] text-pearl/60 transition-colors hover:text-pearl"
+              className="font-body text-xs uppercase tracking-[0.2em] text-text-primary/60 transition-colors hover:text-text-primary"
             >
               Products
             </Link>
             <Link
               href="/admin/inventory"
-              className="font-body text-xs uppercase tracking-[0.2em] text-pearl/60 transition-colors hover:text-pearl"
+              className="font-body text-xs uppercase tracking-[0.2em] text-text-primary/60 transition-colors hover:text-text-primary"
             >
               Inventory
             </Link>
             <Link
               href="/admin/clients"
-              className="font-body text-xs uppercase tracking-[0.2em] text-pearl/60 transition-colors hover:text-pearl"
+              className="font-body text-xs uppercase tracking-[0.2em] text-text-primary/60 transition-colors hover:text-text-primary"
             >
               Clients
             </Link>
             <Link
               href="/"
-              className="font-body text-xs uppercase tracking-[0.2em] text-pearl/40 transition-colors hover:text-pearl"
+              className="font-body text-xs uppercase tracking-[0.2em] text-text-primary/40 transition-colors hover:text-text-primary"
             >
               View site
             </Link>
             <form action={signOut}>
               <button
                 type="submit"
-                className="font-body text-xs uppercase tracking-[0.2em] text-pearl/40 transition-colors hover:text-pearl"
+                className="font-body text-xs uppercase tracking-[0.2em] text-text-primary/40 transition-colors hover:text-text-primary"
               >
                 Sign out
               </button>

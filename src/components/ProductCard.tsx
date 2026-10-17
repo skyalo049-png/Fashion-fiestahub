@@ -1,7 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
+import Badge from "@/components/ui/Badge";
+import Button, { buttonClass } from "@/components/ui/Button";
 import { useCart } from "@/lib/cart";
 import type { Product } from "@/lib/catalogue";
 import { formatKes } from "@/lib/format";
@@ -72,68 +75,71 @@ export default function ProductCard({ product }: { product: Product }) {
   }
 
   return (
-    <article className="group flex flex-col bg-charcoal border border-pearl/8 hover:border-champagne/40 transition-colors duration-300">
+    <article className="group flex flex-col bg-surface-raised border border-border-subtle hover:border-accent/40 transition-colors duration-300">
       <Link
         href={`/product/${product.slug}`}
-        className="relative block aspect-[4/5] overflow-hidden bg-obsidian"
+        className="relative block aspect-[4/5] overflow-hidden bg-surface-base"
         aria-label={`View ${product.title}`}
       >
         {product.imageUrl ? (
-          // Local files under public/, so a plain img avoids the optimizer
-          // needing a remote-pattern config. Swap to next/image when the real
-          // shoot lands and sizes are known.
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          // `fill` rather than width/height: the frame is a fixed 4:5 box and
+          // the photograph is whatever the shoot produced, so the container
+          // owns the aspect ratio and the optimizer just picks a source.
+          // `sizes` matches the grid below (1 / 2 / 3 columns) — without it the
+          // browser assumes 100vw and pulls the largest candidate every time.
+          <Image
             src={product.imageUrl}
             alt={product.imageAlt}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
             loading="lazy"
           />
         ) : (
-          <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-charcoal-2 to-obsidian">
-            <span className="font-display text-4xl text-champagne/25">
+          <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-surface-raised to-surface-base">
+            <span className="font-display text-4xl text-accent/25">
               {product.title.charAt(0)}
             </span>
           </div>
         )}
 
         {soldOut && (
-          <span className="absolute top-3 left-3 bg-obsidian/90 border border-pearl/15 px-2.5 py-1 font-body text-[10px] tracking-[0.2em] uppercase text-pearl/70">
+          <Badge tone="neutral" className="absolute top-3 left-3 bg-overlay-scrim">
             Sold out
-          </span>
+          </Badge>
         )}
       </Link>
 
       <div className="flex flex-1 flex-col gap-3 p-5">
         <Link href={`/product/${product.slug}`} className="group/title">
-          <h2 className="font-display text-lg leading-snug text-pearl group-hover/title:text-champagne transition-colors">
+          <h2 className="font-display text-lg leading-snug text-text-primary group-hover/title:text-accent transition-colors">
             {product.title}
           </h2>
         </Link>
 
         {product.description && (
-          <p className="font-body text-sm font-light leading-relaxed text-pearl/50 line-clamp-2">
+          <p className="font-body text-sm font-light leading-relaxed text-text-primary/50 line-clamp-2">
             {product.description}
           </p>
         )}
 
         <div className="mt-1 flex items-baseline justify-between gap-3">
-          <span className="font-body text-champagne">
+          <span className="font-body text-accent">
             {product.fromPriceKes > 0
               ? formatKes(product.fromPriceKes)
               : "Price on request"}
           </span>
-          <span className="font-body text-[11px] tracking-widest uppercase text-pearl/35">
+          <span className="font-body text-[11px] tracking-widest uppercase text-text-primary/35">
             {soldOut ? "—" : `${product.totalAvailable} in stock`}
           </span>
         </div>
 
         {(colours.length > 0 || sizes.length > 0) && (
-          <div className="mt-2 flex flex-wrap gap-1.5 border-t border-pearl/8 pt-3">
+          <div className="mt-2 flex flex-wrap gap-1.5 border-t border-border-subtle pt-3">
             {colours.map((c) => (
               <span
                 key={c}
-                className="font-body text-[10px] tracking-wider uppercase px-2 py-1 border border-pearl/12 text-pearl/55"
+                className="font-body text-[10px] tracking-wider uppercase px-2 py-1 border border-border-subtle text-text-primary/55"
               >
                 {c}
               </span>
@@ -143,8 +149,8 @@ export default function ProductCard({ product }: { product: Product }) {
                 key={s}
                 className={
                   soldOutSizes.has(s) && inStock.length === 0
-                    ? "font-body text-[10px] tracking-wider uppercase px-2 py-1 border border-pearl/10 text-pearl/25 line-through"
-                    : "font-body text-[10px] tracking-wider uppercase px-2 py-1 border border-champagne/20 text-champagne/70"
+                    ? "font-body text-[10px] tracking-wider uppercase px-2 py-1 border border-border-subtle text-text-primary/25 line-through"
+                    : "font-body text-[10px] tracking-wider uppercase px-2 py-1 border border-accent/20 text-accent/70"
                 }
               >
                 {s}
@@ -157,21 +163,17 @@ export default function ProductCard({ product }: { product: Product }) {
             line regardless of how long the title or description ran. */}
         <div className="mt-auto pt-4">
           {soldOut ? (
-            <span className="block w-full border border-pearl/10 px-5 py-3 text-center font-body text-[11px] uppercase tracking-[0.25em] text-pearl/30">
+            <span className={buttonClass("secondary", "md", "w-full opacity-60")}>
               Sold out
             </span>
           ) : singleVariant ? (
-            <button
-              type="button"
-              onClick={addSingle}
-              className="block w-full bg-champagne px-5 py-3 text-center font-body text-[11px] uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light"
-            >
+            <Button onClick={addSingle} className="w-full">
               Add to bag
-            </button>
+            </Button>
           ) : (
             <Link
               href={`/product/${product.slug}`}
-              className="block w-full border border-champagne/40 px-5 py-3 text-center font-body text-[11px] uppercase tracking-[0.25em] text-champagne transition-colors hover:bg-champagne hover:text-obsidian"
+              className={buttonClass("outline", "md", "w-full")}
             >
               Select size
             </Link>

@@ -75,8 +75,22 @@ export default function RootLayout({
   return (
     <html lang="en-KE">
       <body className={`${lora.variable} ${outfit.variable} antialiased`}>
+        {/*
+          First focusable element on the page. The header is 50 lines of nav on
+          every route; without this, a keyboard shopper tabs through all of it
+          to reach the dress they came for.
+
+          The target is a wrapper rather than each page's <main>, because every
+          route owns its own <main> and this is the only element layout.tsx can
+          put an id on without reaching into them.
+        */}
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <SiteHeader />
-        {children}
+        <div id="main-content" tabIndex={-1}>
+          {children}
+        </div>
         <SiteFooter />
         <CartDrawer />
       </body>

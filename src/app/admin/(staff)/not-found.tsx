@@ -10,19 +10,19 @@ import Link from "next/link";
 export default function AdminNotFound() {
   return (
     <div className="py-20 text-center">
-      <p className="font-body text-[10px] uppercase tracking-[0.3em] text-champagne">
+      <p className="font-body text-[10px] uppercase tracking-[0.3em] text-accent">
         Staff area
       </p>
-      <h1 className="mt-3 font-display text-2xl text-pearl">
+      <h1 className="mt-3 font-display text-2xl text-text-primary">
         That is not here
       </h1>
-      <p className="mt-3 font-body text-sm font-light text-pearl/50">
+      <p className="mt-3 font-body text-sm font-light text-text-primary/50">
         The order or product you asked for does not exist, or is not yours to
         see.
       </p>
       <Link
         href="/admin/orders"
-        className="mt-6 inline-block font-body text-[11px] uppercase tracking-[0.25em] text-champagne underline underline-offset-4"
+        className="mt-6 inline-block font-body text-[11px] uppercase tracking-[0.25em] text-accent underline underline-offset-4"
       >
         Back to orders
       </Link>

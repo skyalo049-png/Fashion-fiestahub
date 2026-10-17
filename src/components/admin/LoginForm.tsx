@@ -4,18 +4,16 @@ import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 
 import { signIn } from "@/app/admin/auth-actions";
+import Button from "@/components/ui/Button";
+import Field from "@/components/ui/Field";
 import { INITIAL_LOGIN, type LoginState } from "@/lib/action-state";
 
 function Submit() {
   const { pending } = useFormStatus();
   return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="mt-6 w-full bg-champagne px-6 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light disabled:opacity-60"
-    >
+    <Button type="submit" disabled={pending} className="mt-6 w-full">
       {pending ? "Signing in…" : "Sign in"}
-    </button>
+    </Button>
   );
 }
 
@@ -29,34 +27,21 @@ export default function LoginForm({ next }: { next: string }) {
     <form action={action} className="mt-10">
       <input type="hidden" name="next" value={next} />
 
-      <label
-        htmlFor="email"
-        className="block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-      >
-        Email
-      </label>
-      <input
-        id="email"
+      <Field
+        label="Email"
         name="email"
         type="email"
         autoComplete="username"
         required
-        className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-sm text-pearl outline-none transition-colors focus:border-champagne"
       />
 
-      <label
-        htmlFor="password"
-        className="mt-6 block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-      >
-        Password
-      </label>
-      <input
-        id="password"
+      <Field
+        label="Password"
         name="password"
         type="password"
         autoComplete="current-password"
         required
-        className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-sm text-pearl outline-none transition-colors focus:border-champagne"
+        className="mt-6"
       />
 
       {state.status === "error" && (

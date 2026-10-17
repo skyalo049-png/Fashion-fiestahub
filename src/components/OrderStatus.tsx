@@ -9,7 +9,11 @@ import {
   type OrderStatus,
   type ProofState,
 } from "@/app/order/actions";
+import Badge from "@/components/ui/Badge";
+import Button, { buttonClass } from "@/components/ui/Button";
+import Field from "@/components/ui/Field";
 import { formatKes } from "@/lib/format";
+import { ORDER_STATUS_TONE } from "@/lib/order-status";
 import { formatKePhone, payments, whatsappLink } from "@/lib/site";
 
 /**
@@ -74,17 +78,6 @@ const STATUS_COPY: Record<OrderStatus, { label: string; next: string }> = {
   },
 };
 
-const BADGE: Record<OrderStatus, string> = {
-  awaiting_delivery_quote: "border-champagne/40 text-champagne",
-  awaiting_payment: "border-champagne/40 text-champagne",
-  awaiting_payment_verification: "border-pearl/25 text-pearl/70",
-  paid: "border-emerald-400/40 text-emerald-300",
-  processing: "border-emerald-400/40 text-emerald-300",
-  shipped: "border-emerald-400/40 text-emerald-300",
-  delivered: "border-emerald-400/40 text-emerald-300",
-  cancelled: "border-red-400/40 text-red-300",
-};
-
 export default function OrderStatusView(props: Props) {
   const {
     orderNumber,
@@ -107,16 +100,14 @@ export default function OrderStatusView(props: Props) {
   return (
     <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
       <div className="space-y-8">
-        <section className="border border-pearl/10 bg-charcoal p-6 sm:p-8">
-          <span
-            className={`inline-block border px-3 py-1 font-body text-[10px] uppercase tracking-[0.25em] ${BADGE[status]}`}
-          >
+        <section className="border border-border-subtle bg-surface-raised p-6 sm:p-8">
+          <Badge tone={ORDER_STATUS_TONE[status] ?? "neutral"} size="md">
             {copy.label}
-          </span>
-          <h2 className="mt-4 font-display text-2xl text-pearl sm:text-3xl">
+          </Badge>
+          <h2 className="mt-4 font-display text-2xl text-text-primary sm:text-3xl">
             Order {orderNumber}
           </h2>
-          <p className="mt-3 font-body text-sm font-light leading-relaxed text-pearl/60">
+          <p className="mt-3 font-body text-sm font-light leading-relaxed text-text-primary/60">
             {copy.next}
           </p>
 
@@ -125,14 +116,14 @@ export default function OrderStatusView(props: Props) {
               href={wa}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-block bg-champagne px-6 py-3 font-body text-[11px] uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light"
+              className={buttonClass("primary", "md", "mt-6")}
             >
               Message us on WhatsApp
             </a>
           )}
 
           {!wa && payable && (
-            <p className="mt-6 border border-pearl/10 px-4 py-3 font-body text-xs leading-relaxed text-pearl/50">
+            <p className="mt-6 border border-border-subtle px-4 py-3 font-body text-xs leading-relaxed text-text-primary/50">
               Send the M-Pesa code below once you have paid. If you need the
               number, message or call us — we have not published it on the site
               yet.
@@ -149,25 +140,25 @@ export default function OrderStatusView(props: Props) {
         )}
 
         <section>
-          <h3 className="mb-4 font-body text-[11px] uppercase tracking-[0.25em] text-pearl/50">
+          <h3 className="mb-4 font-body text-[11px] uppercase tracking-[0.25em] text-text-primary/50">
             What is in this order
           </h3>
-          <ul className="divide-y divide-pearl/8 border border-pearl/10">
+          <ul className="divide-y divide-border-subtle border border-border-subtle">
             {items.map((item, index) => (
               <li
                 key={`${item.title}-${index}`}
                 className="flex items-start gap-4 px-5 py-4"
               >
                 <div className="min-w-0 flex-1">
-                  <p className="font-body text-sm text-pearl">{item.title}</p>
-                  <p className="mt-0.5 font-body text-[11px] uppercase tracking-wider text-pearl/40">
+                  <p className="font-body text-sm text-text-primary">{item.title}</p>
+                  <p className="mt-0.5 font-body text-[11px] uppercase tracking-wider text-text-primary/40">
                     {[item.color, item.size].filter(Boolean).join(" · ") || "—"}
                   </p>
-                  <p className="mt-1 font-body text-[11px] text-pearl/40">
+                  <p className="mt-1 font-body text-[11px] text-text-primary/40">
                     {item.qty} × {formatKes(item.unitPriceKes)}
                   </p>
                 </div>
-                <p className="shrink-0 font-body text-sm tabular-nums text-pearl">
+                <p className="shrink-0 font-body text-sm tabular-nums text-text-primary">
                   {formatKes(item.lineTotalKes)}
                 </p>
               </li>
@@ -177,8 +168,8 @@ export default function OrderStatusView(props: Props) {
       </div>
 
       <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
-        <div className="border border-pearl/10 bg-charcoal">
-          <h3 className="border-b border-pearl/10 px-5 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-pearl/60">
+        <div className="border border-border-subtle bg-surface-raised">
+          <h3 className="border-b border-border-subtle px-5 py-4 font-body text-[11px] uppercase tracking-[0.25em] text-text-primary/60">
             Summary
           </h3>
           <dl className="space-y-3 px-5 py-5 font-body text-sm">
@@ -192,7 +183,7 @@ export default function OrderStatusView(props: Props) {
               }
               muted={deliveryFeeKes === null}
             />
-            <div className="border-t border-pearl/10 pt-3">
+            <div className="border-t border-border-subtle pt-3">
               <Row
                 label={totalKes === null ? "Total so far" : "Total"}
                 value={formatKes(totalKes ?? subtotalKes)}
@@ -201,31 +192,31 @@ export default function OrderStatusView(props: Props) {
             </div>
           </dl>
           {deliveryFeeKes === null && (
-            <p className="border-t border-pearl/10 px-5 py-3 font-body text-[11px] font-light leading-relaxed text-pearl/40">
+            <p className="border-t border-border-subtle px-5 py-3 font-body text-[11px] font-light leading-relaxed text-text-primary/40">
               This is the items only. The delivery fee is added once we have
               quoted it.
             </p>
           )}
         </div>
 
-        <div className="border border-pearl/10 px-5 py-4">
-          <p className="font-body text-[11px] uppercase tracking-[0.2em] text-pearl/45">
+        <div className="border border-border-subtle px-5 py-4">
+          <p className="font-body text-[11px] uppercase tracking-[0.2em] text-text-primary/45">
             Placed
           </p>
-          <p className="mt-1 font-body text-sm text-pearl/70">
+          <p className="mt-1 font-body text-sm text-text-primary/70">
             {formatDate(createdAt)}
           </p>
-          <p className="mt-4 font-body text-[11px] uppercase tracking-[0.2em] text-pearl/45">
+          <p className="mt-4 font-body text-[11px] uppercase tracking-[0.2em] text-text-primary/45">
             Contact
           </p>
-          <p className="mt-1 font-body text-sm text-pearl/70">
+          <p className="mt-1 font-body text-sm text-text-primary/70">
             {maskPhone(phone)}
           </p>
         </div>
 
         <Link
           href="/"
-          className="block border border-pearl/15 px-5 py-3 text-center font-body text-[11px] uppercase tracking-[0.25em] text-pearl/60 transition-colors hover:border-champagne/40 hover:text-champagne"
+          className={buttonClass("secondary", "md")}
         >
           Continue shopping
         </Link>
@@ -249,7 +240,7 @@ function Row({
     <div className="flex items-baseline justify-between gap-4">
       <dt
         className={`text-[11px] uppercase tracking-[0.2em] ${
-          strong ? "text-pearl/70" : "text-pearl/50"
+          strong ? "text-text-primary/70" : "text-text-primary/50"
         }`}
       >
         {label}
@@ -257,10 +248,10 @@ function Row({
       <dd
         className={`tabular-nums ${
           strong
-            ? "text-lg text-pearl"
+            ? "text-lg text-text-primary"
             : muted
-              ? "text-xs text-pearl/45"
-              : "text-pearl"
+              ? "text-xs text-text-primary/45"
+              : "text-text-primary"
         }`}
       >
         {value}
@@ -300,21 +291,21 @@ function PayPanel({
   }, [state, router]);
 
   return (
-    <section className="border border-champagne/30 bg-champagne/5 p-6 sm:p-8">
-      <h3 className="font-body text-[11px] uppercase tracking-[0.25em] text-champagne">
+    <section className="border border-accent/30 bg-accent/5 p-6 sm:p-8">
+      <h3 className="font-body text-[11px] uppercase tracking-[0.25em] text-accent">
         Pay {formatKes(total)}
       </h3>
 
-      <ol className="mt-5 space-y-4 font-body text-sm font-light leading-relaxed text-pearl/70">
+      <ol className="mt-5 space-y-4 font-body text-sm font-light leading-relaxed text-text-primary/70">
         <li className="flex gap-3">
-          <span className="font-body text-[11px] tabular-nums text-champagne/70">
+          <span className="font-body text-[11px] tabular-nums text-accent/70">
             01
           </span>
           <span>
             Open M-Pesa, choose{" "}
-            <strong className="font-normal text-pearl">Send Money</strong>, and
+            <strong className="font-normal text-text-primary">Send Money</strong>, and
             send{" "}
-            <strong className="font-normal text-pearl">
+            <strong className="font-normal text-text-primary">
               {formatKes(total)}
             </strong>{" "}
             to{" "}
@@ -328,18 +319,18 @@ function PayPanel({
                       () => setCopied(false),
                     );
                   }}
-                  className="font-body text-pearl underline decoration-champagne/50 underline-offset-4 transition-colors hover:text-champagne"
+                  className="font-body text-text-primary underline decoration-accent/50 underline-offset-4 transition-colors hover:text-accent"
                 >
                   {formatKePhone(payments.mpesaNumber)}
                 </button>
                 {copied && (
-                  <span className="ml-2 font-body text-[10px] uppercase tracking-widest text-champagne">
+                  <span className="ml-2 font-body text-[10px] uppercase tracking-widest text-accent">
                     copied
                   </span>
                 )}
               </>
             ) : (
-              <span className="text-pearl/50">
+              <span className="text-text-primary/50">
                 the number we send you on WhatsApp
               </span>
             )}
@@ -347,7 +338,7 @@ function PayPanel({
           </span>
         </li>
         <li className="flex gap-3">
-          <span className="font-body text-[11px] tabular-nums text-champagne/70">
+          <span className="font-body text-[11px] tabular-nums text-accent/70">
             02
           </span>
           <span>
@@ -356,7 +347,7 @@ function PayPanel({
           </span>
         </li>
         <li className="flex gap-3">
-          <span className="font-body text-[11px] tabular-nums text-champagne/70">
+          <span className="font-body text-[11px] tabular-nums text-accent/70">
             03
           </span>
           <span>Paste it below.</span>
@@ -367,41 +358,24 @@ function PayPanel({
         <input type="hidden" name="order_number" value={orderNumber} />
         <input type="hidden" name="phone" value={phone} />
 
-        <div>
-          <label
-            htmlFor="mpesa_code"
-            className="block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-          >
-            M-Pesa confirmation code
-          </label>
-          <input
-            id="mpesa_code"
-            name="mpesa_code"
-            required
-            autoComplete="off"
-            autoCapitalize="characters"
-            spellCheck={false}
-            placeholder="SJL4K2M9QP"
-            className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-base uppercase tracking-[0.15em] text-pearl outline-none transition-colors placeholder:tracking-normal placeholder:text-pearl/25 focus:border-champagne"
-          />
-        </div>
+        <Field
+          label="M-Pesa confirmation code"
+          name="mpesa_code"
+          required
+          autoComplete="off"
+          autoCapitalize="characters"
+          spellCheck={false}
+          placeholder="SJL4K2M9QP"
+          controlClassName="text-base uppercase tracking-[0.15em] placeholder:tracking-normal"
+        />
 
-        <div>
-          <label
-            htmlFor="payment_phone"
-            className="block font-body text-[11px] uppercase tracking-[0.2em] text-pearl/50"
-          >
-            Number you paid from
-          </label>
-          <input
-            id="payment_phone"
-            name="payment_phone"
-            type="tel"
-            inputMode="tel"
-            placeholder="Only if it is different from above"
-            className="mt-2 w-full border border-pearl/15 bg-obsidian px-4 py-3 font-body text-sm text-pearl outline-none transition-colors placeholder:text-pearl/25 focus:border-champagne"
-          />
-        </div>
+        <Field
+          label="Number you paid from"
+          name="payment_phone"
+          type="tel"
+          inputMode="tel"
+          placeholder="Only if it is different from above"
+        />
 
         {state.status === "error" && (
           <p
@@ -421,15 +395,16 @@ function PayPanel({
           </p>
         )}
 
-        <button
+        <Button
           type="submit"
+          size="lg"
           disabled={pending || state.status === "ok"}
-          className="block w-full bg-champagne px-6 py-3.5 font-body text-xs uppercase tracking-[0.25em] text-obsidian transition-colors hover:bg-champagne-light disabled:cursor-wait disabled:opacity-60"
+          className="w-full disabled:cursor-wait"
         >
           {pending ? "Sending…" : "I have paid"}
-        </button>
+        </Button>
 
-        <p className="font-body text-[11px] font-light leading-relaxed text-pearl/40">
+        <p className="font-body text-[11px] font-light leading-relaxed text-text-primary/40">
           We check every code against our M-Pesa statement by hand before your
           order is marked paid. If anything looks wrong we will message you.
         </p>
