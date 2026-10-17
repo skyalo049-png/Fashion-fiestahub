@@ -133,7 +133,7 @@ export default function CartDrawer() {
                           type="button"
                           aria-label="Decrease quantity"
                           onClick={() => setQty(line.variantId, line.qty - 1)}
-                          className="px-2.5 py-1 font-body text-sm text-text-primary/70 hover:text-accent"
+                          className="inline-flex h-11 w-11 items-center justify-center font-body text-sm text-text-primary/70 transition-colors hover:text-accent"
                         >
                           −
                         </button>
@@ -144,7 +144,7 @@ export default function CartDrawer() {
                           type="button"
                           aria-label="Increase quantity"
                           onClick={() => setQty(line.variantId, line.qty + 1)}
-                          className="px-2.5 py-1 font-body text-sm text-text-primary/70 hover:text-accent"
+                          className="inline-flex h-11 w-11 items-center justify-center font-body text-sm text-text-primary/70 transition-colors hover:text-accent"
                         >
                           +
                         </button>
