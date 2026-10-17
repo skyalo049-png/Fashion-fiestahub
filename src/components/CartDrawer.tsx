@@ -101,6 +101,8 @@ export default function CartDrawer() {
                       <img
                         src={line.imageUrl}
                         alt={line.title}
+                        width={200}
+                        height={240}
                         className="h-full w-full object-cover"
                       />
                     ) : (

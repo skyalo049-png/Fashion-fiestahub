@@ -103,6 +103,8 @@ export default function ProductDetail({ product }: { product: Product }) {
               <img
                 src={main.url}
                 alt={main.alt}
+                width={800}
+                height={1000}
                 className="h-full w-full object-cover"
               />
             ) : (
@@ -143,6 +145,8 @@ export default function ProductDetail({ product }: { product: Product }) {
                   <img
                     src={image.url}
                     alt={image.alt}
+                    width={160}
+                    height={200}
                     className="h-full w-full object-cover"
                   />
                 </button>

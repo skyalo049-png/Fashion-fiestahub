@@ -184,6 +184,8 @@ export default function CheckoutClient() {
                     <img
                       src={line.imageUrl}
                       alt=""
+                      width={130}
+                      height={160}
                       className="h-full w-full object-cover"
                     />
                   ) : (

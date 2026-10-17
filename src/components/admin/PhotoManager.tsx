@@ -151,6 +151,8 @@ export function PhotoManager({
               <img
                 src={image.url}
                 alt={image.alt ?? ""}
+                width={600}
+                height={800}
                 className="aspect-[3/4] w-full border border-border-subtle object-cover"
               />
               {index === 0 ? (
