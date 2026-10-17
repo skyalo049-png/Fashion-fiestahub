@@ -2,6 +2,12 @@ import Link from "next/link";
 
 import Badge from "@/components/ui/Badge";
 import { buttonClass } from "@/components/ui/Button";
+import Table, {
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@/components/ui/Table";
 import { getInventory, type InventoryRow } from "@/lib/admin-inventory";
 import { formatKes } from "@/lib/format";
 
@@ -145,77 +151,64 @@ export default async function InventoryPage() {
               Everything ({rows.length})
             </h2>
 
-            <div className="mt-4 overflow-x-auto">
-              <table className="w-full min-w-[720px] border-collapse text-left">
-                <thead>
-                  <tr className="border-b border-border-subtle">
-                    {[
-                      "Product",
-                      "Variant",
-                      "SKU",
-                      "Price",
-                      "Shelf",
-                      "Reserved",
-                      "Sellable",
-                      "",
-                    ].map((heading) => (
-                      <th
-                        key={heading}
-                        className="pb-3 pr-4 font-body text-[10px] uppercase tracking-[0.2em] text-text-primary/40"
+            <Table className="mt-4">
+              <TableHead
+                headings={[
+                  "Product",
+                  "Variant",
+                  "SKU",
+                  "Price",
+                  "Shelf",
+                  "Reserved",
+                  "Sellable",
+                  "",
+                ]}
+              />
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow key={row.variantId}>
+                    <TableCell>
+                      <Link
+                        href={`/admin/products/${row.productSlug}`}
+                        className="font-body text-sm text-text-primary transition-colors hover:text-accent"
                       >
-                        {heading}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border-subtle">
-                  {rows.map((row) => (
-                    <tr key={row.variantId} className="text-text-primary/70">
-                      <td className="py-3 pr-4">
-                        <Link
-                          href={`/admin/products/${row.productSlug}`}
-                          className="font-body text-sm text-text-primary transition-colors hover:text-accent"
-                        >
-                          {row.productTitle}
-                        </Link>
-                        {row.productStatus !== "active" ? (
-                          <span className="ml-2 font-body text-[10px] uppercase tracking-[0.2em] text-text-primary/30">
-                            {row.productStatus}
-                          </span>
-                        ) : null}
-                      </td>
-                      <td className="py-3 pr-4 font-body text-xs">
-                        {variantName(row)}
-                      </td>
-                      <td className="py-3 pr-4 font-mono text-[11px] text-text-primary/40">
-                        {row.sku}
-                      </td>
-                      <td className="py-3 pr-4 font-body text-xs">
-                        {formatKes(row.priceKes)}
-                      </td>
-                      <td className="py-3 pr-4 font-body text-xs">
-                        {row.stockQty}
-                      </td>
-                      <td className="py-3 pr-4 font-body text-xs">
-                        {row.reservedQty > 0 ? (
-                          <span className="text-accent">
-                            {row.reservedQty}
-                          </span>
-                        ) : (
-                          <span className="text-text-primary/30">—</span>
-                        )}
-                      </td>
-                      <td className="py-3 pr-4 font-body text-xs text-text-primary">
-                        {row.availableQty}
-                      </td>
-                      <td className="py-3">
-                        <StockPill qty={row.stockQty} threshold={threshold} />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                        {row.productTitle}
+                      </Link>
+                      {row.productStatus !== "active" ? (
+                        <span className="ml-2 font-body text-[10px] uppercase tracking-[0.2em] text-text-primary/30">
+                          {row.productStatus}
+                        </span>
+                      ) : null}
+                    </TableCell>
+                    <TableCell className="font-body text-xs">
+                      {variantName(row)}
+                    </TableCell>
+                    <TableCell className="font-mono text-[11px] text-text-primary/40">
+                      {row.sku}
+                    </TableCell>
+                    <TableCell className="font-body text-xs">
+                      {formatKes(row.priceKes)}
+                    </TableCell>
+                    <TableCell className="font-body text-xs">
+                      {row.stockQty}
+                    </TableCell>
+                    <TableCell className="font-body text-xs">
+                      {row.reservedQty > 0 ? (
+                        <span className="text-accent">{row.reservedQty}</span>
+                      ) : (
+                        <span className="text-text-primary/30">—</span>
+                      )}
+                    </TableCell>
+                    <TableCell className="font-body text-xs text-text-primary">
+                      {row.availableQty}
+                    </TableCell>
+                    <TableCell>
+                      <StockPill qty={row.stockQty} threshold={threshold} />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </section>
         </>
       )}

@@ -1,3 +1,9 @@
+import Table, {
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@/components/ui/Table";
 import { listClients } from "@/lib/admin-clients";
 import { formatKes, formatWhen } from "@/lib/format";
 
@@ -43,65 +49,54 @@ export default async function ClientsPage() {
           </p>
         </div>
       ) : (
-        <div className="mt-6 overflow-x-auto">
-          <table className="w-full min-w-[720px] border-collapse text-left">
-            <thead>
-              <tr className="border-b border-border-subtle">
-                {[
-                  "Name",
-                  "Phone",
-                  "Email",
-                  "Orders",
-                  "Lifetime",
-                  "Last order",
-                ].map((heading) => (
-                  <th
-                    key={heading}
-                    className="pb-3 pr-4 font-body text-[10px] uppercase tracking-[0.2em] text-text-primary/40"
-                  >
-                    {heading}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border-subtle">
-              {clients.map((client) => (
-                <tr key={client.id} className="text-text-primary/70">
-                  <td className="py-3 pr-4 font-body text-sm text-text-primary">
-                    {client.fullName ?? (
-                      <span className="text-text-primary/35">No name given</span>
-                    )}
-                  </td>
-                  <td className="py-3 pr-4 font-mono text-[11px]">
-                    {client.phone}
-                  </td>
-                  <td className="py-3 pr-4 font-body text-xs text-text-primary/50">
-                    {client.email ?? (
-                      <span className="text-text-primary/25">—</span>
-                    )}
-                  </td>
-                  <td className="py-3 pr-4 font-body text-xs">
-                    {client.orderCount}
-                  </td>
-                  <td className="py-3 pr-4 font-body text-xs text-text-primary">
-                    {client.lifetimeKes > 0 ? (
-                      formatKes(client.lifetimeKes)
-                    ) : (
-                      <span className="text-text-primary/30">—</span>
-                    )}
-                  </td>
-                  <td className="py-3 pr-4 font-body text-xs text-text-primary/40">
-                    {client.lastOrderAt ? (
-                      formatWhen(client.lastOrderAt)
-                    ) : (
-                      <span className="text-text-primary/25">—</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <Table className="mt-6">
+          <TableHead
+            headings={[
+              "Name",
+              "Phone",
+              "Email",
+              "Orders",
+              "Lifetime",
+              "Last order",
+            ]}
+          />
+          <TableBody>
+            {clients.map((client) => (
+              <TableRow key={client.id}>
+                <TableCell className="font-body text-sm text-text-primary">
+                  {client.fullName ?? (
+                    <span className="text-text-primary/35">No name given</span>
+                  )}
+                </TableCell>
+                <TableCell className="font-mono text-[11px]">
+                  {client.phone}
+                </TableCell>
+                <TableCell className="font-body text-xs text-text-primary/50">
+                  {client.email ?? (
+                    <span className="text-text-primary/25">—</span>
+                  )}
+                </TableCell>
+                <TableCell className="font-body text-xs">
+                  {client.orderCount}
+                </TableCell>
+                <TableCell className="font-body text-xs text-text-primary">
+                  {client.lifetimeKes > 0 ? (
+                    formatKes(client.lifetimeKes)
+                  ) : (
+                    <span className="text-text-primary/30">—</span>
+                  )}
+                </TableCell>
+                <TableCell className="font-body text-xs text-text-primary/40">
+                  {client.lastOrderAt ? (
+                    formatWhen(client.lastOrderAt)
+                  ) : (
+                    <span className="text-text-primary/25">—</span>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       )}
     </div>
   );
